@@ -29,46 +29,46 @@ External imported skills may keep their upstream names and structure.
 
 | Skill                        | Purpose                                                                                                                                                                                      |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `designing-mini-games`       | Designs compact game rules, controls, scoring, hazards, rewards, and game-over conditions. It helps prevent idle, hold-only, or button-mashing strategies from becoming optimal.             |
-| `designing-one-button-games` | Designs original one-button mini-games using tap, hold, and release controls, with emphasis on novelty, risk/reward, and a short difficulty curve.                                           |
-| `verifying-turn-based-games` | Defines a pure-function engine interface contract and quality measurement methodology (bot-ladder win-rates, tension/decision-density metrics) for two-player strict-alternating-turn games. |
+| [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | Designs compact game rules, controls, scoring, hazards, rewards, and game-over conditions. It helps prevent idle, hold-only, or button-mashing strategies from becoming optimal.             |
+| [`designing-one-button-games`](.agents/skills/designing-one-button-games/SKILL.md) | Designs original one-button mini-games using tap, hold, and release controls, with emphasis on novelty, risk/reward, and a short difficulty curve.                                           |
+| [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | Defines a pure-function engine interface contract and quality measurement methodology (bot-ladder win-rates, tension/decision-density metrics) for two-player strict-alternating-turn games. |
 
 ### Game Implementation
 
 | Skill                            | Purpose                                                                                                                                                         |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `scaffolding-godot-mini-games`   | Scaffolds a minimal Godot 4.2+ mini-game project with Web export defaults, tests, telemetry helpers, and procedural audio primitives.                           |
-| `running-headless-godot`         | Defines reproducible headless Godot workflows for CLI usage, logs, scene editing through scripts, tests, and Web export.                                        |
-| `developing-with-crisp-game-lib` | Implements or repairs browser mini-games with `crisp-game-lib`, including CDN/npm setup, game loop structure, drawing-order collision, scoring, and validation. |
+| [`scaffolding-godot-mini-games`](.agents/skills/scaffolding-godot-mini-games/SKILL.md)     | Scaffolds a minimal Godot 4.2+ mini-game project with Web export defaults, tests, telemetry helpers, and procedural audio primitives.                           |
+| [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Defines reproducible headless Godot workflows for CLI usage, logs, scene editing through scripts, tests, and Web export.                                        |
+| [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | Implements or repairs browser mini-games with `crisp-game-lib`, including CDN/npm setup, game loop structure, drawing-order collision, scoring, and validation. |
 
 ### Game Presentation
 
 | Skill                             | Purpose                                                                                                                                                                                           |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `directing-game-visuals`          | Defines readable visual hierarchy, palette roles, screen composition, and event feedback without relying on explanatory HUD text.                                                                 |
-| `maximizing-game-feel`            | Adds engine-independent tactile feedback such as squash/stretch, tilt, particles, trails, and impact polish to make gameplay feel more responsive.                                                |
-| `creating-godot-procedural-audio` | Designs and implements runtime procedural audio in Godot using built-in APIs, with distinct sounds for gameplay events and state changes.                                                         |
-| `styling-web-game-typography`     | Implements readable, licensed typography for distributed games (web export, downloadable, packaged), engine-agnostic at the core with Godot 4.2+ implementation patterns provided as a reference. |
-| `generating-dot-assets`           | Generates transparent pixel-art object assets by combining image generation, chroma-key removal, pixelization, exact canvas fitting, and validation.                                              |
+| [`directing-game-visuals`](.agents/skills/directing-game-visuals/SKILL.md)                   | Defines readable visual hierarchy, palette roles, screen composition, and event feedback without relying on explanatory HUD text.                                                                 |
+| [`maximizing-game-feel`](.agents/skills/maximizing-game-feel/SKILL.md)                       | Adds engine-independent tactile feedback such as squash/stretch, tilt, particles, trails, and impact polish to make gameplay feel more responsive.                                                |
+| [`creating-godot-procedural-audio`](.agents/skills/creating-godot-procedural-audio/SKILL.md) | Designs and implements runtime procedural audio in Godot using built-in APIs, with distinct sounds for gameplay events and state changes.                                                         |
+| [`styling-web-game-typography`](.agents/skills/styling-web-game-typography/SKILL.md)         | Implements readable, licensed typography for distributed games (web export, downloadable, packaged), engine-agnostic at the core with Godot 4.2+ implementation patterns provided as a reference. |
+| [`generating-dot-assets`](.agents/skills/generating-dot-assets/SKILL.md)                     | Generates transparent pixel-art object assets by combining image generation, chroma-key removal, pixelization, exact canvas fitting, and validation.                                              |
 
 ### Evaluation And Tuning
 
 | Skill                         | Purpose                                                                                                                                                                                       |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `evaluating-gameplay-balance` | Evaluates balance through telemetry by comparing monotonous play policies against exploratory or intended-skill policies, including guidance for simulation harnesses and telemetry emitters. |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | Evaluates balance through telemetry by comparing monotonous play policies against exploratory or intended-skill policies, including guidance for simulation harnesses and telemetry emitters. |
 
 ### Agent Workflow
 
 | Skill                     | Purpose                                                                                                                                                                                                                                                         |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `extracting-agent-skills` | Distills reusable agent procedures, validation loops, debugging methods, and decision rules from completed, paused, abandoned, or failed projects.                                                                                                              |
-| `critiquing-own-response` | Performs structured, ruthless self-critique of the agent's immediately preceding response, covering assumptions, logical integrity, AI-specific pitfalls, risks, and revised confidence. Invoke explicitly when adversarial review of a prior answer is needed. |
+| [`extracting-agent-skills`](.agents/skills/extracting-agent-skills/SKILL.md) | Distills reusable agent procedures, validation loops, debugging methods, and decision rules from completed, paused, abandoned, or failed projects.                                                                                                              |
+| [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | Performs structured, ruthless self-critique of the agent's immediately preceding response, covering assumptions, logical integrity, AI-specific pitfalls, risks, and revised confidence. Invoke explicitly when adversarial review of a prior answer is needed. |
 
 ### Writing And Localization
 
 | Skill                             | Purpose                                                                                                                                            |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `humanizing-bilingual-ai-writing` | Revises English and Japanese AI-sounding prose into natural, credible writing while preserving facts, intent, audience, and bilingual consistency. |
+| [`humanizing-bilingual-ai-writing`](.agents/skills/humanizing-bilingual-ai-writing/SKILL.md) | Revises English and Japanese AI-sounding prose into natural, credible writing while preserving facts, intent, audience, and bilingual consistency. |
 
 ## Supporting Directories
 
@@ -82,11 +82,11 @@ External imported skills may keep their upstream names and structure.
 
 The following skills are imported or referenced from other repositories and are listed in `.gitignore` so they can be fetched and used locally without being committed here. Run `tools/install-external-skills.sh` to fetch them (or pass specific names as arguments).
 
-- `empirical-prompt-tuning`: iterative methodology for evaluating and improving prompts, skills, slash commands, and `AGENTS.md`-style guidance. Source: https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md
-- `karpathy-guidelines`: coding-agent guidelines that bias toward simple, surgical, assumption-aware, and verifiable changes. Source: https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md
-- `develop-web-game`: web-game iteration and Playwright validation loop for browser/canvas games. Useful as a reference for non-Godot web game testing. Source: https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game
-- `godot-master`: Godot 4 architecture and implementation reference from `gd-agentic-skills`. Use selectively; do not install the full skill set by default (`install-external-skills.sh` deliberately skips it). Source: https://github.com/thedivergentai/gd-agentic-skills
-- `systematic-debugging`: root-cause-first debugging workflow for bugs, test failures, and unexpected behavior. Source: https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md
+- [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md): iterative methodology for evaluating and improving prompts, skills, slash commands, and `AGENTS.md`-style guidance.
+- [`karpathy-guidelines`](https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md): coding-agent guidelines that bias toward simple, surgical, assumption-aware, and verifiable changes.
+- [`develop-web-game`](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game): web-game iteration and Playwright validation loop for browser/canvas games. Useful as a reference for non-Godot web game testing.
+- [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): Godot 4 architecture and implementation reference from `gd-agentic-skills`. Use selectively; do not install the full skill set by default (`install-external-skills.sh` deliberately skips it).
+- [`systematic-debugging`](https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md): root-cause-first debugging workflow for bugs, test failures, and unexpected behavior.
 
 ## Repository Tools
 

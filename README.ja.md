@@ -29,46 +29,46 @@
 
 | Skill                        | 用途                                                                                                       |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `designing-mini-games`       | 小規模ゲームのルール、操作、得点、危険、報酬、終了条件を設計する。放置、長押し固定、連打の最適化を防ぐ。   |
-| `designing-one-button-games` | タップ、長押し、リリースを使う一ボタンミニゲームを設計する。新規性、リスクと報酬、短い難度曲線を重視する。 |
-| `verifying-turn-based-games` | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
+| [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 小規模ゲームのルール、操作、得点、危険、報酬、終了条件を設計する。放置、長押し固定、連打の最適化を防ぐ。   |
+| [`designing-one-button-games`](.agents/skills/designing-one-button-games/SKILL.md) | タップ、長押し、リリースを使う一ボタンミニゲームを設計する。新規性、リスクと報酬、短い難度曲線を重視する。 |
+| [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
 
 ### ゲーム実装
 
 | Skill                            | 用途                                                                                                              |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `scaffolding-godot-mini-games`   | Godot 4.2+ ミニゲームの最小構成を作る。Web export、テスト、テレメトリ、手続き型音声を含む。                       |
-| `running-headless-godot`         | Godot の headless CLI、ログ、スクリプトによるシーン編集、テスト、Web export を再現可能にする。                    |
-| `developing-with-crisp-game-lib` | `crisp-game-lib` のブラウザミニゲームを実装または修復する。セットアップ、ループ、描画順、衝突、得点、検証を扱う。 |
+| [`scaffolding-godot-mini-games`](.agents/skills/scaffolding-godot-mini-games/SKILL.md)     | Godot 4.2+ ミニゲームの最小構成を作る。Web export、テスト、テレメトリ、手続き型音声を含む。                       |
+| [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Godot の headless CLI、ログ、スクリプトによるシーン編集、テスト、Web export を再現可能にする。                    |
+| [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | `crisp-game-lib` のブラウザミニゲームを実装または修復する。セットアップ、ループ、描画順、衝突、得点、検証を扱う。 |
 
 ### ゲーム演出
 
 | Skill                             | 用途                                                                                                  |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `directing-game-visuals`          | HUD 説明に頼らず、視覚階層、パレット役割、画面構成、イベントフィードバックを定義する。                |
-| `maximizing-game-feel`            | squash/stretch、傾き、パーティクル、軌跡、ヒット演出で操作感を高める。                                |
-| `creating-godot-procedural-audio` | Godot の組み込み API で手続き型音声を設計・実装する。ゲームイベントや状態変化ごとに音を分ける。       |
-| `styling-web-game-typography`     | 配布ゲーム向けの読みやすくライセンス上問題ないタイポグラフィを実装する。Godot 4.2+ の実装例を含む。   |
-| `generating-dot-assets`           | 画像生成、クロマキー除去、ピクセル化、キャンバス調整、検証により透明 PNG のピクセルアート素材を作る。 |
+| [`directing-game-visuals`](.agents/skills/directing-game-visuals/SKILL.md)                   | HUD 説明に頼らず、視覚階層、パレット役割、画面構成、イベントフィードバックを定義する。                |
+| [`maximizing-game-feel`](.agents/skills/maximizing-game-feel/SKILL.md)                       | squash/stretch、傾き、パーティクル、軌跡、ヒット演出で操作感を高める。                                |
+| [`creating-godot-procedural-audio`](.agents/skills/creating-godot-procedural-audio/SKILL.md) | Godot の組み込み API で手続き型音声を設計・実装する。ゲームイベントや状態変化ごとに音を分ける。       |
+| [`styling-web-game-typography`](.agents/skills/styling-web-game-typography/SKILL.md)         | 配布ゲーム向けの読みやすくライセンス上問題ないタイポグラフィを実装する。Godot 4.2+ の実装例を含む。   |
+| [`generating-dot-assets`](.agents/skills/generating-dot-assets/SKILL.md)                     | 画像生成、クロマキー除去、ピクセル化、キャンバス調整、検証により透明 PNG のピクセルアート素材を作る。 |
 
 ### 評価と調整
 
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
-| `evaluating-gameplay-balance` | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較する。 |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較する。 |
 
 ### Agent Workflow
 
 | Skill                     | 用途                                                                                                     |
 | ------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `extracting-agent-skills` | 完了、停止、放棄、失敗したプロジェクトから再利用可能な手順、検証ループ、デバッグ法、判断規則を抽出する。 |
-| `critiquing-own-response` | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
+| [`extracting-agent-skills`](.agents/skills/extracting-agent-skills/SKILL.md) | 完了、停止、放棄、失敗したプロジェクトから再利用可能な手順、検証ループ、デバッグ法、判断規則を抽出する。 |
+| [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
 
 ### 文書とローカライズ
 
 | Skill                             | 用途                                                                           |
 | --------------------------------- | ------------------------------------------------------------------------------ |
-| `humanizing-bilingual-ai-writing` | 英語・日本語の AI 的な文章を自然な文に直す。事実、意図、読者、英日整合を保つ。 |
+| [`humanizing-bilingual-ai-writing`](.agents/skills/humanizing-bilingual-ai-writing/SKILL.md) | 英語・日本語の AI 的な文章を自然な文に直す。事実、意図、読者、英日整合を保つ。 |
 
 ## 補助ディレクトリ
 
@@ -82,11 +82,11 @@
 
 次の skill は他リポジトリから取り込む。`.gitignore` に含め、ローカル利用してもこのリポジトリにはコミットしない。取得には `tools/install-external-skills.sh` を使う。引数で対象名を指定できる。
 
-- `empirical-prompt-tuning`: prompt、skill、slash command、`AGENTS.md` 形式の指示を評価・改善する反復手法。Source: https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md
-- `karpathy-guidelines`: coding agent 向けの簡潔、限定的、前提明示、検証重視の指針。Source: https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md
-- `develop-web-game`: ブラウザ・canvas ゲーム向けの Playwright 検証つき反復 workflow。非 Godot Web game の参考に使う。Source: https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game
-- `godot-master`: `gd-agentic-skills` の Godot 4 アーキテクチャと実装リファレンス。必要時だけ使う。`install-external-skills.sh` は意図的に自動取得しない。Source: https://github.com/thedivergentai/gd-agentic-skills
-- `systematic-debugging`: バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。Source: https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md
+- [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md): prompt、skill、slash command、`AGENTS.md` 形式の指示を評価・改善する反復手法。
+- [`karpathy-guidelines`](https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md): coding agent 向けの簡潔、限定的、前提明示、検証重視の指針。
+- [`develop-web-game`](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game): ブラウザ・canvas ゲーム向けの Playwright 検証つき反復 workflow。非 Godot Web game の参考に使う。
+- [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): `gd-agentic-skills` の Godot 4 アーキテクチャと実装リファレンス。必要時だけ使う。`install-external-skills.sh` は意図的に自動取得しない。
+- [`systematic-debugging`](https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。
 
 ## リポジトリツール
 

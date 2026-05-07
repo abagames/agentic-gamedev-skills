@@ -22,10 +22,10 @@ GITIGNORE="$REPO_ROOT/.gitignore"
 mapfile -t on_disk < <(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 
 # Skill names mentioned in README, restricted to declaration positions:
-#   - table rows:    | `skill-name` | ...
-#   - list entries:  - `skill-name`: ...
+#   - table rows:    | `skill-name` | ... or | [`skill-name`](...) | ...
+#   - list entries:  - `skill-name`: ... or - [`skill-name`](...): ...
 mapfile -t in_readme < <(
-  grep -oE '^[[:space:]]*[|-][[:space:]]+`[a-z][a-z0-9-]+`' "$README" \
+  grep -oE '^[[:space:]]*[|-][[:space:]]+\[?`[a-z][a-z0-9-]+`' "$README" \
     | grep -oE '`[a-z][a-z0-9-]+`' \
     | tr -d '`' | sort -u
 )
