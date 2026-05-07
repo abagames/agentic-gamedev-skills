@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<title>$GODOT_PROJECT_NAME</title>
+		<style>
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	overflow: hidden;
+	touch-action: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #10131a;
+}
+
+#canvas {
+	display: block;
+	width: 960px;
+	height: 540px;
+}
+
+#canvas:focus {
+	outline: none;
+}
+
+#loader {
+	position: fixed;
+	inset: 0;
+	display: grid;
+	place-content: center;
+	gap: 10px;
+	background: #10131a;
+	color: #e7edf8;
+	z-index: 10;
+	font-family: system-ui, sans-serif;
+}
+
+#loader-title {
+	font-size: 14px;
+	letter-spacing: 0.04em;
+	text-align: center;
+}
+
+#loader-bar {
+	width: 280px;
+	height: 10px;
+	border-radius: 999px;
+	overflow: hidden;
+	background: #2a3142;
+}
+
+#loader-fill {
+	width: 0%;
+	height: 100%;
+	background: #7bd88f;
+	transition: width 80ms linear;
+}
+
+#loader-text {
+	font-size: 12px;
+	text-align: center;
+	opacity: 0.85;
+}
+		</style>
+		$GODOT_HEAD_INCLUDE
+	</head>
+	<body>
+			<div id="loader">
+				<div id="loader-title">Loading...</div>
+				<div id="loader-bar"><div id="loader-fill"></div></div>
+				<div id="loader-text">0%</div>
+			</div>
+			<canvas id="canvas" width="960" height="540"></canvas>
+		<script src="$GODOT_URL"></script>
+		<script>
+const GODOT_CONFIG = $GODOT_CONFIG;
+const gameCanvas = document.getElementById('canvas');
+const loader = document.getElementById('loader');
+const loaderFill = document.getElementById('loader-fill');
+const loaderText = document.getElementById('loader-text');
+const canvasSize = { x: 960, y: 540 };
+gameCanvas.width = canvasSize.x;
+gameCanvas.height = canvasSize.y;
+
+function fitCanvas() {
+	const cs = 0.95;
+	const wr = window.innerWidth / window.innerHeight;
+	const cr = canvasSize.x / canvasSize.y;
+	const flgWh = wr < cr;
+	const cw = flgWh ? cs * window.innerWidth : cs * window.innerHeight * cr;
+	const ch = !flgWh ? cs * window.innerHeight : (cs * window.innerWidth) / cr;
+	gameCanvas.style.width = `${cw}px`;
+	gameCanvas.style.height = `${ch}px`;
+}
+
+window.addEventListener('resize', fitCanvas);
+window.addEventListener('orientationchange', fitCanvas);
+fitCanvas();
+
+const engine = new Engine(GODOT_CONFIG);
+engine.startGame({
+	onProgress: (current, total) => {
+		if (total > 0) {
+			const ratio = Math.min(current / total, 1);
+			loaderFill.style.width = `${ratio * 100}%`;
+			loaderText.textContent = `${Math.floor(ratio * 100)}%`;
+			return;
+		}
+		loaderText.textContent = `${Math.floor(current / 1024)} KB`;
+	},
+}).then(() => {
+	loader.style.display = 'none';
+}).catch((error) => {
+	loaderText.textContent = 'Load failed';
+	console.error(error);
+});
+		</script>
+	</body>
+</html>
