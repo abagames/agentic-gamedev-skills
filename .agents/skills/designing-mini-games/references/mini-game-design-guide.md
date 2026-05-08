@@ -40,20 +40,20 @@ Examples of mechanics based on input. These are starting points for ideas, not c
 
 ### 3.1 Single-Button State Patterns
 
-| Input | Mechanic | Application Examples |
-| :--- | :--- | :--- |
-| **Press** | Instant change | Direction change (90/180°), jump, shoot, teleport, split, attribute toggle |
-| **Hold** | Accumulation/Extension | Power/angle adjustment, stretch, shield deployment, energy charging |
-| **Release** | Release/Recoil | Projectile firing, charged attack execution, state release effects |
+| Input       | Mechanic               | Application Examples                                                       |
+| :---------- | :--------------------- | :------------------------------------------------------------------------- |
+| **Press**   | Instant change         | Direction change (90/180°), jump, shoot, teleport, split, attribute toggle |
+| **Hold**    | Accumulation/Extension | Power/angle adjustment, stretch, shield deployment, energy charging        |
+| **Release** | Release/Recoil         | Projectile firing, charged attack execution, state release effects         |
 
 ### 3.2 Multi-Button Patterns (button_types ≥ 2)
 
-| Pattern | Mechanic | Application Examples |
-| :--- | :--- | :--- |
-| **Role separation** | Each button controls a distinct axis | Move / Attack, Left / Right, Jump / Shoot |
-| **Exclusive toggle** | Only one button's effect is active | Stance switching (offense ↔ defense), element cycling |
-| **Simultaneous combo** | Pressing multiple buttons at once triggers a special action | Charged dash (move + attack), emergency brake |
-| **Sequential chain** | Button order matters | Input combos for special moves, rhythm sequences |
+| Pattern                | Mechanic                                                    | Application Examples                                  |
+| :--------------------- | :---------------------------------------------------------- | :---------------------------------------------------- |
+| **Role separation**    | Each button controls a distinct axis                        | Move / Attack, Left / Right, Jump / Shoot             |
+| **Exclusive toggle**   | Only one button's effect is active                          | Stance switching (offense ↔ defense), element cycling |
+| **Simultaneous combo** | Pressing multiple buttons at once triggers a special action | Charged dash (move + attack), emergency brake         |
+| **Sequential chain**   | Button order matters                                        | Input combos for special moves, rhythm sequences      |
 
 ## 4. Movement and Environment Mechanics (Reference)
 
@@ -85,13 +85,13 @@ Idea starting points independent of tags. Use when stuck or when pursuing novelt
 
 ### 6.1 Abstract Questions
 
-| Perspective | Example Questions |
-| :--- | :--- |
-| **Negation** | What if there's no screen? No score? No failure? |
-| **Sensation** | What moment raises heart rate? What is relief? What is "close call"? |
-| **Beyond physics** | What if you could manipulate probability? What if causality is reversed? What if time branches? |
-| **Cross-discipline** | Musical tension and resolution, ecosystem predation, chemical chain reactions |
-| **Reverse from emotion** | How to create feeling of "betrayal"? What is the joy of "discovery"? |
+| Perspective              | Example Questions                                                                               |
+| :----------------------- | :---------------------------------------------------------------------------------------------- |
+| **Negation**             | What if there's no screen? No score? No failure?                                                |
+| **Sensation**            | What moment raises heart rate? What is relief? What is "close call"?                            |
+| **Beyond physics**       | What if you could manipulate probability? What if causality is reversed? What if time branches? |
+| **Cross-discipline**     | Musical tension and resolution, ecosystem predation, chemical chain reactions                   |
+| **Reverse from emotion** | How to create feeling of "betrayal"? What is the joy of "discovery"?                            |
 
 ### 6.2 Ideas from Constraints
 
@@ -118,11 +118,11 @@ Design in the following order from given tag groups.
 
 When contradicting tags are given, it's an opportunity for invention, not a constraint.
 
-| Contradiction Example | Conventional Approach | Creative Interpretation |
-| :--- | :--- | :--- |
-| `field:1D` and `field:3D` | Adopt one | Space that looks 1D but has depth, or move 1D-like in 3D space |
-| `on_pressed:jump` and `on_pressed:shoot` | Select by priority | Jump and shoot as same action (jumping trajectory becomes attack, etc.) |
-| `player:auto_move` and `on_holding:stop` | Organize dependencies | Design where stopping itself is a risk |
+| Contradiction Example                    | Conventional Approach | Creative Interpretation                                                 |
+| :--------------------------------------- | :-------------------- | :---------------------------------------------------------------------- |
+| `field:1D` and `field:3D`                | Adopt one             | Space that looks 1D but has depth, or move 1D-like in 3D space          |
+| `on_pressed:jump` and `on_pressed:shoot` | Select by priority    | Jump and shoot as same action (jumping trajectory becomes attack, etc.) |
+| `player:auto_move` and `on_holding:stop` | Organize dependencies | Design where stopping itself is a risk                                  |
 
 **Principle**: Don't resolve contradiction, invent a new concept that makes contradiction possible.
 
@@ -143,12 +143,13 @@ Output in the following format to the project's game design document.
 
 ## 0.5 State Model (minimal)
 
-| State Variable | Increase/Decrease Triggers | UI/Feedback Reflection |
-| :--- | :--- | :--- |
-| var_a | <what changes it> | <where/how it is shown> |
-| var_b | <what changes it> | <where/how it is shown> |
+| State Variable | Increase/Decrease Triggers | UI/Feedback Reflection  |
+| :------------- | :------------------------- | :---------------------- |
+| var_a          | <what changes it>          | <where/how it is shown> |
+| var_b          | <what changes it>          | <where/how it is shown> |
 
 Notes:
+
 - Add state variables only when they create a new decision that cannot be expressed by existing rules.
 - Each state must have at least one in-world representation (terrain/behavior/color/shape/speed/sound), not only HUD numbers.
 
@@ -166,7 +167,7 @@ Notes:
 
 <Each object's shape, behavior, collision handling>
 
-## 3. Design Guide Analysis
+## 3. Design Principle Analysis
 
 <Evaluation against four core design principles>
 
