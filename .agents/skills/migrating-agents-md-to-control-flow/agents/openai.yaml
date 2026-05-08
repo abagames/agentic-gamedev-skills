@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Instruction Migration"
+  short_description: "Migrate repo agent instructions into workflows"
+  default_prompt: "Use $migrating-agents-md-to-control-flow to audit this repository's agent instructions and migrate repeatable workflows into skills, scripts, and concise repo policy."

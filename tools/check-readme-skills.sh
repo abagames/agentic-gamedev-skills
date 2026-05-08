@@ -19,7 +19,7 @@ GITIGNORE="$REPO_ROOT/.gitignore"
 [ -f "$README" ] || { echo "no $README" >&2; exit 2; }
 
 # Skill directories present on disk
-mapfile -t on_disk < <(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
+mapfile -t on_disk < <(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf '%f\n' | sort)
 
 # Skill names mentioned in README, restricted to declaration positions:
 #   - table rows:    | `skill-name` | ... or | [`skill-name`](...) | ...
