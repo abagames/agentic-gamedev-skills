@@ -40,6 +40,7 @@ External imported skills may keep their upstream names and structure.
 | [`scaffolding-godot-mini-games`](.agents/skills/scaffolding-godot-mini-games/SKILL.md)     | Scaffolds a minimal Godot 4.2+ mini-game project with Web export defaults, tests, telemetry helpers, and procedural audio primitives.                           |
 | [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Defines reproducible headless Godot workflows for CLI usage, logs, scene editing through scripts, tests, and Web export.                                        |
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | Implements or repairs browser mini-games with `crisp-game-lib`, including CDN/npm setup, game loop structure, drawing-order collision, scoring, and validation. |
+| [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | Translates game design promises into engine-neutral implementation invariants and validation checks that prevent idle, hold-only, mashing, or repeated scoring dominance. |
 
 ### Game Presentation
 
