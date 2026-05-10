@@ -357,7 +357,7 @@ capture_state_summaries(game):
 
 Fallback rules:
 
-- If `capture_debug_frame` is not implemented, treat as failure (test fail), not a single-color placeholder  
+- If `capture_debug_frame` is not implemented, treat as failure (test fail), not a single-color placeholder
 - Fix Scene A/B/C seed and frame conditions as constants so the comparison axis remains stable after improvements
 
 ## 6. Evaluation Criteria
