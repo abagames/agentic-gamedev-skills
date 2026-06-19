@@ -174,6 +174,8 @@ Fill `update()` with a clear per-frame order:
 
 Use `if (!ticks) { ... }` for one-time initialization.
 
+**Emergence review**: after the first working loop, watch for unintentional but interesting behaviors arising from crisp-game-lib idioms (collision artifacts, misordered draw calls, unexpected physics). If one looks more interesting than the original spec, record it and flag it for design reconsideration rather than silently fixing it.
+
 ### Step 3: Apply Mandatory Rules and Validate
 
 Apply section 4 (Mandatory Rules) as required validation criteria, then run the section 6 checklist on desktop and/or mobile.
