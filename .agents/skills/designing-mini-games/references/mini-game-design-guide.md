@@ -40,20 +40,20 @@ Examples of mechanics based on input. These are starting points for ideas, not c
 
 ### 3.1 Single-Button State Patterns
 
-| Input       | Mechanic               | Application Examples                                                       |
-| :---------- | :--------------------- | :------------------------------------------------------------------------- |
-| **Press**   | Instant change         | Direction change (90/180°), jump, shoot, teleport, split, attribute toggle |
-| **Hold**    | Accumulation/Extension | Power/angle adjustment, stretch, shield deployment, energy charging        |
-| **Release** | Release/Recoil         | Projectile firing, charged attack execution, state release effects         |
+| Input | Mechanic | Application Examples |
+| :--- | :--- | :--- |
+| **Press** | Instant change | Direction change (90/180°), jump, shoot, teleport, split, attribute toggle |
+| **Hold** | Accumulation/Extension | Power/angle adjustment, stretch, shield deployment, energy charging |
+| **Release** | Release/Recoil | Projectile firing, charged attack execution, state release effects |
 
 ### 3.2 Multi-Button Patterns (button_types ≥ 2)
 
-| Pattern                | Mechanic                                                    | Application Examples                                  |
-| :--------------------- | :---------------------------------------------------------- | :---------------------------------------------------- |
-| **Role separation**    | Each button controls a distinct axis                        | Move / Attack, Left / Right, Jump / Shoot             |
-| **Exclusive toggle**   | Only one button's effect is active                          | Stance switching (offense ↔ defense), element cycling |
-| **Simultaneous combo** | Pressing multiple buttons at once triggers a special action | Charged dash (move + attack), emergency brake         |
-| **Sequential chain**   | Button order matters                                        | Input combos for special moves, rhythm sequences      |
+| Pattern | Mechanic | Application Examples |
+| :--- | :--- | :--- |
+| **Role separation** | Each button controls a distinct axis | Move / Attack, Left / Right, Jump / Shoot |
+| **Exclusive toggle** | Only one button's effect is active | Stance switching (offense ↔ defense), element cycling |
+| **Simultaneous combo** | Pressing multiple buttons at once triggers a special action | Charged dash (move + attack), emergency brake |
+| **Sequential chain** | Button order matters | Input combos for special moves, rhythm sequences |
 
 ## 4. Movement and Environment Mechanics (Reference)
 
@@ -85,13 +85,13 @@ Idea starting points independent of tags. Use when stuck or when pursuing novelt
 
 ### 6.1 Abstract Questions
 
-| Perspective              | Example Questions                                                                               |
-| :----------------------- | :---------------------------------------------------------------------------------------------- |
-| **Negation**             | What if there's no screen? No score? No failure?                                                |
-| **Sensation**            | What moment raises heart rate? What is relief? What is "close call"?                            |
-| **Beyond physics**       | What if you could manipulate probability? What if causality is reversed? What if time branches? |
-| **Cross-discipline**     | Musical tension and resolution, ecosystem predation, chemical chain reactions                   |
-| **Reverse from emotion** | How to create feeling of "betrayal"? What is the joy of "discovery"?                            |
+| Perspective | Example Questions |
+| :--- | :--- |
+| **Negation** | What if there's no screen? No score? No failure? |
+| **Sensation** | What moment raises heart rate? What is relief? What is "close call"? |
+| **Beyond physics** | What if you could manipulate probability? What if causality is reversed? What if time branches? |
+| **Cross-discipline** | Musical tension and resolution, ecosystem predation, chemical chain reactions |
+| **Reverse from emotion** | How to create feeling of "betrayal"? What is the joy of "discovery"? |
 
 ### 6.2 Ideas from Constraints
 
@@ -110,7 +110,7 @@ Design in the following order from given tag groups.
 2. **Deviation Exploration**: Consider the "opposite," "negation," or "extreme" of tags, explore unexpected directions
 3. **Core Experience Decision**: Define the "momentary sensation" you want to give the player in one phrase
 4. **Mechanics Construction**: Design input scheme that realizes the core experience
-5. **Consistency Verification**: Verify design with the checklist in §10
+5. **Consistency Verification**: Verify design with the checklist in §9
 
 ※ Use tags as stimulus for steps 1-2, don't be bound by tags from step 3 onwards.
 
@@ -118,17 +118,35 @@ Design in the following order from given tag groups.
 
 When contradicting tags are given, it's an opportunity for invention, not a constraint.
 
-| Contradiction Example                    | Conventional Approach | Creative Interpretation                                                 |
-| :--------------------------------------- | :-------------------- | :---------------------------------------------------------------------- |
-| `field:1D` and `field:3D`                | Adopt one             | Space that looks 1D but has depth, or move 1D-like in 3D space          |
-| `on_pressed:jump` and `on_pressed:shoot` | Select by priority    | Jump and shoot as same action (jumping trajectory becomes attack, etc.) |
-| `player:auto_move` and `on_holding:stop` | Organize dependencies | Design where stopping itself is a risk                                  |
+| Contradiction Example | Conventional Approach | Creative Interpretation |
+| :--- | :--- | :--- |
+| `field:1D` and `field:3D` | Adopt one | Space that looks 1D but has depth, or move 1D-like in 3D space |
+| `on_pressed:jump` and `on_pressed:shoot` | Select by priority | Jump and shoot as same action (jumping trajectory becomes attack, etc.) |
+| `player:auto_move` and `on_holding:stop` | Organize dependencies | Design where stopping itself is a risk |
 
 **Principle**: Don't resolve contradiction, invent a new concept that makes contradiction possible.
 
-## 9. Output Format
+## 9. Design Quality Checklist
 
-Output in the following format to the project's game design document.
+Confirm the following before completing design.
+
+- [ ] Is the input scheme within the button-count limit chosen in the project brief?
+- [ ] Is the game over condition single and visually obvious?
+- [ ] Is button mashing/idle play not the optimal solution?
+- [ ] Does the design document record the first association and an explicit reason for rejecting it (the Intentional Deviation content)?
+- [ ] Can you provide reasoned answers to all 4 principles in §2?
+- [ ] Did ideas start from tags and have elements beyond existing patterns?
+- [ ] Are there moments of feeling "I've never seen this before"?
+- [ ] If state variables are used, is each one justified by a distinct decision purpose?
+- [ ] If state variables are used, does each one have a non-text in-world feedback channel?
+- [ ] Is there at least 1 explicit tradeoff between states/actions (including action vs terrain)?
+- [ ] Does at least one world-side persistent history remain from player actions?
+
+## Appendix A: Recommended Output Format (example)
+
+This is a default layout, not a fixed contract — adapt the section numbering and placement to your project's workflow. The Design Quality Checklist requires the *content* below, not these exact headings.
+
+Output the following to the project's game design document.
 
 ```markdown
 # <GAME_NAME> (<slug>)
@@ -141,24 +159,29 @@ Output in the following format to the project's game design document.
 - button_types: <1-5>
 - Unexpected pair check: `<pair_a> + <pair_b>` satisfies the project's novelty or non-obviousness rule
 
-## 0.5 State Model (minimal)
+## 0.5 Intentional Deviation
 
-| State Variable | Increase/Decrease Triggers | UI/Feedback Reflection  |
-| :------------- | :------------------------- | :---------------------- |
-| var_a          | <what changes it>          | <where/how it is shown> |
-| var_b          | <what changes it>          | <where/how it is shown> |
+Document the design deviation process to prevent automatic pattern adoption.
 
-Notes:
-
-- Add state variables only when they create a new decision that cannot be expressed by existing rules.
-- Each state must have at least one in-world representation (terrain/behavior/color/shape/speed/sound), not only HUD numbers.
+- **First association**: <the mechanic or image that first came to mind>
+- **Why it was rejected**: <specific reason for forbidding the first association>
+- **Chosen approach's unusual element**: <what makes the final design different from the obvious interpretation>
 
 ## 1. Core Mechanics
 
 <Input → Behavior → End condition, scoring system, difficulty increase mechanism>
 <difficulty variable convention: define initial value, growth cadence, and expected range>
 
-## 1.5 Tradeoff Definition
+## 1.5 State Model and Tradeoff
+
+| State Variable | Increase/Decrease Triggers | UI/Feedback Reflection |
+| :--- | :--- | :--- |
+| var_a | <what changes it> | <where/how it is shown> |
+| var_b | <what changes it> | <where/how it is shown> |
+
+Notes:
+- Add state variables only when they create a new decision that cannot be expressed by existing rules.
+- Each state must have at least one in-world representation (terrain/behavior/color/shape/speed/sound), not only HUD numbers.
 
 - Concrete behavior pair: `<action_safe>` vs `<action_risky>`
 - Tradeoff explanation: how improving one state worsens another
@@ -180,22 +203,7 @@ Notes:
 <Elements beyond existing patterns, and how this game differs from the most similar existing game(s)>
 ```
 
-## 10. Design Quality Checklist
-
-Confirm the following before completing design.
-
-- [ ] Is the input scheme within the button-count limit chosen in the project brief?
-- [ ] Is the game over condition single and visually obvious?
-- [ ] Is button mashing/idle play not the optimal solution?
-- [ ] Can you provide reasoned answers to all 4 principles in §2?
-- [ ] Did ideas start from tags and have elements beyond existing patterns?
-- [ ] Are there moments of feeling "I've never seen this before"?
-- [ ] If state variables are used, is each one justified by a distinct decision purpose?
-- [ ] If state variables are used, does each one have a non-text in-world feedback channel?
-- [ ] Is there at least 1 explicit tradeoff between states/actions (including action vs terrain)?
-- [ ] Does at least one world-side persistent history remain from player actions?
-
-## Appendix: SCAMPER Method (Auxiliary Technique)
+## Appendix B: SCAMPER Method (Auxiliary Technique)
 
 Idea assistance through transformation of existing elements. However, this is an auxiliary for when stuck, not the primary ideation method.
 

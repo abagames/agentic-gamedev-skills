@@ -16,19 +16,23 @@ For implementation-facing translation of these design rules, use `implementing-g
 Each principle pairs a design rule with an evaluation question.
 
 ### (1) Simplicity and Intuitiveness
+
 - **Principle**: Use basic shapes (circles, triangles, squares), keep the background simple, eliminate UI / explanations / multiple resource management. The rules should be conveyed through play itself.
 - **Check**: Can the rules and the role of every on-screen object be understood immediately, without text?
 
 ### (2) Visual Feedback and Game Over
+
 - **Principle**: Convey success, failure, and danger through animation, color change, and size change. The game-over condition must be **single** and obvious at a glance — typically "collision" or "falling".
 - **Check**: Are action results visually clear? Is the failure reason fair and obvious?
 
 ### (3) Skill-Based Scoring and Risk/Reward
+
 - **Principle**: Reward intentional, high-risk actions (close calls, precise timing) more than safe ones. Score should track mastery directly.
 - **Check**: Does score actually reflect player skill? Is there a meaningful "safe vs. challenging" choice at every moment?
 - **Scoring rule**: Prefer in-world causal events: stomp, graze, batch erase, precise catch, cluster clear, route selection, chain reaction, or pressure cash-out. Survival score is acceptable only when survival itself is the central skill expression; in that case, state the observable survival pattern that skilled play performs and monotonous policies cannot.
 
 ### (4) Novel Mechanics
+
 - **Principle**: Don't be bound by existing genres. Invent surprising behavior from physical laws (gravity, magnetism, inertia), geometric principles, or their negation.
 - **Check**:
   - Is there a moment where the player thinks "I've never seen this before"?
@@ -46,11 +50,13 @@ Each principle pairs a design rule with an evaluation question.
 ## 4. Movement and Environment Mechanics (Reference)
 
 ### 4.1 Player Movement / Actions
+
 - **Auto-movement**: auto-run, constant bouncing, fixed oscillation, acceleration
 - **Special movement**: gravity reversal, wall reflection, fixed-point rotation, teleport
 - **Actions**: AoE attack, counter, physics projectiles, chain reactions, state toggle
 
 ### 4.2 Environment / Terrain Interaction
+
 - **Terrain**: irregular ground, floating/moving platforms, chasms, temporary footholds
 - **Gimmicks**: zones with changing behavior, hazards (spikes, crushers), physics puzzles
 
@@ -58,17 +64,18 @@ Each principle pairs a design rule with an evaluation question.
 
 ### 5.1 Abstract Questions
 
-| Perspective           | Example Questions                                                                       |
-| :-------------------- | :-------------------------------------------------------------------------------------- |
-| **Negation**          | What if there's no screen? No score? No failure?                                        |
-| **Sensation**         | What moment raises heart rate? What is relief? What is "close call"?                    |
-| **Beyond physics**    | What if probability could be manipulated? What if causality is reversed? Time branches? |
-| **Cross-discipline**  | Musical tension/resolution, ecosystem predation, chemical chain reactions               |
-| **Reverse from emotion** | How to create the feeling of "betrayal"? What is the joy of "discovery"?             |
+| Perspective              | Example Questions                                                                       |
+| :----------------------- | :-------------------------------------------------------------------------------------- |
+| **Negation**             | What if there's no screen? No score? No failure?                                        |
+| **Sensation**            | What moment raises heart rate? What is relief? What is "close call"?                    |
+| **Beyond physics**       | What if probability could be manipulated? What if causality is reversed? Time branches? |
+| **Cross-discipline**     | Musical tension/resolution, ecosystem predation, chemical chain reactions               |
+| **Reverse from emotion** | How to create the feeling of "betrayal"? What is the joy of "discovery"?                |
 
 ### 5.2 Ideas From Constraints
 
 Set "without ~" constraints and work backwards:
+
 - No movement (gameplay arises only from on-screen state changes)
 - No enemies (battle the environment or the self)
 - No scoring (the goal is state maintenance or transformation)
@@ -77,6 +84,8 @@ Set "without ~" constraints and work backwards:
 ## 6. State, Tradeoff, and History Checks
 
 Use state variables sparingly. Add a state only when it creates a player decision that the existing rules cannot express.
+
+**Designs may use zero state variables.** In such cases, complexity must emerge from player-environment geometry, timing, or physical interaction, not from hidden state. If the design uses no state variables, write a brief justification in the State Model and Tradeoff section under a `State variables: none` header.
 
 - Every state variable needs an in-world manifestation: behavior, terrain, shape, speed, sound, color, or animation. A HUD number alone is not enough.
 - Every state variable needs a decision purpose: it should make the player choose between at least two viable actions or risk levels.
@@ -149,15 +158,33 @@ State what scales with difficulty and why. Good defaults:
 
 When contradicting seeds are given, treat the contradiction as an invention prompt rather than an obstacle.
 
-| Contradiction Example                              | Conventional Approach    | Creative Interpretation                                         |
-| :------------------------------------------------- | :----------------------- | :-------------------------------------------------------------- |
-| `field:1D` and `field:3D`                          | Adopt only one           | Space that looks 1D but has hidden depth, or 1D-like motion in 3D space |
-| `on_pressed:jump` and `on_pressed:shoot`           | Pick one by priority     | Jump and shoot are the same action — the jump arc deals damage |
-| `player:auto_move` and `on_holding:stop`           | Resolve dependencies     | Stopping itself is the risk                                     |
+| Contradiction Example                    | Conventional Approach | Creative Interpretation                                                 |
+| :--------------------------------------- | :-------------------- | :---------------------------------------------------------------------- |
+| `field:1D` and `field:3D`                | Adopt only one        | Space that looks 1D but has hidden depth, or 1D-like motion in 3D space |
+| `on_pressed:jump` and `on_pressed:shoot` | Pick one by priority  | Jump and shoot are the same action — the jump arc deals damage          |
+| `player:auto_move` and `on_holding:stop` | Resolve dependencies  | Stopping itself is the risk                                             |
 
-**Principle**: Don't *resolve* the contradiction — invent a new concept under which the contradiction becomes possible.
+**Principle**: Don't _resolve_ the contradiction — invent a new concept under which the contradiction becomes possible.
 
-## 8. Recommended Output Format
+## 8. Design Quality Checklist
+
+- [ ] Does it complete with one button: press, hold, release, or a combination of those phases?
+- [ ] Is the game-over condition single and visually obvious?
+- [ ] Are mashing, hold-only, and idle play each explicitly documented as worse than skilled play?
+- [ ] Does each key weakness include a testable implementation invariant, not just prose?
+- [ ] Does the design record the first association and an explicit reason for rejecting it (the Intentional Deviation content)?
+- [ ] Does score come from in-world causality rather than raw input facts? If survival score is used, is survival itself the central skill expression?
+- [ ] Can rules and object roles be understood without text?
+- [ ] Does every state variable create a distinct player decision, or is the absence of state variables justified by a geometric/physical decision space?
+- [ ] Does every state variable have a non-text in-world feedback channel?
+- [ ] Is there at least one explicit safe/risky tradeoff?
+- [ ] Does at least one persistent consequence or safety cost exist where the game needs one?
+- [ ] Does the design state what scales with difficulty and why?
+- [ ] Is there a "I've never seen this before" moment that is not just a reskin of a known game?
+
+## Appendix A: Recommended Output Format (example)
+
+This is a default layout, not a fixed contract — adapt the section numbering and placement to your project's workflow. The checklist above requires the *content* below, not these exact headings.
 
 Produce a design document in this structure (file location is project-dependent — e.g. `tmp/games/<slug>/README.md`):
 
@@ -168,15 +195,25 @@ Produce a design document in this structure (file location is project-dependent 
 
 Omit the entire `**Seeds**` line if no seeds were given.
 
+## 0.5 Intentional Deviation
+
+Document the design deviation process to prevent automatic pattern adoption.
+
+- **First association**: <the mechanic or image that first came to mind>
+- **Why it was rejected**: <specific reason for forbidding the first association>
+- **Chosen approach's unusual element**: <what makes the final design different from the obvious interpretation>
+
+If an `avoid_pattern` was provided (e.g., from the tag selector), state it here and explain how the design avoids it.
+
 ## 1. Core Mechanics
 
 ### Controls
 
-| Phase | Action | Notes |
-| :--- | :--- | :--- |
-| Press | <what happens on press/tap> | <context, cooldown, or intentionally unused: reason> |
-| Hold | <what happens while held> | <cost, risk, or intentionally unused: reason> |
-| Release | <what happens on release> | <cash-out, recoil, reset, or intentionally unused: reason> |
+| Phase   | Action                      | Notes                                                      |
+| :------ | :-------------------------- | :--------------------------------------------------------- |
+| Press   | <what happens on press/tap> | <context, cooldown, or intentionally unused: reason>       |
+| Hold    | <what happens while held>   | <cost, risk, or intentionally unused: reason>              |
+| Release | <what happens on release>   | <cash-out, recoil, reset, or intentionally unused: reason> |
 
 - Behavior: <main loop in 2-4 sentences>
 - Game-over: <single visually obvious condition; explain why it is fair to read>
@@ -184,16 +221,16 @@ Omit the entire `**Seeds**` line if no seeds were given.
 
 ### Difficulty Scaling
 
-| Quantity | Scaling | Reason |
-| :--- | :--- | :--- |
-| <spawn interval> | </ sqrt(difficulty), capped range, etc.> | <why this pressure changes> |
-| <hazard speed> | <* sqrt(difficulty), linear, etc.> | <why this remains readable or intentionally escalates> |
+| Quantity         | Scaling                                  | Reason                                                 |
+| :--------------- | :--------------------------------------- | :----------------------------------------------------- |
+| <spawn interval> | </ sqrt(difficulty), capped range, etc.> | <why this pressure changes>                            |
+| <hazard speed>   | <\* sqrt(difficulty), linear, etc.>      | <why this remains readable or intentionally escalates> |
 
 ## 1.5 State Model and Tradeoff
 
-| State Variable | Increase/Decrease Triggers | In-World Feedback | Decision Purpose |
-| :--- | :--- | :--- | :--- |
-| <var_a> | <what changes it> | <where/how it is shown without text-only UI> | <what choice this creates> |
+| State Variable | Increase/Decrease Triggers | In-World Feedback                            | Decision Purpose           |
+| :------------- | :------------------------- | :------------------------------------------- | :------------------------- |
+| <var_a>        | <what changes it>          | <where/how it is shown without text-only UI> | <what choice this creates> |
 
 - Concrete behavior pair: `<safe_action>` vs `<risky_action>`  
   Use the table's `Decision Purpose` cell for the abstract choice the state creates. Use this behavior pair for the concrete actions the player will actually perform. Example: `charge` decision purpose = "choose blast radius vs. hitbox risk"; behavior pair = "release now for small safe blast vs. hold longer for larger dangerous blast".
@@ -208,59 +245,52 @@ Omit the entire `**Seeds**` line if no seeds were given.
 
 The bullets above describe what the player experiences. The table below specifies what the code must enforce. Each row should be testable by a policy or telemetry; do not restate the bullet in different words.
 
-| Promise | Invariant | Validation |
-| :--- | :--- | :--- |
-| Idle weakness | <testable rule that makes idle weak> | <NoInput expected result> |
-| Hold-only weakness | <testable rule that makes permanent hold weak> | <HoldOnly expected result> |
-| Mashing weakness | <testable rule that makes repeated input weak> | <SpamPress / alternating spam expected result> |
-| Skilled play | <testable rule that creates a higher-skill route> | <what skilled/GA/human policy should beat> |
+| Promise                          | Invariant                                                                  | Validation                                                     |
+| :------------------------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------- |
+| Idle weakness                    | <testable rule that makes idle weak>                                       | <NoInput expected result>                                      |
+| Hold-only weakness               | <testable rule that makes permanent hold weak>                             | <HoldOnly expected result>                                     |
+| Mashing weakness                 | <testable rule that makes repeated input weak>                             | <SpamPress / alternating spam expected result>                 |
+| Skilled play                     | <testable rule that creates a higher-skill route>                          | <what skilled/GA/human policy should beat>                     |
 | Seeded early cases (if relevant) | <first validation-seed hazards/gaps remain compatible with the invariants> | <first 5-10 seeded cases checked by simulation or calculation> |
 
 Example row: `Idle weakness | World pressure rises 1 px per 30 frames while no scoring window is taken | NoInput final score < 10% of skilled/GA best`
 
 ## 2. Object Specifications
+
 <Each object's shape, behavior, collision handling>
 
 ## 3. Design Principle Analysis
 
 ### (1) Simplicity and Intuitiveness
+
 <Can the rules and object roles be understood immediately?>
 
 ### (2) Visual Feedback and Game Over
+
 <How are success, danger, and the single failure condition shown?>
 
 ### (3) Skill-Based Scoring and Risk/Reward
+
 <Why does score measure skill, and what safe/risky choice exists?>
 
 ### (4) Novel Mechanics
+
 <What rule-level idea goes beyond a familiar clone?>
 
 ## 4. Relationship with Seeds
+
 <How the idea developed from the input seeds>
 
 ## 5. Basis for Novelty
+
 <Elements that go beyond existing patterns>
 
 ## 6. Similarity Check
+
 <List any known games with similar mechanics; explain rule-level differences, not just theme or visual differences.>
 ```
 
-## 9. Design Quality Checklist
-
-- [ ] Does it complete with one button: press, hold, release, or a combination of those phases?
-- [ ] Is the game-over condition single and visually obvious?
-- [ ] Are mashing, hold-only, and idle play each explicitly documented as worse than skilled play?
-- [ ] Does each key weakness include a testable implementation invariant, not just prose?
-- [ ] Does score come from in-world causality rather than raw input facts? If survival score is used, is survival itself the central skill expression?
-- [ ] Can rules and object roles be understood without text?
-- [ ] Does every state variable create a distinct player decision?
-- [ ] Does every state variable have a non-text in-world feedback channel?
-- [ ] Is there at least one explicit safe/risky tradeoff?
-- [ ] Does at least one persistent consequence or safety cost exist where the game needs one?
-- [ ] Does the design state what scales with difficulty and why?
-- [ ] Is there a "I've never seen this before" moment that is not just a reskin of a known game?
-
-## 10. Appendix: SCAMPER Method (Auxiliary Only)
+## Appendix B: SCAMPER Method (Auxiliary Only)
 
 Idea assistance through transformation of existing elements. **Auxiliary, not primary** — SCAMPER tends to produce variations of the familiar; pair it with §5 to push toward genuinely new concepts.
 
