@@ -102,6 +102,7 @@ Use this compact form in specs, PR notes, or code reviews:
 - Numeric-only fix: spawn rates or score values are changed without enforcing the missing invariant.
 - Unbounded entities: scoring or hazard objects live too long, causing slow validation and spam score loops.
 - Seed-specific surprise: the validation seed creates early hazards/gaps that violate design assumptions, and the issue is found only after a full GA run.
+- Invariant conflict: the design requires mutually exclusive invariants (e.g., "idle must die" and "survival is the only scoring"). If resolving the conflict requires changing the Core Experience or discarding the tag relationship, report that the design is unsalvageable and recommend a Failure Report.
 
 ## Validation
 
