@@ -12,6 +12,7 @@ Creates browser-based mini-games using crisp-game-lib, a JavaScript library for 
 Use this skill when asked to create or repair a mini-game with crisp-game-lib. If the user asks for Godot or another engine, or leaves the engine unspecified, do not use this skill unless the existing project is already a crisp-game-lib project.
 
 This guide separates:
+
 - ordered implementation steps (what to do in sequence)
 - mandatory constraints (rules that always apply)
 - reusable patterns and references (optional support)
@@ -27,6 +28,7 @@ Choose the appropriate setup based on the project context.
 Create a project directory with `index.html` and `main.js`. CDN is acceptable for final projects when the script URL is pinned to a verified version. For quick prototypes only, a clearly labeled draft may use `crisp-game-lib@latest`.
 
 For reproducible assignments or committed projects:
+
 - CDN is fine; the reproducibility issue is an unpinned moving version such as `@latest`.
 - Pin only a version that is already specified by the project or that you have verified from package metadata/CDN access.
 - Do not invent a crisp-game-lib version number.
@@ -46,8 +48,8 @@ For reproducible assignments or committed projects:
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
     <!-- Optional: only required if you use algo-chip helpers -->
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/core/dist/algo-chip.umd.js"></script>
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/util/dist/algo-chip-util.umd.js"></script>
     <script src="https://unpkg.com/crisp-game-lib@<verified-version>/docs/bundle.js"></script>
     <script src="./main.js"></script>
     <script>
@@ -93,8 +95,8 @@ If this project also uses `algo-chip` helpers, install or pin `crisp-game-lib` a
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
     <!-- Optional: only required if you use algo-chip helpers -->
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/core/dist/algo-chip.umd.js"></script>
-    <script src="https://unpkg.com/algo-chip@1.0.2/packages/util/dist/algo-chip-util.umd.js"></script>
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/core/dist/algo-chip.umd.js"></script>
+    <script src="https://unpkg.com/algo-chip@1.1.0/packages/util/dist/algo-chip-util.umd.js"></script>
     <script type="module" src="./main.js"></script>
   </head>
   <body style="background: #ddd"></body>
@@ -127,6 +129,7 @@ init({ update, title, description, characters, options });
 Write `main.js` following the structure below.
 
 Before and during implementation:
+
 - Read `references/api.md` when you need exact function behavior, argument shapes, collision semantics, or available colors/sounds.
 - Read `references/examples.md` when the requested game resembles one of the listed patterns, or when you need a complete working loop to adapt.
 - For one-button games, state the exact input interpretation before coding (for example tap toggles state, tap applies impulse, hold charges, or release fires).
@@ -181,6 +184,7 @@ Use `if (!ticks) { ... }` for one-time initialization.
 Apply section 4 (Mandatory Rules) as required validation criteria, then run the section 6 checklist on desktop and/or mobile.
 
 For this repository's automated testers:
+
 - In generated test fixtures for this repository, keep game-specific helper logic inside `update()`; tester execution can miss helpers defined outside it. In normal user projects, small top-level helpers are acceptable if the target build/test harness runs them correctly.
 - Name moving hazard arrays with detectable terms such as `obstacles`, `enemies`, or `hazards` when useful. Verbose GA logs use those names to populate spawn analysis.
 - Prefer `addScore(points, x, y)` over `addScore(points, pos)` when you need accurate score-event positions in tester logs.
@@ -297,14 +301,14 @@ Open the game in a browser and check:
 
 ## 7. Key API Quick Reference
 
-| Category | Functions                                                                                       |
-| -------- | ----------------------------------------------------------------------------------------------- |
-| Drawing  | `rect(x,y,w,h)` `box(pos,w,h)` `line(p1,p2,t)` `bar(pos,len,t,angle)` `arc(pos,r,t,start,end)`  |
-| Text     | `text(str,x,y)` `char(ch,x,y)` `addWithCharCode(ch,offset)`                                     |
-| Color    | `color("red")` — red, green, blue, yellow, purple, cyan, black, light\_\* variants, transparent |
-| Input    | `input.pos` `input.isPressed` `input.isJustPressed` `keyboard.code["Space"].isJustPressed`      |
-| Audio    | `play("coin")` — listed names: coin, powerUp, hit, jump, select, lucky. **Treat this list as illustrative; consult `references/api.md` for the complete enumeration before invoking other names.** |
-| Vector   | `vec(x,y)` `.add()` `.sub()` `.mul()` `.clamp(xMin,xMax,yMin,yMax)` `.wrap()` `.addWithAngle()` `.distanceTo()`    |
+| Category | Functions                                                                                                                                                                                                              |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Drawing  | `rect(x,y,w,h)` `box(pos,w,h)` `line(p1,p2,t)` `bar(pos,len,t,angle)` `arc(pos,r,t,start,end)`                                                                                                                         |
+| Text     | `text(str,x,y)` `char(ch,x,y)` `addWithCharCode(ch,offset)`                                                                                                                                                            |
+| Color    | `color("red")` — red, green, blue, yellow, purple, cyan, black, light\_\* variants, transparent                                                                                                                        |
+| Input    | `input.pos` `input.isPressed` `input.isJustPressed` `keyboard.code["Space"].isJustPressed`                                                                                                                             |
+| Audio    | `play("coin")` — listed names: coin, powerUp, hit, jump, select, lucky. **Treat this list as illustrative; consult `references/api.md` for the complete enumeration before invoking other names.**                     |
+| Vector   | `vec(x,y)` `.add()` `.sub()` `.mul()` `.clamp(xMin,xMax,yMin,yMax)` `.wrap()` `.addWithAngle()` `.distanceTo()`                                                                                                        |
 | Utility  | `times(n,fn)` `range(n)` `remove(arr,fn)` `rnd(max)` `rndi(max)` `clamp(v,min,max)` `wrap(v,min,max)` — note the free-function `clamp` / `wrap` take a scalar; the Vector method on the same name takes 4 axis bounds. |
-| State    | `ticks` `score` `difficulty` `addScore(points)` `addScore(points,pos)` `addScore(points,x,y)` `end()` |
-| Effects  | `particle(pos, {count, speed, angle, angleWidth})`                                              |
+| State    | `ticks` `score` `difficulty` `addScore(points)` `addScore(points,pos)` `addScore(points,x,y)` `end()`                                                                                                                  |
+| Effects  | `particle(pos, {count, speed, angle, angleWidth})`                                                                                                                                                                     |
