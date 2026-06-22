@@ -12,6 +12,7 @@ Use this skill when the user asks for a game object, sprite-like prop, item icon
 ## Environment requirements
 
 - An image-generation tool callable from the agent. The bundled workflow assumes Codex's built-in `image_gen` and reads its output from `$CODEX_HOME/generated_images/...`. On other hosts (Claude Code, plain CLI), substitute an equivalent generator and copy the chosen image into `<PROJECT_DIR>/assets/source/<stem>.raw.png`.
+- In Codex CLI, built-in `image_gen` output may not appear under `$CODEX_HOME/generated_images` even when generation succeeds. If no current output file is visible, recover the PNG from the Codex session JSONL before retrying generation; see `references/imagegen-cli-recovery.md`.
 - ImageMagick `convert` on PATH. The bundled `scripts/*.mjs` shell out to it; if it is missing, stop and report the dependency rather than fabricating output.
 
 ## Inputs
@@ -100,6 +101,7 @@ node "$SKILL_DIR/scripts/pixelize.mjs" tmp/cutout.png tmp/pixel.png --width 96 -
 ## Failure Handling
 
 - If chroma-key removal leaves a colored fringe, retry `cutout` with a higher `--fuzz` or regenerate with more padding and stricter flat-background wording.
+- If built-in `image_gen` appears to succeed but no output file is available under `$CODEX_HOME/generated_images`, do not assume generation failed. Recover the PNG from the Codex session JSONL using `references/imagegen-cli-recovery.md`, then continue from the raw-image copy step.
 - If the subject is cropped, regenerate with stronger padding instructions or use a larger intermediate size.
 - If the object becomes unreadable at final size, regenerate with simpler shapes or pixelize from a less detailed source.
 - If ImageMagick `convert` is unavailable, report that the bundled scripts require ImageMagick and stop.
