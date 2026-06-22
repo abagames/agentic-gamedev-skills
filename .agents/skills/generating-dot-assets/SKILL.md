@@ -38,6 +38,7 @@ Default project layout:
 - Use `<stem>.prompt.md`, `<stem>.raw.png`, `<stem>.cutout.png`, `<stem>.pixel.png`, and `<stem>.palette.json` for generated working files.
 - If the final filename already exists and overwrite was not explicitly requested, use `<stem>_v2.png`, then `_v3`, etc. Apply the same suffix to prompt, raw, cutout, pixel, and palette files for that run.
 - For role-based game assets, read `<PROJECT_DIR>/VISUAL_DESIGN.md` or the README visual direction first. Explicit user or scenario constraints may be used when those files are unavailable; report the missing design docs and record the constraints in the prompt file. If neither design docs nor explicit constraints define role colors, run `directing-game-visuals` first or define a minimal Player / Danger / Reward palette before generating.
+- Use `--colors <N>` for exploratory or one-off assets when exact project colors are not required. Create and pass a palette JSON when assets must share a project palette, match role colors, or stay consistent across a set.
 
 ## Workflow
 
@@ -87,6 +88,14 @@ SKILL_DIR=.agents/skills/generating-dot-assets
 node "$SKILL_DIR/scripts/pixelize.mjs" tmp/cutout.png tmp/pixel.png --width 96 --palette palette.json --dither off
 ```
 
+Palette files must contain a `colors` array of hex colors:
+
+```json
+{
+  "colors": ["#1b1f3a", "#f04438", "#f97316", "#facc15", "#38bdf8", "#f8fafc"]
+}
+```
+
 ## Rules
 
 - Do not rely on image generation to produce exact pixel dimensions.
@@ -95,6 +104,7 @@ node "$SKILL_DIR/scripts/pixelize.mjs" tmp/cutout.png tmp/pixel.png --width 96 -
 - Generate one object per image. Batches should use one built-in `image_gen` call per object.
 - Keep raw generated images and final transparent PNGs separate.
 - Do not overwrite existing assets unless explicitly asked; create a versioned filename instead.
+- Do not require an explicit palette for every asset. Use one when the project already defines colors, when role colors matter, or when multiple assets must look like they belong to the same set.
 - Automated validation enforces exact size, alpha, transparent corners, and maximum color count. If the design asks for a color range such as 16-24 colors, enforce the upper bound with `--max-colors` and treat the lower bound as a visual acceptance check for readability and sufficient detail.
 - Default pixelize resize: use an intermediate long edge about 2x the final long edge. For square or landscape assets, set `--width` to `final_width * 2`; for portrait assets, set `--height` to `final_height * 2`. Use both `--width` and `--height` only when intentional pre-fit stretching is acceptable.
 
