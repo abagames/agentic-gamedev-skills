@@ -81,7 +81,7 @@ External imported skills may keep their upstream names and structure.
 - `references/`: detailed guides, checklists, design templates, and implementation patterns.
 - `assets/`: reusable templates, Godot scripts, fonts, or other project assets.
 - `scripts/`: automation for asset generation, validation, or related workflows.
-- `tools/`: helper utilities, especially for safe headless Godot operations.
+- `tools/`: repository maintenance utilities, such as README/skill-list checks and external skill installation.
 - `agents/`: optional model- or agent-specific configuration used by a skill.
 
 ## External Skill References

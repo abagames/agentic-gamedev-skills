@@ -81,7 +81,7 @@
 - `references/`: 詳細ガイド、チェックリスト、設計テンプレート、実装パターン。
 - `assets/`: 再利用可能なテンプレート、Godot script、フォント、素材。
 - `scripts/`: 素材生成、検証、関連 workflow の自動化。
-- `tools/`: 補助ツール。主に安全な headless Godot 作業用。
+- `tools/`: README と skill 一覧の照合、外部 skill 取得などのリポジトリ保守用ツール。
 - `agents/`: skill 用の任意のモデル別・agent 別設定。
 
 ## 外部 Skill 参照
