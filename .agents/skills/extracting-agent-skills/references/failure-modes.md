@@ -44,12 +44,10 @@ A skill should say how the agent knows it has worked.
 
 ## Tool Version Fragility
 
-When commands, APIs, or tool behavior may change, add maintenance notes:
+When commands, APIs, or tool behavior may change, keep the skill narrowly scoped and record the fragile assumption in the relevant procedure or validation step. Do not add a separate trailing upkeep section.
 
 ```markdown
-Last validated:
-Known tool assumptions:
-Signs this skill may be obsolete:
+Use <tool/API> only when <observable condition> holds; if <obsolete signal> appears, re-check this workflow before relying on it.
 ```
 
 ## Premature Skill Creation

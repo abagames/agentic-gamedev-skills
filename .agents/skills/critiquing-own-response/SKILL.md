@@ -94,9 +94,3 @@ The critique is acceptable only if all of the following hold:
 ## Output
 
 A single critique document using the six top-level headings and the specified subsection numbering, in the language of the prior response. Do not append a rewritten "improved" answer; the user decides next steps based on section 6-3.
-
-## Maintenance Notes
-
-- Last validated: 2026-04-29
-- Known assumptions: there is exactly one immediately preceding agent response in the conversation; the user has explicitly asked for critical self-review.
-- Signs this skill may be obsolete: built-in critical-thinking modes provided by the host agent that supersede this checklist, or major changes in the kinds of failure modes AI agents exhibit (re-evaluate section 4 if model behavior shifts materially).

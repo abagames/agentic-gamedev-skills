@@ -91,12 +91,10 @@ Hooks are only for zero-exception behavior.
 
 ## Tool Version Fragility
 
-When generated commands depend on tool behavior that may change, add maintenance notes:
+When generated commands depend on tool behavior that may change, keep the migration asset narrowly scoped and record the fragile assumption in the relevant procedure or validation step. Do not add a separate trailing upkeep section.
 
 ```markdown
-Last validated:
-Known tool assumptions:
-Signs this migration asset may be obsolete:
+Use <tool/API> only when <observable condition> holds; if <obsolete signal> appears, re-check this workflow before relying on it.
 ```
 
 ## Unsupported Policy Inference

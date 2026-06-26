@@ -31,20 +31,6 @@ Local skills should follow this style; external skills may keep their upstream f
 - Include both _what the skill does_ and _when to use it_ in the description so the agent can match on either.
 - The only required directory name for in-skill documentation is `references/`. Do not use `skills/`, `docs/`, or other variants.
 
-## Maintenance Notes (optional convention)
-
-Skills whose correctness depends on host-tool behavior (e.g. host built-ins, model-specific failure modes, version-pinned APIs) should append a `## Maintenance Notes` section at the end of `SKILL.md`, modeled on `critiquing-own-response`:
-
-```markdown
-## Maintenance Notes
-
-- Last validated: YYYY-MM-DD
-- Known assumptions: <one-line summary of what the skill assumes about the host runtime>
-- Signs this skill may be obsolete: <observable conditions that should trigger a review>
-```
-
-The section is optional. Skills whose content is engine- and tool-stable (pure design or methodology) do not need it.
-
 ## Validation
 
 Before finishing skill changes:

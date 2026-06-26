@@ -69,8 +69,6 @@ description: <specific description that helps the agent know when to invoke this
 ## Common Failure Modes
 
 ## Output
-
-## Maintenance Notes
 ```
 
 The frontmatter `name` and `description` are important.
