@@ -4,4 +4,5 @@
 .agents/skills/godot-master/
 .agents/skills/systematic-debugging/
 tmp/
-.codex
+.codex/
+.claude/
