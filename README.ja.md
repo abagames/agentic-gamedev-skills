@@ -31,6 +31,7 @@
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 小規模ゲームのルール、操作、得点、危険、報酬、終了条件を設計する。放置、長押し固定、連打の最適化を防ぐ。   |
 | [`designing-one-button-games`](.agents/skills/designing-one-button-games/SKILL.md) | タップ、長押し、リリースを使う一ボタンミニゲームを設計する。新規性、リスクと報酬、短い難度曲線を重視する。 |
+| [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | 1978〜1983 年代の固定画面アーケードゲームコンセプトを複数一括生成・評価し、上位コンセプトの実装仕様を書く。 |
 | [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
 
 ### ゲーム実装
@@ -50,6 +51,7 @@
 | [`maximizing-game-feel`](.agents/skills/maximizing-game-feel/SKILL.md)                       | squash/stretch、傾き、パーティクル、軌跡、ヒット演出で操作感を高める。                                |
 | [`creating-godot-procedural-audio`](.agents/skills/creating-godot-procedural-audio/SKILL.md) | Godot の組み込み API で手続き型音声を設計・実装する。ゲームイベントや状態変化ごとに音を分ける。       |
 | [`styling-web-game-typography`](.agents/skills/styling-web-game-typography/SKILL.md)         | 配布ゲーム向けの読みやすくライセンス上問題ないタイポグラフィを実装する。Godot 4.2+ の実装例を含む。   |
+| [`designing-retro-arcade-sound-kits`](.agents/skills/designing-retro-arcade-sound-kits/SKILL.md) | ゲームコードが抽象イベント名を発火し、アダプター層が音を解決・再生するアーキテクチャで、レトロアーケードのサウンドキット（SE・ジングル）を設計・検証する。エンジン非依存。 |
 | [`generating-dot-assets`](.agents/skills/generating-dot-assets/SKILL.md)                     | 画像生成、クロマキー除去、ピクセル化、キャンバス調整、検証により透明 PNG のピクセルアート素材を作る。 |
 
 ### 評価と調整
@@ -63,6 +65,8 @@
 | Skill                     | 用途                                                                                                     |
 | ------------------------- | -------------------------------------------------------------------------------------------------------- |
 | [`extracting-agent-skills`](.agents/skills/extracting-agent-skills/SKILL.md) | 完了、停止、放棄、失敗したプロジェクトから再利用可能な手順、検証ループ、デバッグ法、判断規則を抽出する。 |
+| [`extracting-spec-design-ladders`](.agents/skills/extracting-spec-design-ladders/SKILL.md) | ソースコードを「再現仕様」と「抽象設計書」の二層アーティファクトに逆工学する。両層の役割を重複させず、抽出ログで監査可能にする。 |
+| [`gating-by-blind-restoration`](.agents/skills/gating-by-blind-restoration/SKILL.md) | 仕様、設計書、スキーマ、契約などの抽象層が自己完結しているかを、その層のみを渡した独立サブエージェントによる盲目的再構築で検証する。判定は pass / weak-pass / fail。 |
 | [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 大きな repo agent 指示ファイルを監査し、反復 workflow を skill へ、必須 check を script/hook/CI へ、安定 policy を簡潔な repo 指示へ移す。 |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
 
