@@ -30,6 +30,7 @@
 | Skill                        | 用途                                                                                                       |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 小規模ゲームのルール、操作、得点、危険、報酬、終了条件を設計する。放置、長押し固定、連打の最適化を防ぐ。   |
+| [`designing-minimal-game-rules`](.agents/skills/designing-minimal-game-rules/SKILL.md) | 抽象的なゲーム設計の種から、離散状態の最小ルール体系を作る。対立軸の候補生成、単純戦略による攻撃、最小核への削減を行う。 |
 | [`designing-one-button-games`](.agents/skills/designing-one-button-games/SKILL.md) | タップ、長押し、リリースを使う一ボタンミニゲームを設計する。新規性、リスクと報酬、短い難度曲線を重視する。 |
 | [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | 1978〜1983 年代の固定画面アーケードゲームコンセプトを複数一括生成・評価し、上位コンセプトの実装仕様を書く。 |
 | [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
@@ -68,6 +69,7 @@
 | [`extracting-spec-design-ladders`](.agents/skills/extracting-spec-design-ladders/SKILL.md) | ソースコードを「再現仕様」と「抽象設計書」の二層アーティファクトに逆工学する。両層の役割を重複させず、抽出ログで監査可能にする。 |
 | [`gating-by-blind-restoration`](.agents/skills/gating-by-blind-restoration/SKILL.md) | 仕様、設計書、スキーマ、契約などの抽象層が自己完結しているかを、その層のみを渡した独立サブエージェントによる盲目的再構築で検証する。判定は pass / weak-pass / fail。 |
 | [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 大きな repo agent 指示ファイルを監査し、反復 workflow を skill へ、必須 check を script/hook/CI へ、安定 policy を簡潔な repo 指示へ移す。 |
+| [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実行結果の artifact をもとに再利用可能な agent workflow を改善する。失敗原因を分類してから、根拠のある最小の workflow 差分を提案する。 |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
 
 ### 文書とローカライズ
