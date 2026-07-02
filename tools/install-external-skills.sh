@@ -5,7 +5,7 @@
 #
 # Usage:
 #   tools/install-external-skills.sh            # install all
-#   tools/install-external-skills.sh karpathy-guidelines empirical-prompt-tuning
+#   tools/install-external-skills.sh empirical-prompt-tuning
 #
 # Re-running on an existing skill directory updates it in place via `git pull`
 # when the directory is a git checkout, otherwise re-fetches the SKILL.md only.
@@ -45,17 +45,6 @@ install_empirical_prompt_tuning() {
     "https://raw.githubusercontent.com/mizchi/skills/main/empirical-prompt-tuning/SKILL.md"
 }
 
-install_karpathy_guidelines() {
-  install_single_file "karpathy-guidelines" \
-    "https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/skills/karpathy-guidelines/SKILL.md"
-}
-
-install_develop_web_game() {
-  install_subtree "develop-web-game" \
-    "https://github.com/davila7/claude-code-templates.git" "main" \
-    "cli-tool/components/skills/creative-design/develop-web-game"
-}
-
 install_systematic_debugging() {
   install_single_file "systematic-debugging" \
     "https://raw.githubusercontent.com/mxyhi/ok-skills/main/systematic-debugging/SKILL.md"
@@ -69,8 +58,6 @@ install_systematic_debugging() {
 
 declare -A INSTALLERS=(
   [empirical-prompt-tuning]=install_empirical_prompt_tuning
-  [karpathy-guidelines]=install_karpathy_guidelines
-  [develop-web-game]=install_develop_web_game
   [systematic-debugging]=install_systematic_debugging
 )
 

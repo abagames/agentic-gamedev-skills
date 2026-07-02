@@ -43,6 +43,7 @@
 | [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Godot の headless CLI、ログ、スクリプトによるシーン編集、テスト、Web export を再現可能にする。                    |
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | `crisp-game-lib` のブラウザミニゲームを実装または修復する。セットアップ、ループ、描画順、衝突、得点、検証を扱う。 |
 | [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | ゲーム設計上の約束を、エンジン非依存の実装不変条件と検証項目に変換する。放置、長押し固定、連打、反復得点の優位を防ぐ。 |
+| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | ブラウザゲームを headless で起動し、放置と入力バーストを与えて console エラー・未捕捉例外・クラッシュを検出する。モックやシミュレータは通るがブラウザで落ちるコードを機械検出する。 |
 
 ### ゲーム演出
 
@@ -91,8 +92,6 @@
 次の skill は他リポジトリから取り込む。`.gitignore` に含め、ローカル利用してもこのリポジトリにはコミットしない。取得には `tools/install-external-skills.sh` を使う。引数で対象名を指定できる。
 
 - [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md): prompt、skill、slash command、`AGENTS.md` 形式の指示を評価・改善する反復手法。
-- [`karpathy-guidelines`](https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md): coding agent 向けの簡潔、限定的、前提明示、検証重視の指針。
-- [`develop-web-game`](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game): ブラウザ・canvas ゲーム向けの Playwright 検証つき反復 workflow。非 Godot Web game の参考に使う。
 - [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): `gd-agentic-skills` の Godot 4 アーキテクチャと実装リファレンス。必要時だけ使う。`install-external-skills.sh` は意図的に自動取得しない。
 - [`systematic-debugging`](https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。
 

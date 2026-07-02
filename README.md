@@ -43,6 +43,7 @@ External imported skills may keep their upstream names and structure.
 | [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Defines reproducible headless Godot workflows for CLI usage, logs, scene editing through scripts, tests, and Web export.                                        |
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | Implements or repairs browser mini-games with `crisp-game-lib`, including CDN/npm setup, game loop structure, drawing-order collision, scoring, and validation. |
 | [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | Translates game design promises into engine-neutral implementation invariants and validation checks that prevent idle, hold-only, mashing, or repeated scoring dominance. |
+| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | Smoke-tests a browser game build headlessly with idle time and input bursts, failing on console errors, uncaught exceptions, or crashes. Catches code that passes mock or simulator tests but crashes in a real browser. |
 
 ### Game Presentation
 
@@ -91,8 +92,6 @@ External imported skills may keep their upstream names and structure.
 The following skills are imported or referenced from other repositories and are listed in `.gitignore` so they can be fetched and used locally without being committed here. Run `tools/install-external-skills.sh` to fetch them (or pass specific names as arguments).
 
 - [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md): iterative methodology for evaluating and improving prompts, skills, slash commands, and `AGENTS.md`-style guidance.
-- [`karpathy-guidelines`](https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md): coding-agent guidelines that bias toward simple, surgical, assumption-aware, and verifiable changes.
-- [`develop-web-game`](https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game): web-game iteration and Playwright validation loop for browser/canvas games. Useful as a reference for non-Godot web game testing.
 - [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): Godot 4 architecture and implementation reference from `gd-agentic-skills`. Use selectively; do not install the full skill set by default (`install-external-skills.sh` deliberately skips it).
 - [`systematic-debugging`](https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md): root-cause-first debugging workflow for bugs, test failures, and unexpected behavior.
 

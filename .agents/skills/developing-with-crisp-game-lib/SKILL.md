@@ -188,6 +188,7 @@ For this repository's automated testers:
 - In generated test fixtures for this repository, keep game-specific helper logic inside `update()`; tester execution can miss helpers defined outside it. In normal user projects, small top-level helpers are acceptable if the target build/test harness runs them correctly.
 - Name moving hazard arrays with detectable terms such as `obstacles`, `enemies`, or `hazards` when useful. Verbose GA logs use those names to populate spawn analysis.
 - Prefer `addScore(points, x, y)` over `addScore(points, pos)` when you need accurate score-event positions in tester logs.
+- The headless simulator cannot detect collisions for shapes drawn only with `line`, `bar`, or `arc`. Give collision-critical entities a `box` or `rect` representation (visible or as the collision carrier) so automated collision checks can see them; keep `line`/`bar`/`arc` for decoration.
 
 ## 4. Mandatory Rules (Always Apply)
 
@@ -212,6 +213,8 @@ if (box(player.pos, 8).isColliding.rect.red) {
 color("red");
 enemies.forEach((e) => box(e.pos, 10));
 ```
+
+**Call only documented API functions.** A test mock or simulator may expose helper globals (such as `sign`) that do not exist in the browser bundle, so code can pass every automated test and still crash on the first real frame or input. If a helper is not in `references/api.md` or standard JavaScript, define it yourself or use the standard equivalent (`Math.sign`, etc.).
 
 **Do NOT manually draw the score.** The library automatically displays it. Never call `text()` for score display.
 
