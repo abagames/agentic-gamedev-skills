@@ -49,7 +49,7 @@ Validation milestones:
 - Post-implementation: add or update project-specific `res://tools/tests/run_tests.gd` before claiming logic, telemetry, scoring, or balance coverage.
 - Pre-export: run startup smoke again, run project-specific tests when present, then export Web to `build/web/index.html`.
 
-After copying, use `running-headless-godot` for scene editing, runtime verification, and Web export.
+After copying, continue with scene editing, runtime verification, and Web export through a reproducible headless-Godot workflow (the XDG preconditions above apply throughout).
 Read `assets/godot-base/TEMPLATE_SCOPE.md` before changing the template itself.
 Read `references/visual-implementation-patterns.md` when implementing a visual direction from `directing-game-visuals` in Godot.
 Read `references/godot-balance-pattern-examples.md` when applying `evaluating-gameplay-balance` patterns in GDScript.

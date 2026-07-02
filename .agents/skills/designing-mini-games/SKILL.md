@@ -1,6 +1,6 @@
 ---
 name: designing-mini-games
-description: "Designs compact, playable game rules and controls. Use when defining a new mini-game concept, converting creative constraints into mechanics, checking state-variable necessity, or preventing idle/mashing from becoming optimal."
+description: "Designs compact, playable game rules and controls. Use when defining a new mini-game concept, converting creative constraints into mechanics, checking state-variable necessity, or preventing idle/mashing from becoming optimal. For games controlled by a single button, use designing-one-button-games instead."
 ---
 
 Use this skill to turn a small game idea or creative constraints into clear mechanics.

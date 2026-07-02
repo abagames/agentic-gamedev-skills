@@ -51,8 +51,8 @@ faithful **reproduction spec** (enough to rebuild observable behavior) and an ab
 
 Validation is **not** run by you, the extractor — you have read the source and cannot judge
 the artifacts blind. It is run by an **independent** party (the orchestrator spawns a fresh
-agent that sees only the artifact text). Hand the artifacts off and apply the
-`gating-by-blind-restoration` skill, under firewall:
+agent that sees only the artifact text). Hand the artifacts off to an isolated
+blind-restoration gate run under firewall:
 
 - spec-only → can an implementable structure be recovered? (`pass` / `weak-pass` / `fail`)
 - design-only → can a reproduction spec hypothesis be recovered?

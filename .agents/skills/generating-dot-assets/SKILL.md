@@ -37,7 +37,7 @@ Default project layout:
 - Use `<PROJECT_DIR>/assets/sprites/` for final validated transparent PNGs.
 - Use `<stem>.prompt.md`, `<stem>.raw.png`, `<stem>.cutout.png`, `<stem>.pixel.png`, and `<stem>.palette.json` for generated working files.
 - If the final filename already exists and overwrite was not explicitly requested, use `<stem>_v2.png`, then `_v3`, etc. Apply the same suffix to prompt, raw, cutout, pixel, and palette files for that run.
-- For role-based game assets, read `<PROJECT_DIR>/VISUAL_DESIGN.md` or the README visual direction first. Explicit user or scenario constraints may be used when those files are unavailable; report the missing design docs and record the constraints in the prompt file. If neither design docs nor explicit constraints define role colors, run `directing-game-visuals` first or define a minimal Player / Danger / Reward palette before generating.
+- For role-based game assets, read `<PROJECT_DIR>/VISUAL_DESIGN.md` or the README visual direction first. Explicit user or scenario constraints may be used when those files are unavailable; report the missing design docs and record the constraints in the prompt file. If neither design docs nor explicit constraints define role colors, define a minimal Player / Danger / Reward palette (or run a visual-direction pass first) before generating.
 - Use `--colors <N>` for exploratory or one-off assets when exact project colors are not required. Create and pass a palette JSON when assets must share a project palette, match role colors, or stay consistent across a set.
 
 ## Workflow

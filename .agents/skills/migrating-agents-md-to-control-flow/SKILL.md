@@ -1,6 +1,6 @@
 ---
 name: migrating-agents-md-to-control-flow
-description: "Audits repositories that rely heavily on AGENTS.md, CLAUDE.md, copilot instructions, or similar agent instruction files, then migrates repeatable workflows into skills, mandatory checks into scripts/hooks/CI, and leaves only stable repo context, policy, and workflow entrypoints in repo instructions. Use when Codex is asked to reduce long natural-language agent instructions, create agent skills from repo workflows, codify mandatory checks, or produce an instruction migration report."
+description: "Audits repositories that rely heavily on AGENTS.md, CLAUDE.md, copilot instructions, or similar agent instruction files, then migrates repeatable workflows into skills, mandatory checks into scripts/hooks/CI, and leaves only stable repo context, policy, and workflow entrypoints in repo instructions. Use when the agent is asked to reduce long natural-language agent instructions, create agent skills from repo workflows, codify mandatory checks, or produce an instruction migration report."
 ---
 
 # Agent Instruction Migration
