@@ -11,6 +11,7 @@ Default artifacts:
 - If a project directory is known, record the polish plan, thresholds, and effect budgets in `<PROJECT_DIR>/FEEL_TUNING.md`.
 - For existing projects, inspect current entities/components/scripts, collision bounds, rendering hierarchy, particle/trail helpers, and performance notes before choosing file paths or effect names. If the path is absent, produce a standard path-based plan and say project inventory was skipped.
 - If polish changes gameplay readability, difficulty, visual/audio direction, or telemetry expectations, update the relevant short summary in `<PROJECT_DIR>/README.md`.
+- **Lightweight mode for small games**: for a mini-game on the order of one file / a few hundred lines, skip `FEEL_TUNING.md` and the project inventory; record the chosen register, the applied techniques, and any effect budgets as a roughly 3-line note in the README (or the main file's header comment) instead. Wherever this skill says to record something in `FEEL_TUNING.md`, that note is the substitute.
 
 ## 1. When to Use This Skill
 
@@ -148,6 +149,7 @@ If you can only do a few of these, apply them in this rough order of impact-per-
 The principles above are universal. Specific drawing primitives differ per engine — adapt as follows:
 
 ### When using crisp-game-lib
+- **Drawing is collision**: drawn shapes are the collision geometry, so the §4 baseline of render-only deformation does not apply — squashing, stretching, or tilting a gameplay shape changes its hitbox. Prefer feedback that leaves gameplay shapes untouched: `color()` changes and hit flashes, `particle()`, `play()` sounds, and camera-style effects. If you do deform a drawn gameplay shape, keep the deformation small enough that the hitbox stays honest.
 - **Rotation**: there is no `push/pop/translate/rotate`. Use `bar(x, y, length, thickness, rotate)` or `line()` to express rotated shapes. Rotation 0 = right, clockwise positive. For a vertical (upward-pointing) object, use `-PI/2` as the base rotation and add tilt offsets to that.
 - **Particles**: the color of `particle()` is determined by the preceding `color()` call. You cannot specify color via parameters — call `color(...)` first, then `particle(pos, { count, speed, angle, angleWidth })`.
 
