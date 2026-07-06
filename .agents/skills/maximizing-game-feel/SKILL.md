@@ -60,18 +60,18 @@ Implementation baseline for 2D games:
 ### 4.1 Squash & Stretch
 - Stretch the object **vertically** at the start of a jump; squash **horizontally** on landing.
 - During idle, add a subtle breathing-like expansion and contraction.
-- **Enemies / obstacles**: an enemy that bounces off a wall squashes on impact and gradually returns to its original shape.
+- **Enemies / movable obstacles**: an enemy, or a bouncing/pushable obstacle, squashes on impact and gradually returns to its original shape. A fixed obstacle (a wall, a rooted spike) never lands or bounces, so squash doesn't apply — give it a hit-flash or particle burst instead (§4.7/§4.4).
 
 ### 4.2 Dynamic Tilt / Rotation
 - Tilt the object slightly in the direction of movement based on X-axis velocity or acceleration ("leaning forward").
-- **Enemies / obstacles**: moving enemies spin proportionally to their velocity.
-- Use rotation to telegraph state changes (charging, alerted, defeated) — not just movement.
+- **Enemies / movable obstacles**: moving enemies, and mobile obstacles like rolling boulders or bouncing hazards, spin or tilt proportionally to their velocity. A fixed obstacle (a wall, a rooted spike) has no velocity to tilt from.
+- Use rotation to telegraph state changes (charging, alerted, defeated) — not just movement. This is how a fixed obstacle can still use rotation (e.g., a turret rotating to aim) without velocity-based tilt.
 
 ### 4.3 Adding Expression (Eyes)
 - **Register gate**: eyes commit the game to a character / playful register. Only add them when the inferred register (see §3) supports faces. For abstract or serious themes, convey "looking / targeting" through orientation, a leading edge, or a focal highlight instead of drawing a face.
 - Draw "whites and pupils" inside the body shape.
 - Eyes should always look toward the **direction of movement** (or input direction, or the current target).
-- **Enemies / obstacles**: add eyes to enemies so they look toward their movement direction or toward the player. This single change does enormous work for personality.
+- **Any agentive object** — enemies, companions, collectibles, projectiles with a mind of their own — benefits equally, not just the player: add eyes so they look toward their movement direction or toward the player/target. This single change does enormous work for personality. Reserve the exception for genuinely inert obstacles (walls, spikes, static blocks) that don't act with intent — a face reads as false agency there. The real gate per object is legibility at its actual on-screen size (a 4–5px shape may not have room for a readable pupil), not its category.
 
 ### 4.4 Particle Effects
 - Scatter small fragments (dust clouds) from the feet on landing, jumping, dashing, or stopping; fade them out.
@@ -86,13 +86,14 @@ Implementation baseline for 2D games:
 - Move and scale through easing curves (ease-out for arrivals, ease-in for departures, a small overshoot-and-settle for "snap"), not linear ramps.
 - Add **anticipation** before a big action (a brief crouch before a jump, a wind-up before an attack) and **follow-through** after it (overshoot, then settle). This directly answers the "no anticipation, no follow-through, no weight" symptom.
 - Let dependent parts lag slightly behind the body (secondary motion) so motion reads as connected mass, not a rigid block.
-- **Enemies / obstacles**: telegraph attacks with a readable wind-up; let defeated enemies overshoot and settle rather than snapping to a pose.
+- **Enemies**: telegraph attacks with a readable wind-up; let defeated enemies overshoot and settle rather than snapping to a pose.
+- **Obstacles**: a destructible obstacle can get the same overshoot-and-settle on being destroyed instead of vanishing outright; a purely environmental hazard (a fixed wall or spike) has no attack or defeat to telegraph — its anticipation is instead a wind-up before it *activates* (e.g. a spike track that visibly winds up before triggering), not a snapping-to-pose bug.
 - Register note: works in every register — keep overshoot subtle for serious/realistic, more pronounced for playful.
 
 ### 4.7 Hit Flash / Damage Tint
 - On taking a hit, flash the whole sprite to a flat bright tint (white, or a hot color) for 1–3 frames, then return to normal.
 - Use a brief contact/invulnerability window so repeated flashes read clearly instead of strobing.
-- **Enemies / obstacles**: flash enemies on hit to confirm the hit registered even before they die; tint toward red/white as health drops.
+- **Enemies / destructible obstacles**: flash on hit to confirm the hit registered even before it dies or breaks; tint toward red/white as health drops. A hazard with no health (a fixed spike, a wall) has nothing to flash for.
 - Readability: keep the flash short and never let it mask the hazard silhouette during tight timing (see §6).
 
 ### 4.8 Hit Stop / Hit Pause
@@ -112,7 +113,7 @@ Implementation baseline for 2D games:
 - On impact, push the struck object back along the hit direction and ease it back; give the attacker a smaller opposite recoil so both sides feel the force.
 - For firing, add weapon recoil (a short backward kick that returns) and optionally a launch impulse as the projectile spawns.
 - Keep knockback on render/intent and reconcile with authoritative collision state; never shove the player into a hazard purely for feel.
-- **Enemies / obstacles**: knock enemies back on hit to confirm force and open space; heavier enemies should resist more (less knockback).
+- **Enemies / movable obstacles**: knock back on hit to confirm force and open space; heavier ones should resist more (less knockback). A fixed obstacle (a wall, a rooted spike) can't be knocked anywhere — give it a hit-flash/particle response instead (§4.7/§4.4).
 - Register note: snappy, large knockback reads playful/arcade; smaller, weightier knockback reads serious.
 
 ### 4.11 Distinct Feedback Vocabulary
