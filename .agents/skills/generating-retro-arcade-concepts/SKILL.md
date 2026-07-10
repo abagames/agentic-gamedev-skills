@@ -28,12 +28,17 @@ Pull toward (seeds, not templates): Game & Watch situational judgment, Space Inv
 
 Steer away from designs where level design is the primary fun: Pac-Man maze AI, Galaga formation staging, Xevious scrolling placement, Donkey Kong platform/ladder stages, Dig Dug combined terrain+enemy pressure.
 
+## Slate Diversity Policy
+
+Slates tend to collapse toward one economy type per run (whichever pattern is freshest in context). Diversity is enforced *intrinsically* via the Mechanism Signature taxonomy below — NOT by comparing against this project's own previously produced games. Do not scan the working repository's shipped-game directories (in this repo, `tmp/games/<slug>/` and `docs/<slug>/`) as a differentiation reference. Referencing, differentiating from, and drawing on well-known commercial games remains allowed and expected (seeds above, field 10 in the format).
+
 ## Workflow
 
-1. Generate 5 concepts, each in the 13-field format from `references/concept-generation-format.md`.
-2. Evaluate all 5 against the criteria in that reference (implementability, rule clarity, single-screen fit, low level-design dependency, risk/reward strength, replayability, differentiation, attract appeal, hardware fit).
-3. Select the 2 most promising concepts.
-4. Write an implementation specification for each selected concept (screen layout, object list, state transitions, collision detection, difficulty-escalation formula, game-over condition).
+1. Before any ideation, shuffle the reward-conversion values from the Mechanism Signature taxonomy in `references/concept-generation-format.md` and pre-assign one to each of the 5 concept slots without replacement — this makes a single-economy slate structurally impossible regardless of what was built recently. If the project brief itself constrains the economy type (e.g. "five defense games"), the brief wins: skip the axis-1 pre-assignment, note the override, and apply every reward-conversion distinctness requirement below to the risk-shape axis instead.
+2. Generate 5 concepts, each in the 14-field format from `references/concept-generation-format.md`, honoring each slot's assigned reward-conversion value.
+3. Evaluate all 5 against the criteria in that reference (implementability, rule clarity, single-screen fit, low level-design dependency, risk/reward strength, replayability, differentiation, attract appeal).
+4. Select the 2 most promising concepts. They must differ on the reward-conversion axis; if the two best scorers share it, promote the next-best concept with a different value and say so.
+5. Write an implementation specification for each selected concept (screen layout, object list, state transitions, collision detection, difficulty-escalation formula, game-over condition).
 
 Read `references/concept-generation-format.md` for the per-concept field list, the evaluation rubric, and the implementation-spec template.
 
@@ -43,4 +48,7 @@ Read `references/concept-generation-format.md` for the per-concept field list, t
 - Difficulty escalation is stated as a numerical formula, not as new content.
 - The attract-mode highlight is a concrete moment, not "it looks cool."
 - Idle and button-mashing are not the dominant strategy in any selected concept.
+- The slate honors the pre-assigned reward-conversion slots (no two concepts share a value), and every pair of concepts differs on at least 2 of the 4 mechanism-signature axes.
+- The 2 selected concepts differ on the reward-conversion axis.
+- Every concept's differentiation score went through the Nearest-Precedent Check in the reference: nearest well-known commercial precedent named with its 4-axis signature, matching-axes score cap applied, recall confidence stated.
 - Each selected concept's spec is concrete enough to start implementing from.
