@@ -75,12 +75,6 @@
 | [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実行結果の artifact をもとに再利用可能な agent workflow を改善する。失敗原因を分類してから、根拠のある最小の workflow 差分を提案する。 |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
 
-### 文書とローカライズ
-
-| Skill                             | 用途                                                                           |
-| --------------------------------- | ------------------------------------------------------------------------------ |
-| [`humanizing-bilingual-ai-writing`](.agents/skills/humanizing-bilingual-ai-writing/SKILL.md) | 英語・日本語の AI 的な文章を自然な文に直す。事実、意図、読者、英日整合を保つ。 |
-
 ## 補助ディレクトリ
 
 - `references/`: 詳細ガイド、チェックリスト、設計テンプレート、実装パターン。

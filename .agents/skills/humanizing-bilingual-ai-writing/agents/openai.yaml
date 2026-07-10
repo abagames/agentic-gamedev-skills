@@ -1,4 +1,0 @@
-interface:
-  display_name: "Bilingual AI Writing Humanizer"
-  short_description: "Make English and Japanese AI prose sound human"
-  default_prompt: "Use $humanizing-bilingual-ai-writing to revise this English or Japanese AI-generated document so it sounds natural while preserving facts."

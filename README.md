@@ -75,12 +75,6 @@ External imported skills may keep their upstream names and structure.
 | [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | Refines reusable agent workflows from real execution artifacts by classifying failure causes before proposing the smallest evidence-based workflow diff. |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | Performs structured, ruthless self-critique of the agent's immediately preceding response, covering assumptions, logical integrity, AI-specific pitfalls, risks, and revised confidence. Invoke explicitly when adversarial review of a prior answer is needed. |
 
-### Writing And Localization
-
-| Skill                             | Purpose                                                                                                                                            |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`humanizing-bilingual-ai-writing`](.agents/skills/humanizing-bilingual-ai-writing/SKILL.md) | Revises English and Japanese AI-sounding prose into natural, credible writing while preserving facts, intent, audience, and bilingual consistency. |
-
 ## Supporting Directories
 
 - `references/`: detailed guides, checklists, design templates, and implementation patterns.
