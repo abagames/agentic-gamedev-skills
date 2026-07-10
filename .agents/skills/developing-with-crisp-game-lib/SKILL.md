@@ -47,7 +47,8 @@ For reproducible assignments or committed projects:
       name="viewport"
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
-    <!-- Optional: only required if you use algo-chip helpers -->
+    <!-- REQUIRED for any sound: crisp-game-lib 1.5.0+ built-in audio (play()/BGM)
+         silently no-ops without the AlgoChip/AlgoChipUtil globals (no console error) -->
     <script src="https://unpkg.com/algo-chip@1.1.0/packages/core/dist/algo-chip.umd.js"></script>
     <script src="https://unpkg.com/algo-chip@1.1.0/packages/util/dist/algo-chip-util.umd.js"></script>
     <script src="https://unpkg.com/crisp-game-lib@<verified-version>/docs/bundle.js"></script>
@@ -94,7 +95,8 @@ If this project also uses `algo-chip` helpers, install or pin `crisp-game-lib` a
       name="viewport"
       content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1"
     />
-    <!-- Optional: only required if you use algo-chip helpers -->
+    <!-- REQUIRED for any sound: crisp-game-lib 1.5.0+ built-in audio (play()/BGM)
+         silently no-ops without the AlgoChip/AlgoChipUtil globals (no console error) -->
     <script src="https://unpkg.com/algo-chip@1.1.0/packages/core/dist/algo-chip.umd.js"></script>
     <script src="https://unpkg.com/algo-chip@1.1.0/packages/util/dist/algo-chip-util.umd.js"></script>
     <script type="module" src="./main.js"></script>
@@ -227,6 +229,10 @@ particle(pos, { count: 5, speed: 2, angle: PI }); // ✅ Preferred
 particle(pos, 5, 2, PI, PI); // ❌ Legacy format
 ```
 
+**Sound requires algo-chip (1.5.0+).** At init the bundle enables audio only if the `AlgoChip` and `AlgoChipUtil` globals exist (legacy projects may instead rely on the `sss` global); with neither, `isSoundEnabled` stays false and every `play()`/BGM call silently no-ops — no console error, so smoke tests pass on a silent game. Load both algo-chip scripts before `bundle.js` and verify `algoChipSession != null` after the first input.
+
+**`input.isJustPressed` merges ALL keyboard keys plus pointer.** In a game with key movement plus an action button, reading `input.isJustPressed` for the action fires on every arrow-key press. Read specific keys via `keyboard.code[...]`, and detect pointer-only clicks with `pointer.isJustPressed` (deriving it as `input.isJustPressed && !keyboard.isJustPressed` misses a click landing on the same frame as a key press).
+
 ## 5. Common Implementation Patterns (Optional)
 
 #### One-Button / Tap Game (Best for Mobile)
@@ -300,6 +306,7 @@ Open the game in a browser and check:
 - Collision detection works (drawing order is correct)
 - Score increases appropriately
 - `end()` triggers game over correctly
+- Sound actually plays: `algoChipSession != null` after first input (silent no-op is the failure mode, not an error)
 - Mobile: touch controls work if applicable
 
 ## 7. Key API Quick Reference
