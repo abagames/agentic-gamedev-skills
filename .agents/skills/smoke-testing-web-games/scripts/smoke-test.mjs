@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Browser smoke test for web games: opens a page headlessly, lets it run
-// idle, then sends input bursts (taps, holds, key presses), and fails on any
-// console error, uncaught exception, page crash, or failed page load.
+// idle, then sends input bursts (taps, holds, Space, arrow keys), and fails on
+// any console error, uncaught exception, page crash, or failed page load.
 //
 // Usage:
 //   node smoke-test.mjs <index.html path or URL> [--idle <sec>] [--input <sec>]
@@ -105,6 +105,18 @@ async function main() {
       await sleep(120);
     }
     await page.keyboard.press("Space");
+    // arrow keys: tap each, then a short held arrow (movement-driven games
+    // keep their main input path untested by pointer+Space alone)
+    for (const key of ["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"]) {
+      if (Date.now() >= deadline) break;
+      await page.keyboard.press(key);
+      await sleep(60);
+    }
+    if (Date.now() < deadline) {
+      await page.keyboard.down("ArrowLeft");
+      await sleep(250);
+      await page.keyboard.up("ArrowLeft");
+    }
     // hold-and-release
     await page.mouse.move(400, 300);
     await page.mouse.down();

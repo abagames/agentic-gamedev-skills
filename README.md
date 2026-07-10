@@ -44,6 +44,7 @@ External imported skills may keep their upstream names and structure.
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | Implements or repairs browser mini-games with `crisp-game-lib`, including CDN/npm setup, game loop structure, drawing-order collision, scoring, and validation. |
 | [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | Translates game design promises into engine-neutral implementation invariants and validation checks that prevent idle, hold-only, mashing, or repeated scoring dominance. |
 | [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | Smoke-tests a browser game build headlessly with idle time and input bursts, failing on console errors, uncaught exceptions, or crashes. Catches code that passes mock or simulator tests but crashes in a real browser. |
+| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | Verifies that implemented mechanics match their spec by injecting game state into a live headless browser and asserting the resulting transitions (phase changes, scoring formulas, gates, resets). Sits between smoke testing (runtime health) and balance evaluation (play quality). |
 
 ### Game Presentation
 

@@ -14,7 +14,7 @@ Mock- or simulator-based tests share an environment gap with the browser: a mock
 ## Scope
 
 - **In scope**: page loads, runs idle without errors, and survives taps, holds, and key presses.
-- **Out of scope**: gameplay quality, balance, difficulty, visual correctness, and performance. A PASS means "the build runs", not "the game is good".
+- **Out of scope**: gameplay quality, balance, difficulty, visual correctness, and performance. A PASS means "the build runs", not "the game is good". For spec-conformance checks of individual mechanics (state transitions, scoring formulas), use `probing-web-game-mechanics` instead; silent failures that produce no error (e.g. audio that no-ops when a dependency is missing) also pass this gate and need their own runtime check.
 
 ## Requirements
 
@@ -44,7 +44,7 @@ Exit codes: `0` pass, `1` errors detected or page failed to load, `2` harness pr
 ## Notes and Failure Modes
 
 - Serve over HTTP instead of `file://` if the game uses ES modules, fetch, or other origin-restricted features (e.g. `npx serve` or the project dev server).
-- The input schedule is generic (pointer + Space). If the game only reacts to other keys, extend the input phase or treat key coverage as untested.
+- The input schedule is generic (pointer + Space + arrow-key taps and a short arrow hold). If the game only reacts to other keys, extend the input phase or treat key coverage as untested.
 - A clean PASS on a page that failed to start its game loop is possible only if the page also emitted no errors; pair this gate with whatever gameplay-level checks the project already has.
 - Flaky CDN or ad-hoc network errors show up as `console.error` in the `load`/`idle` phase; rerun before treating them as game bugs.
 
