@@ -42,6 +42,7 @@
 | [`scaffolding-godot-mini-games`](.agents/skills/scaffolding-godot-mini-games/SKILL.md)     | Godot 4.2+ ミニゲームの最小構成を作る。Web export、テスト、テレメトリ、手続き型音声を含む。                       |
 | [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Godot の headless CLI、ログ、スクリプトによるシーン編集、テスト、Web export を再現可能にする。                    |
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | `crisp-game-lib` のブラウザミニゲームを実装または修復する。セットアップ、ループ、描画順、衝突、得点、検証を扱う。 |
+| [`arcadifying-mini-games`](.agents/skills/arcadifying-mini-games/SKILL.md) | 動作確認済みのミニゲームに、ラウンド構造、儀式画面（READY・クリア・ミス・ゲームオーバー）、スコア経済（エクステンド、イニシャル入力、ハイスコア表）、アトラクトモードを加え、完成したアーケードゲームに仕上げる。 |
 | [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | ゲーム設計上の約束を、エンジン非依存の実装不変条件と検証項目に変換する。放置、長押し固定、連打、反復得点の優位を防ぐ。 |
 | [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | ブラウザゲームを headless で起動し、放置と入力バーストを与えて console エラー・未捕捉例外・クラッシュを検出する。モックやシミュレータは通るがブラウザで落ちるコードを機械検出する。 |
 | [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | 稼働中の headless ブラウザにゲーム状態を注入し、フェーズ遷移、得点式、ゲート、リセットが仕様どおりかを検証する。スモークテスト（動作健全性）とバランス評価（プレイ品質）の中間層を担う。 |
