@@ -29,9 +29,8 @@
 
 | Skill                        | 用途                                                                                                       |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 小規模ゲームのルール、操作、得点、危険、報酬、終了条件を設計する。放置、長押し固定、連打の最適化を防ぐ。   |
+| [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 任意の入力構成(タップ、長押し、リリースの一ボタンゲームを含む)のミニゲームのルール、操作、得点、危険、難度曲線を設計する。放置、長押し固定、連打の最適化を防ぐ。 |
 | [`designing-minimal-game-rules`](.agents/skills/designing-minimal-game-rules/SKILL.md) | 抽象的なゲーム設計の種から、離散状態の最小ルール体系を作る。対立軸の候補生成、単純戦略による攻撃、最小核への削減を行う。 |
-| [`designing-one-button-games`](.agents/skills/designing-one-button-games/SKILL.md) | タップ、長押し、リリースを使う一ボタンミニゲームを設計する。新規性、リスクと報酬、短い難度曲線を重視する。 |
 | [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | 1978〜1983 年代の固定画面アーケードゲームコンセプトを複数一括生成・評価し、上位コンセプトの実装仕様を書く。 |
 | [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
 

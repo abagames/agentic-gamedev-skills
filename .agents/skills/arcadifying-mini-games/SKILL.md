@@ -1,6 +1,6 @@
 ---
 name: arcadifying-mini-games
-description: 'Converts a working mini-game into a complete arcade game by adding round structure, ceremony screens (READY / round clear / death / game over), a score economy (extends, round bonuses, initials entry, high-score table), and jingle/SE separation. Use when a playable game with a verified core loop still "feels like a minigame" and needs arcade completeness — rounds or waves, 1UP extends, name entry, attract mode. Not for designing the core mechanic itself (use designing-mini-games or designing-one-button-games first).'
+description: 'Converts a working mini-game into a complete arcade game by adding round structure, ceremony screens (READY / round clear / death / game over), a score economy (extends, round bonuses, initials entry, high-score table), and jingle/SE separation. Use when a playable game with a verified core loop still "feels like a minigame" and needs arcade completeness — rounds or waves, 1UP extends, name entry, attract mode. Not for designing the core mechanic itself (use designing-mini-games first).'
 ---
 
 # Arcadifying Mini-Games

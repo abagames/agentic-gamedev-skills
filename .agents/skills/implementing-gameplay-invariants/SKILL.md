@@ -9,9 +9,9 @@ description: "Translates game design prose into engine-neutral implementation in
 
 Turn design intent into concrete implementation constraints. This skill sits between game design and engine-specific coding: it converts statements such as "mashing should be worse than timed play" into invariants, implementation patterns, and validation checks that can be applied in any engine.
 
-Use this skill even without `designing-one-button-games` when a game spec contains risk/reward prose but does not say how the code will enforce it.
+Use this skill even without `designing-mini-games` when a game spec contains risk/reward prose but does not say how the code will enforce it.
 
-If the game has no design spec yet, start with `designing-one-button-games` for one-button briefs or `designing-mini-games` for multi-input briefs.
+If the game has no design spec yet, start with `designing-mini-games` (it covers one-button and multi-input briefs).
 
 ## When to Use
 
