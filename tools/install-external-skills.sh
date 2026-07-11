@@ -31,7 +31,9 @@ install_subtree() {
   local dest="$SKILLS_DIR/$name"
   local tmp
   tmp="$(mktemp -d)"
-  trap 'rm -rf "$tmp"' RETURN
+  # Self-clearing: a bare RETURN trap would persist after this function
+  # returns and reference the out-of-scope $tmp under `set -u`.
+  trap 'rm -rf "$tmp"; trap - RETURN' RETURN
   echo "→ $name (subtree $subdir of $repo@$ref)"
   git clone --depth 1 --branch "$ref" --filter=blob:none --sparse "$repo" "$tmp/repo" >/dev/null 2>&1
   ( cd "$tmp/repo" && git sparse-checkout set "$subdir" >/dev/null )
@@ -42,19 +44,24 @@ install_subtree() {
 
 install_empirical_prompt_tuning() {
   install_single_file "empirical-prompt-tuning" \
-    "https://raw.githubusercontent.com/mizchi/skills/main/empirical-prompt-tuning/SKILL.md"
+    "https://raw.githubusercontent.com/mizchi/skills/main/meta/empirical-prompt-tuning/SKILL.md"
 }
 
+# systematic-debugging references sibling files (root-cause-tracing.md, etc.),
+# so it must be fetched as a directory, not a single SKILL.md.
 install_systematic_debugging() {
-  install_single_file "systematic-debugging" \
-    "https://raw.githubusercontent.com/mxyhi/ok-skills/main/systematic-debugging/SKILL.md"
+  install_subtree "systematic-debugging" \
+    "https://github.com/obra/superpowers.git" "main" "skills/systematic-debugging"
 }
 
-# godot-master: README states "Use selectively; do not install the full skill
-# set by default." This script intentionally does not auto-install it. To pull a
-# specific subtree by hand:
-#   install_subtree "godot-master" \
-#     "https://github.com/thedivergentai/gd-agentic-skills.git" "main" "<subdir>"
+# godot-master (gd-agentic-skills): never auto-installed. Per README, pull
+# individual engine-topic skills only (e.g. godot-tweening, godot-particles,
+# godot-debugging-profiling); the architecture doctrine and genre skills target
+# production-scale Godot 4.7+ games and conflict with this repo's minimal
+# mini-game approach. To pull one skill by hand:
+#   install_subtree "godot-tweening" \
+#     "https://github.com/thedivergentai/gd-agentic-skills.git" "main" \
+#     "skills/godot-tweening"
 
 declare -A INSTALLERS=(
   [empirical-prompt-tuning]=install_empirical_prompt_tuning

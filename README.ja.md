@@ -86,9 +86,9 @@
 
 次の skill は他リポジトリから取り込む。`.gitignore` に含め、ローカル利用してもこのリポジトリにはコミットしない。取得には `tools/install-external-skills.sh` を使う。引数で対象名を指定できる。
 
-- [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md): prompt、skill、slash command、`AGENTS.md` 形式の指示を評価・改善する反復手法。
-- [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): `gd-agentic-skills` の Godot 4 アーキテクチャと実装リファレンス。必要時だけ使う。`install-external-skills.sh` は意図的に自動取得しない。
-- [`systematic-debugging`](https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。
+- [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/meta/empirical-prompt-tuning/SKILL.md): prompt、skill、slash command、`AGENTS.md` 形式の指示を評価・改善する反復手法。
+- [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): `gd-agentic-skills` の Godot 4 アーキテクチャと実装リファレンス。エンジン固有トピックのスキル(例: `godot-tweening`、`godot-particles`、`godot-debugging-profiling`)だけを `install-external-skills.sh` の `install_subtree` で個別に取得する。アーキテクチャ教義とジャンル別スキルはプロダクション規模の Godot 4.7+ ゲームが対象で、このリポジトリの最小構成ミニゲーム方針と衝突するため、全量インストールはしない(スクリプトも意図的に自動取得しない)。
+- [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。
 
 ## リポジトリツール
 

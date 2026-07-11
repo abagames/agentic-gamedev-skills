@@ -1,5 +1,7 @@
 .agents/skills/empirical-prompt-tuning/
-.agents/skills/godot-master/
+# godot-* covers skills pulled individually from gd-agentic-skills
+# (godot-master, godot-tweening, ...); local skills never use this prefix.
+.agents/skills/godot-*/
 .agents/skills/systematic-debugging/
 tmp/
 .codex/

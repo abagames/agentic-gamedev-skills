@@ -86,9 +86,9 @@ External imported skills may keep their upstream names and structure.
 
 The following skills are imported or referenced from other repositories and are listed in `.gitignore` so they can be fetched and used locally without being committed here. Run `tools/install-external-skills.sh` to fetch them (or pass specific names as arguments).
 
-- [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/empirical-prompt-tuning/SKILL.md): iterative methodology for evaluating and improving prompts, skills, slash commands, and `AGENTS.md`-style guidance.
-- [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): Godot 4 architecture and implementation reference from `gd-agentic-skills`. Use selectively; do not install the full skill set by default (`install-external-skills.sh` deliberately skips it).
-- [`systematic-debugging`](https://github.com/mxyhi/ok-skills/blob/main/systematic-debugging/SKILL.md): root-cause-first debugging workflow for bugs, test failures, and unexpected behavior.
+- [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/meta/empirical-prompt-tuning/SKILL.md): iterative methodology for evaluating and improving prompts, skills, slash commands, and `AGENTS.md`-style guidance.
+- [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): Godot 4 architecture and implementation reference from `gd-agentic-skills`. Pull individual engine-topic skills only (e.g. `godot-tweening`, `godot-particles`, `godot-debugging-profiling`) via `install_subtree` in `install-external-skills.sh`; its architecture doctrine and genre skills target production-scale Godot 4.7+ games and conflict with this repo's minimal mini-game approach, so never install the full set (the script deliberately skips it).
+- [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): root-cause-first debugging workflow for bugs, test failures, and unexpected behavior.
 
 ## Repository Tools
 
