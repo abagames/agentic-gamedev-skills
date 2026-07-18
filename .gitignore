@@ -1,8 +1,15 @@
+# External Skill References — keep in the same order as README.md.
 .agents/skills/empirical-prompt-tuning/
-# godot-* covers skills pulled individually from gd-agentic-skills
-# (godot-master, godot-tweening, ...); local skills never use this prefix.
+.agents/skills/godot-master/
+# Optional topic skills pulled individually from gd-agentic-skills
+# (godot-tweening, godot-particles, ...); local skills never use this prefix.
 .agents/skills/godot-*/
+.agents/skills/writing-great-skills/
+.agents/skills/source-driven-development/
+.agents/skills/browser-testing-with-devtools/
+.agents/skills/performance-optimization/
 .agents/skills/systematic-debugging/
+
 tmp/
 .codex/
 .claude/

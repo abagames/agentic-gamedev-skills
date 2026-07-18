@@ -84,13 +84,17 @@
 
 ## 外部 Skill 参照
 
-次の skill は他リポジトリから取り込む。`.gitignore` に含め、ローカル利用してもこのリポジトリにはコミットしない。取得には `tools/install-external-skills.sh` を使う。引数で対象名を指定できる。
+次の個別 skill は、特定のローカル workflow を補完するため、他リポジトリから取り込むか参照する。`.gitignore` に含め、ローカルで評価・利用してもこのリポジトリにはコミットしない。`tools/install-external-skills.sh` は対応済みの対象を取得する。参照のみの skill は上流 collection を全量導入せず、個別に評価・調整する。
 
 - [`empirical-prompt-tuning`](https://github.com/mizchi/skills/blob/main/meta/empirical-prompt-tuning/SKILL.md): prompt、skill、slash command、`AGENTS.md` 形式の指示を評価・改善する反復手法。
 - [`godot-master`](https://github.com/thedivergentai/gd-agentic-skills): `gd-agentic-skills` の Godot 4 アーキテクチャと実装リファレンス。エンジン固有トピックのスキル(例: `godot-tweening`、`godot-particles`、`godot-debugging-profiling`)だけを `install-external-skills.sh` の `install_subtree` で個別に取得する。アーキテクチャ教義とジャンル別スキルはプロダクション規模の Godot 4.7+ ゲームが対象で、このリポジトリの最小構成ミニゲーム方針と衝突するため、全量インストールはしない(スクリプトも意図的に自動取得しない)。
+- [`writing-great-skills`](https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md): trigger 設計、検査可能な完了条件、progressive disclosure、no-op・重複・陳腐化した指示の剪定を扱う skill 作成リファレンス。新たに抽出した skill や実証的に改善した skill を引き締める際、`extracting-agent-skills` と `refining-workflows-from-artifacts` に組み合わせる。上流の invocation metadata が異なる場合も、このリポジトリの frontmatter 規約を維持する。
+- [`source-driven-development`](https://github.com/addyosmani/agent-skills/blob/main/skills/source-driven-development/SKILL.md): 公式ドキュメントに基づくバージョン対応の実装 workflow。現行の engine・browser・library API に依存する場合、`developing-with-crisp-game-lib`、`running-headless-godot`、`scaffolding-godot-mini-games` に組み合わせる。これらの domain workflow を置き換えず、プロジェクト固有の検証を補完する。
+- [`browser-testing-with-devtools`](https://github.com/addyosmani/agent-skills/blob/main/skills/browser-testing-with-devtools/SKILL.md): console、network、DOM、performance の実測による live browser 診断。`smoke-testing-web-games` または `probing-web-game-mechanics` がブラウザゲームの問題範囲を絞った後、より深い runtime 調査が必要な場合に組み合わせる。Chrome DevTools MCP が利用できない場合は workflow を調整する。
+- [`performance-optimization`](https://github.com/addyosmani/agent-skills/blob/main/skills/performance-optimization/SKILL.md): 計測優先の performance 調査と変更前後の検証。`smoke-testing-web-games` または `maximizing-game-feel` に performance gate を拡張する素材とし、汎用 Web application 向け指標は frame time、入力遅延、memory 増加、load size、代表的な device の budget などゲーム向け指標に置き換える。
 - [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。
 
 ## リポジトリツール
 
-- `tools/install-external-skills.sh`: 外部 skill を `.agents/skills/<name>/` に取得する。
+- `tools/install-external-skills.sh`: 対応済みの外部 skill を `.agents/skills/<name>/` に取得する。参照のみの項目は自動取得の対象外。
 - `tools/check-readme-skills.sh`: `.agents/skills/` の skill ディレクトリと README の記載を照合する。不一致なら非ゼロ終了する。
