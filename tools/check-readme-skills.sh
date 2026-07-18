@@ -30,13 +30,27 @@ mapfile -t in_readme < <(
     | tr -d '`' | sort -u
 )
 
-# Externally sourced (gitignored) skills
-mapfile -t external < <(grep -oE '\.agents/skills/[a-z0-9-]+/?' "$GITIGNORE" 2>/dev/null \
-  | sed -E 's#\.agents/skills/##; s#/$##' | sort -u || true)
+# Externally sourced (gitignored) skills. Preserve wildcard entries such as
+# godot-* so an installed matching directory is excluded from the local list,
+# while exact entries can also be required in README.md.
+mapfile -t external_patterns < <(
+  sed -nE 's#^\.agents/skills/([^/]+)/$#\1#p' "$GITIGNORE" | sort -u
+)
+external_exact=()
+for pattern in "${external_patterns[@]}"; do
+  if [[ "$pattern" != *'*'* && "$pattern" != *'?'* && "$pattern" != *'['* ]]; then
+    external_exact+=("$pattern")
+  fi
+done
 
 is_external() {
   local name="$1"
-  for e in "${external[@]:-}"; do [ "$e" = "$name" ] && return 0; done
+  local pattern
+  for pattern in "${external_patterns[@]}"; do
+    # The unquoted right-hand side intentionally applies .gitignore-style
+    # basename globs such as godot-* to one skill directory name.
+    [[ "$name" == $pattern ]] && return 0
+  done
   return 1
 }
 
@@ -48,10 +62,20 @@ contains() {
 
 missing_from_readme=()
 missing_from_disk=()
+missing_external_from_readme=()
 
 for name in "${on_disk[@]}"; do
-  if ! contains "$name" "${in_readme[@]}"; then
+  if ! contains "$name" "${in_readme[@]}" && ! is_external "$name"; then
     missing_from_readme+=("$name")
+  fi
+done
+
+# Exact external entries are part of the documented skill catalog even when
+# they are absent from a clean checkout. Wildcard entries describe optional
+# families and therefore do not require a literal README declaration.
+for name in "${external_exact[@]}"; do
+  if ! contains "$name" "${in_readme[@]}"; then
+    missing_external_from_readme+=("$name")
   fi
 done
 
@@ -78,6 +102,11 @@ fi
 if [ "${#missing_from_disk[@]}" -gt 0 ]; then
   echo "skills mentioned in README.md but not on disk (and not gitignored):" >&2
   printf '  - %s\n' "${missing_from_disk[@]}" >&2
+  status=1
+fi
+if [ "${#missing_external_from_readme[@]}" -gt 0 ]; then
+  echo "external skills in .gitignore but not mentioned in README.md:" >&2
+  printf '  - %s\n' "${missing_external_from_readme[@]}" >&2
   status=1
 fi
 

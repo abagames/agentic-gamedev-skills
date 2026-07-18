@@ -96,5 +96,6 @@
 
 ## リポジトリツール
 
-- `tools/install-external-skills.sh`: 対応済みの外部 skill を `.agents/skills/<name>/` に取得する。参照のみの項目は自動取得の対象外。
-- `tools/check-readme-skills.sh`: `.agents/skills/` の skill ディレクトリと README の記載を照合する。不一致なら非ゼロ終了する。
+- `tools/install-external-skills.sh`: 対応済みの外部 skill を段階配置先へ取得・検証してから `.agents/skills/<name>/` を置き換える。失敗時は導入済み版を保持する。参照のみの項目は自動取得の対象外。
+- `tools/check-readme-skills.sh`: ローカル skill ディレクトリと `.gitignore` の外部 skill 完全名を README と照合し、`godot-*` のような外部 family glob も考慮する。不一致なら非ゼロ終了する。
+- `tools/tests/test-repository-tools.sh`: ネットワークや導入済み skill を変更せず、installer の成功・失敗復元・path containment・README 整合性を検証する。

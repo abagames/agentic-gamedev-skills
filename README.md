@@ -96,5 +96,6 @@ The following individual skills are imported or referenced from other repositori
 
 ## Repository Tools
 
-- `tools/install-external-skills.sh` — fetch supported external skills into `.agents/skills/<name>/`; reference-only entries above are not automatic targets.
-- `tools/check-readme-skills.sh` — verify that every skill directory under `.agents/skills/` is mentioned in this README's tables (and vice versa). Exits non-zero on drift.
+- `tools/install-external-skills.sh` — stage and validate supported external skills before replacing `.agents/skills/<name>/`; failed updates preserve the installed version. Reference-only entries above are not automatic targets.
+- `tools/check-readme-skills.sh` — verify local skill directories and exact external `.gitignore` entries against this README, while honoring external family globs such as `godot-*`. Exits non-zero on drift.
+- `tools/tests/test-repository-tools.sh` — exercise installer success, failure recovery, path containment, and README consistency without network access or changes to installed skills.
