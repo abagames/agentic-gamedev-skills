@@ -70,6 +70,7 @@
 | [`extracting-agent-skills`](.agents/skills/extracting-agent-skills/SKILL.md) | 完了、停止、放棄、失敗したプロジェクトから再利用可能な手順、検証ループ、デバッグ法、判断規則を抽出する。 |
 | [`extracting-spec-design-ladders`](.agents/skills/extracting-spec-design-ladders/SKILL.md) | ソースコードを「再現仕様」と「抽象設計書」の二層アーティファクトに逆工学する。両層の役割を重複させず、抽出ログで監査可能にする。 |
 | [`gating-by-blind-restoration`](.agents/skills/gating-by-blind-restoration/SKILL.md) | 仕様、設計書、スキーマ、契約などの抽象層が自己完結しているかを、その層のみを渡した独立サブエージェントによる盲目的再構築で検証する。判定は pass / weak-pass / fail。 |
+| [`gating-expensive-batch-work`](.agents/skills/gating-expensive-batch-work/SKILL.md) | 高コストなアイテム単位作業のバッチを、全アイテムを対象とする安価で可逆なパスと、高コストで不可逆なパスに分割し、その間に手法凍結チェックポイントを置く。fresh seed、held-out データ、一度きりのクォータを消費する前に、誤ったルーブリックや変換規則を検出する。 |
 | [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 大きな repo agent 指示ファイルを監査し、反復 workflow を skill へ、必須 check を script/hook/CI へ、安定 policy を簡潔な repo 指示へ移す。 |
 | [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実行結果の artifact をもとに再利用可能な agent workflow を改善する。失敗原因を分類してから、根拠のある最小の workflow 差分を提案する。 |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
