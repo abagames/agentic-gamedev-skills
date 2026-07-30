@@ -24,5 +24,6 @@ Workflow:
 3. Map mechanics to visual state changes and feedback effects.
 4. Choose a 3-5 color palette with explicit gameplay roles.
 5. Validate that the protagonist / primary danger / primary reward read in a single still frame without HUD text.
+6. When implementation and runtime probing are in scope, expose stable palette roles and HUD layout anchors as **runtime-readable data**, and have the drawing code read the same object. Probe those semantic values in addition to screenshots. Do not require fixed coordinates for responsive or scene-graph layouts, and do not turn a visual-direction-only request into an implementation change.
 
 Read `references/visual-design-guide.md` for detailed pattern tables, design checklists, and the anti-generic visual addendum template.

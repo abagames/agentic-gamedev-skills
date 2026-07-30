@@ -42,6 +42,25 @@ faithful **reproduction spec** (enough to rebuild observable behavior) and an ab
    intent. Never leak exact constants, formulas, random ranges, tick counts, or source names.
    Add explicit recovery guidance: what to **treat as unspecified**, what is **safe to assume**,
    and the **restoration priority** order.
+
+   **The non-abstractable floor.** The following are **intent, never reproduction detail**, and
+   must appear in the design layer stated qualitatively. Dropping them is the characteristic
+   mis-abstraction of this ladder, because they read as mechanical and get filtered out with the
+   constants:
+
+   - **What an effect does on contact with each entity class** — arms it, destroys it, passes
+     through it, is absorbed by it. "A blast *arms* its neighbours" and "a blast *detonates* its
+     neighbours" describe two different games and neither requires a number.
+   - **Behaviour at boundaries** — what a moving or committed object does at a wall or screen
+     edge.
+   - **What counts toward the goal and the failure condition** — in particular whether events
+     the player did not cause are credited.
+
+   Each of these can be written without a single constant, and a design doc missing them cannot
+   transmit the core loop — which the doc's own restoration priority calls the thing that
+   matters most. Observed case: all three were dropped as "implementation detail", the gate
+   caught it, and every repair landed in the design layer with none in the spec, because the
+   spec had them all along.
 3. **Log** what was abstracted, preserved, omitted, and added as recovery guidance, so the
    abstraction is auditable. Keep it as a short section inside the design doc, OR — if the log
    needs to cite specific abstracted constants or source names — in a sibling log file, since
@@ -49,9 +68,14 @@ faithful **reproduction spec** (enough to rebuild observable behavior) and an ab
 
 ## Validation
 
-Validation is **not** run by you, the extractor — you have read the source and cannot judge
-the artifacts blind. It is run by an **independent** party (the orchestrator spawns a fresh
-agent that sees only the artifact text). Hand the artifacts off to an isolated
+Before handing off, run one self-check that costs nothing: **if a blind reader had to state the
+core loop in one sentence, which sentence of the design doc would they build it from?** If no
+single passage answers, the abstraction has already failed and the gate will only confirm it at
+full price.
+
+Validation itself is **not** run by you, the extractor — you have read the source and cannot
+judge the artifacts blind. It is run by an **independent** party (the orchestrator spawns a
+fresh agent that sees only the artifact text). Hand the artifacts off to an isolated
 blind-restoration gate run under firewall:
 
 - spec-only → can an implementable structure be recovered? (`pass` / `weak-pass` / `fail`)

@@ -5,7 +5,7 @@ description: 'Converts a working mini-game into a complete arcade game by adding
 
 # Arcadifying Mini-Games
 
-**Status: Validated (1 reuse)** — extracted from TAIL CONVOY; validated on BUBBLE BROKER (2026-07-10): the phase-machine rules pre-empted three bug classes and the screenshot requirement caught a real visual bug that value assertions passed. Caveat: the validating executor had incidental prior exposure to source-project code fragments, so it was not a fully blind reuse.
+**Status: Validated (2 reuses)** — extracted from TAIL CONVOY; validated on BUBBLE BROKER (2026-07-10): the phase-machine rules pre-empted three bug classes and the screenshot requirement caught a real visual bug that value assertions passed. Caveat: the validating executor had incidental prior exposure to source-project code fragments, so it was not a fully blind reuse. Second reuse on CHAIN DRIFT (2026-07-31): the persistence rules (factory table, merge-at-read, never write defaults back, new-entry-wins ties) were adopted verbatim and produced no bugs; the project diverged deliberately on the always-run entry phase and covered the declared attract-mode gap itself — both now folded back in below.
 
 ## Purpose
 
@@ -48,8 +48,21 @@ Phases: `ready` → `play` → (`clear` → `ready`) / (`death` → `play` or ga
 
 - Extend (1UP): first threshold ≈ 2–5× a decent first-run score, then a fixed interval (e.g. 5,000 then every 20,000). Estimate "a decent first-run score" from the round economy (quota × typical scoring chunk + clear bonuses over the first 2–3 rounds), or measure it with an autopilot/bot run — do not guess blind. Announce with a dedicated jingle + blinking text; cap displayed lives.
 - Round-clear bonus scaled by round number and remaining lives, tallied on the clear screen.
-- Initials entry (3 chars, arrows cycle + button confirms, ~15–30 s timeout) and a persisted top-5 table. When the engine owns the game-over screen and stops the update loop there (crisp-game-lib's `end()` does), run entry/table as phases *before* that call; engines where you draw the game-over screen yourself have no such ordering constraint.
-- Ship a factory-default score table (5th place reachable within a round or two, 1st ≈ a good single run, below the first extend) — an empty table makes the first game rank #1 for free and gives new players no target. Merge defaults at read time and never persist them on their own; only a qualifying real score writes storage. Break ties in the new entry's favor. Keep the entry phase always-run for non-qualifying scores (skip only the save) so attract replays stay deterministic.
+- Initials entry (3 chars, ~15–30 s timeout) and a persisted top-5 table. When the engine owns the game-over screen and stops the update loop there (crisp-game-lib's `end()` does), run entry/table as phases *before* that call; engines where you draw the game-over screen yourself have no such ordering constraint.
+
+  Two input models, and the choice is not cosmetic:
+
+  | Model | Interaction | Trade |
+  |---|---|---|
+  | **Cycle** | Up/Down changes the letter under the caret, Left/Right moves the caret | Compact, ~4 lines of code, authentically period — but **deletion and completion are invisible**; the player learns "how do I finish?" only by waiting out the timeout |
+  | **Board** | A character grid with `DEL` and `END` as selectable cells; arrows move a cursor, confirm picks | Needs most of a screen — but every available action is visibly on it |
+
+  Prefer **board** when the screen has room. It puts "how do I finish" in front of the player instead of relying on a timeout, which is the same defect class as any other rule that is correct and undrawn.
+
+  Two patterns worth copying regardless of model: **keep the ranking visible during entry**, and **preview the current run at its resulting rank using padded placeholder initials** (`---` before input) **without writing storage** — together they answer "why am I typing?" on the screen itself. Define the padding rule for incomplete names (right-pad with a filler character on `END` or timeout) so a walked-away player still produces a well-formed row.
+- Ship a factory-default score table (5th place reachable within a round or two, 1st ≈ a good single run, below the first extend) — an empty table makes the first game rank #1 for free and gives new players no target. Merge defaults at read time and never persist them on their own; only a qualifying real score writes storage. Break ties in the new entry's favor.
+
+- **Non-qualifying scores** — keep the entry phase always-run (skip only the save) **when attract mode uses the engine's input replay**, so replays stay deterministic. That is a replay-determinism constraint, not a design rule, and it is easy to misread as one. With a scripted autopilot there is no replay to desynchronize, and the recognition design may win instead: entering a name is the reward for reaching the visible table, so a score below the cut goes straight to the rankings. Decide from which attract mode you built, and record the reason.
 
 ### 5. Sound: jingles vs SEs
 
@@ -61,12 +74,21 @@ Reuse the engine's replay-recording facility if present. Two traps: the attract 
 
 Two additional traps for keyboard-controlled games when the engine's replay records only a unified pointer input, not per-key state (crisp-game-lib does): movement dies in attract mode unless a game-state-driven autopilot takes over under the replay flag, and any input-with-timeout ceremony (initials entry) stalls the attract loop for its full timeout — shorten such timeouts under the replay flag. Branching on the replay flag is deterministic per mode and safe.
 
-This section covers only the replay-based path. Engines with no replay facility need a scripted autopilot demo instead, which this skill does not cover.
+#### Scripted autopilot (no replay facility, or replay declined)
+
+When the engine has no replay recorder — or the project turned it down — the demo is a bot driving the real game. Two points carry the weight:
+
+- **Expose it as a policy interface**, not as attract-mode code: `setAutopilot(false | true | "naive")`, feeding **the same control record the keyboard produces**. One implementation then serves three consumers — the attract demo, the balance harness's skilled policy, and any harness that needs a live play screenshot. Wiring the bot directly into the attract branch instead is what forces the other two to be rebuilt later.
+- **A demo-quality bot is useless for fairness measurement.** It is tuned to look good, so it flees well and rarely dies, and "is this mechanic unfair?" comes back empty. Ship a **second, deliberately mediocre policy** alongside it — walk at the nearest target, act whenever the affordance is lit, never retreat — and ask fairness questions of that one. Pair it with a death log that records cause and frames-since-the-player's-own-action (see `probing-web-game-mechanics`), and the question becomes a query instead of an argument.
+
+Because the bot plays through the real phase machine, it also exercises the full cycle on every attract loop: game-over paths must stay safe to re-enter, and persistence writes still need guarding.
 
 ## Validation
 
 - Probe every phase transition and economy rule with state injection (`probing-web-game-mechanics` for browser games; an equivalent state-injection harness, e.g. headless engine tests, otherwise): quota → clear → next round, extend threshold, entry saving, gate/goal variants. Keep `phase`, round number, and computed round parameters probe-reachable (top-level variables in a classic-script setup, a deliberate debug handle in a bundled one) so probes can read and set them — a rule variant buried in frame-local consts is unverifiable.
 - **Screenshot each ceremony screen** — the entry/table class of bug (screen skipped in the same frame, clipped text) passes value assertions and only shows in screenshots.
+- **Size and place interactive cursors so they clear the playfield frame on the outermost rows and columns.** The clipped-cursor/clipped-text class is cheaper to prevent by geometry at layout time than to catch by screenshot after the fact — and a cursor that only clips on the top row or the outer column is exactly the case a single screenshot misses.
+- **Drive UI flows with at least two synonym keys per named action.** Probing arrows only leaves the WASD path untested and green; observed case, a name-entry cursor that accepted arrows alone in a game whose movement accepted both, which no gate caught.
 - Full-cycle check: title → attract loop → game → game over → entry → table → title, twice in a row.
 - Re-run the runtime smoke gate after wiring (`smoke-testing-web-games` for browser games; the project's equivalent runtime gate otherwise).
 

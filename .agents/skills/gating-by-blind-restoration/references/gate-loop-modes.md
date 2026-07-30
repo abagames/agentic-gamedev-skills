@@ -22,8 +22,16 @@ philosophies. Confusing them is a common and costly mistake.
 ### Downstream fidelity layers → find→fix→re-check loop
 
 - On `fail` / `weak-pass`, **repair the artifact in place** and re-run the gate.
-- On re-runs, pass the prior findings as `CLOSED` / `STILL-OPEN`, but the gate makes every new
-  judgment from scratch (a closed finding is re-verified, not trusted).
+- On re-runs, give the fresh blind grader **only the revised artifact**, exactly as in the first
+  run. After it returns, the evaluator compares the new reconstruction against the withheld key
+  from scratch, then reconciles prior findings as `CLOSED` / `STILL-OPEN`. Never put an expected
+  missing rule from a prior report inside the grader prompt.
+- **Exception — transmission repairs.** When what was repaired is the artifact's *transmission*
+  rather than its *content* (placement, emphasis, redundancy; a rule moved from a subordinate
+  clause into the rule summaries), the evaluator also records its new per-rule verdict before
+  consulting the prior report. Naming the repaired passages before judgment anchors the check
+  onto exactly the text under test and destroys the only thing being measured — whether an
+  unprimed reader now builds the right summary.
 - Cap rounds (e.g. 3). If the same blocker/major is still open at the cap, **abandon** the
   candidate rather than forcing it through.
 

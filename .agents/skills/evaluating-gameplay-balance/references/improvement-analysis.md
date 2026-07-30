@@ -7,6 +7,16 @@ The purpose is structural improvement of rules, generation logic, and state tran
 
 Project-specific execution rules remain outside this reference. This reference covers reusable improvement analysis and implementation patterns.
 
+### Repository-specific: GA-checked one-button games
+
+Applies only to repositories whose checker emits a genetic-search `detailedLog` and a
+`ratio.diagnostic` field. Ignore this section for hand-written harnesses.
+
+Verbose checker output should be used for improvement diagnosis, but do not infer fixes from
+monotonous-policy logs alone. Use the GA `detailedLog` to understand what exploratory play
+tried, then compare only the relevant policy summaries or focused probes needed to verify the
+suspected invariant.
+
 Notes:
 
 - Even when this guide uses exploratory ratio, treat the metric as a detector rather than the target.

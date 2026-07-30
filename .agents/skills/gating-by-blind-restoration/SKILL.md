@@ -32,10 +32,12 @@ grades their own work.
 
 ## Procedure
 
-1. Pick the gate direction:
+1. Pick the gate direction and prepare a **withheld evaluation key**:
    - **Restoration** — can the adjacent layer be recovered from this artifact alone?
    - **Degeneration** — does this generated artifact avoid a dominant exploit / collapse
      that a blind reconstructor would immediately find?
+   List the load-bearing rules or exploit conditions that the restored result must preserve.
+   The orchestrator keeps this key; the blind grader never sees it.
 2. Spawn an **independent** sub-agent, run by the orchestrator — never by the artifact's
    author, who has already seen the source and cannot judge blind. A freshly spawned grader
    that sees only the artifact text **is a real, independent gate**; its verdict is a true
@@ -47,21 +49,48 @@ grades their own work.
    sibling artifact, runtime traces, observations, screenshots, or repository paths. A single
    leak makes the verdict worthless.
 4. Task it to reconstruct the adjacent layer and report: recovered structure, ambiguities,
-   likely matches, and likely mismatches versus the (unseen) original.
-5. Return a verdict:
+   and the rules it treated as load-bearing. Do not ask it to speculate about matches versus
+   an original it cannot see.
+5. **Ask the counterfactual question.** For each rule the grader recovered, ask what it
+   **would actually have implemented**, not only what it believes the artifact says. A rule
+   the grader can quote but would have implemented differently **has not transmitted**. This
+   divergence is the gate's highest-value signal and a recoverability question alone cannot
+   produce it.
+6. After the blind grader returns, have an evaluator compare its reconstruction and
+   counterfactual implementation against the withheld key. This comparison happens **after**
+   the firewall measurement; never send the key back to the grader. The evaluator may inspect
+   the artifact to count occurrences and placement, but must not replace the grader's reported
+   reconstruction with its own reading.
+7. Return **two** verdicts.
+
+   Whole artifact:
    - `pass` — sufficient for the target restoration level.
    - `weak-pass` — core structure recoverable, exact details expected-missing.
    - `fail` — not enough recoverable structure; the artifact must be revised.
 
+   Per load-bearing rule, assigned by the evaluator from blind evidence:
+   - `unmissable` — the grader recovered it without prompting and its counterfactual
+     implementation matches the withheld key.
+   - `findable` — relevant text exists, but the grader missed it, reported ambiguity, or would
+     have implemented the opposite.
+   - `absent` — the grader did not recover it and the evaluator cannot locate an equivalent
+     rule in the artifact.
+
+   For `findable`, cite the misleading placement or emphasis that explains the transmission
+   failure. For `absent`, cite the withheld-key item that was not recovered; do not pretend the
+   blind grader could identify omitted content. Both are repair items even when the
+   whole-artifact verdict is `pass`.
+
 To wire gates into a multi-round generation/extraction pipeline (one-shot vs.
 find→fix→re-check, round caps, abandonment classification), load
-`references/gate-loop-modes.md`. For a single standalone check, steps 1–5 are enough.
+`references/gate-loop-modes.md`. For a single standalone check, steps 1–7 are enough.
 
 ## Validation
 
 The gate worked if the verdict is backed by **concrete recovered/missing structure**, not
 "looks fine": a `fail` must name a specific unrecoverable element or a specific dominant
-exploit; a `pass` must point at the structure it actually recovered.
+exploit; a `pass` must point at the structure it actually recovered. A per-rule verdict must
+trace the withheld-key item to the blind reconstruction and counterfactual answer.
 
 ## Common Failure Modes
 
@@ -70,8 +99,19 @@ exploit; a `pass` must point at the structure it actually recovered.
 - **Self-grading** — the author runs the gate; bias toward pass.
 - **Gating taste** — trying to firewall-test subjective quality instead of recoverability.
 - **Verdict without evidence** — a bare pass/fail with no recovered/missing structure named.
+- **Stated but not transmitted** — the artifact contains a rule, correctly and with its
+  rationale, and the grader still would have built the opposite. Observed: a rule present once,
+  in a subordinate clause following a more emphatic unconditional half, and absent from every
+  section the document designated as a rule summary; the grader quoted it as recovered and
+  named the opposite as what it would have implemented. Only step 5 surfaces this.
 
 ## Output
 
-A verdict (`pass` / `weak-pass` / `fail`) plus a short report: recovered structure,
-ambiguities, likely matches, and likely mismatches.
+Two verdicts — whole-artifact (`pass` / `weak-pass` / `fail`) and per-load-bearing-rule
+(`unmissable` / `findable` / `absent`) — plus a short report: recovered structure, ambiguities,
+the evaluator's key comparison, and the counterfactual answers from step 5.
+
+When an artifact passes after repair, have it carry an explicit note naming **which clauses are
+rules and must survive editing**. The strongest reinforcements a repair produces tend to be
+commentary *about* the gate, which is the first thing a later editor strips as scaffolding —
+losing the repair without touching a single rule statement.

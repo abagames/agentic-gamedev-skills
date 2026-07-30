@@ -101,6 +101,12 @@ Report the best score, elapsed time, seed, and variant. Keep the same search bud
 
 Record the exploratory runner's budget in the report: number of seeds, variants, generations, random samples, replay mutations, max ticks, and visible-state features. If this budget changes after a gameplay fix, rerun the baseline with the new budget before comparing.
 
+### Running policies concurrently
+
+Policies with fully isolated state (separate pages, processes, or engine instances, no shared storage) can run **in parallel only after a calibration run shows that concurrency does not materially change tick/frame counts or timer cadence**. A three-policy comparison over a 90 s observation window can then cost 90 s of wall time instead of 270 s. Record processed ticks/frames and observed slowdown for every run, keep the concurrency level fixed before and after a change, and discard or rerun samples affected by throttling. If policies contend differently or a parallel run diverges from a serial calibration, run them serially.
+
+State isolation is necessary but not sufficient — shared high-score storage, RNG, or audio context correlates samples, while shared CPU/GPU, browser event loops, and background-tab throttling can change how much simulation a wall-clock window contains.
+
 ## 5. Telemetry Events
 
 Log raw events first, then aggregate them into `log-contract.md`.

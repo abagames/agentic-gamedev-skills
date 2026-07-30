@@ -89,9 +89,14 @@ Use this compact form in specs, PR notes, or code reviews:
 - Design promise: <prose from spec>
 - Implementation invariant: <testable rule>
 - Pattern: <pattern ID from references/invariant-patterns.md, e.g. cooldown, per-target-cap, resource-drain>
+- Readout: <the persistent on-screen indicator that lets the player act on this rule — or why this rule changes no player decision>
 - Precheck: <whether the bad policy dies, survives safely, or must be score-capped>
 - Validation: <policy, telemetry, or seeded scenario that should fail if the invariant is broken>
 ```
+
+`Readout` is not documentation of the rule; it is part of the rule. An invariant that changes
+what the player should do, and is not drawn, is indistinguishable from an unfair game — see
+"Invisible rule" below.
 
 ## Common Failure Modes
 
@@ -103,6 +108,7 @@ Use this compact form in specs, PR notes, or code reviews:
 - Unbounded entities: scoring or hazard objects live too long, causing slow validation and spam score loops.
 - Seed-specific surprise: the validation seed creates early hazards/gaps that violate design assumptions, and the issue is found only after a full GA run.
 - Invariant conflict: the design requires mutually exclusive invariants (e.g., "idle must die" and "survival is the only scoring"). If resolving the conflict requires changing the Core Experience or discarding the tag relationship, report that the design is unsalvageable and recommend a Failure Report.
+- **Invisible rule**: the invariant is implemented correctly, passes every value assertion, and is never drawn on screen. This is the hardest class to catch and empirically one of the most common — in one measured project, **four of nine shipped-and-fixed bugs were this same defect** (the controls, an overload trigger, and a clear condition were each perfectly correct in the simulation and invisible to the player). Value assertions cannot detect it by construction: the simulation is right. Only a readout requirement plus a screenshot can.
 
 ## Validation
 
@@ -111,6 +117,7 @@ A change is valid when:
 - Each design promise has at least one implementation invariant.
 - Each monotonous policy has a visible cost or score cap.
 - Any indefinitely surviving monotonous policy has a scoring cap or score starvation rule.
+- **Every invariant that changes a player decision has a persistent readout, and that readout fills *before* the situation is bad rather than firing a warning once it already is.** A gauge that tracks crowding toward a cap teaches the player to act; an alarm at the moment of overload only narrates a loss. Add the readout in the same change as the rule, and screenshot it.
 - Seeded early-game random sequences have been checked when random initial hazards or gaps determine survivability.
 - Skilled play has a causal route to higher score or longer meaningful survival.
 - The implementation can be tested by policy comparison, telemetry, or a concrete manual checklist.

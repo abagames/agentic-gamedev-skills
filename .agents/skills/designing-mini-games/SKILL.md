@@ -27,7 +27,7 @@ At design time, keep constants qualitative unless the balance claim depends on a
 ## Core Rules
 
 - Keep the core experience expressible in one sentence.
-- Choose the input scheme first — button count and the role of each press / hold / release phase or button — and design controls before adding secondary systems. If the brief fixes a button count, design within it.
+- Choose the input scheme first — button count and the role of each press / hold / release phase or button — and design controls before adding secondary systems. If the brief fixes a button count, design within it. Record the **physical binding** for each named action alongside its role, not only the role: the scheme layer decides *how many* actions exist, and something still has to decide *which keys*. If no layer owns that, each screen invents its own binding and they drift apart.
 - Game-over is single, visually obvious, and follows from a hazard or world-state collapse — never from a "did not press" punishment.
 - Every monotonous input policy available under the chosen scheme must be strictly worse than skilled play: idle and mashing always; hold-only for one-button games; single-button-spam and hold-everything for multi-button games.
 - Score must come from in-world causality (close calls, precise timing, chain reactions), not raw input facts (taps per second). Prefer causal scoring events such as stomp, graze, batch erase, precise catch, cluster clear, route selection, or pressure cash-out. Survival score is acceptable only when survival itself is the core mastery signal; if used, explicitly state what skilled survival pattern separates good play from the monotonous policies.

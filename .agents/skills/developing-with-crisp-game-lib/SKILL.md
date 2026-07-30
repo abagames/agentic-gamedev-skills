@@ -218,7 +218,7 @@ enemies.forEach((e) => box(e.pos, 10));
 
 **Call only documented API functions.** A test mock or simulator may expose helper globals (such as `sign`) that do not exist in the browser bundle, so code can pass every automated test and still crash on the first real frame or input. If a helper is not in `references/api.md` or standard JavaScript, define it yourself or use the standard equivalent (`Math.sign`, etc.).
 
-**Do NOT manually draw the score.** The library automatically displays it. Never call `text()` for score display.
+**Do NOT manually draw the score** — *unless you have taken ownership of the arcade cycle* (see below). In the default mode the library displays it automatically; calling `text()` for score display then duplicates it.
 
 **White color is invisible** on all themes (matches background). Use `light_` variants or other colors instead.
 
@@ -231,7 +231,36 @@ particle(pos, 5, 2, PI, PI); // ❌ Legacy format
 
 **Sound requires algo-chip (1.5.0+).** At init the bundle enables audio only if the `AlgoChip` and `AlgoChipUtil` globals exist (legacy projects may instead rely on the `sss` global); with neither, `isSoundEnabled` stays false and every `play()`/BGM call silently no-ops — no console error, so smoke tests pass on a silent game. Load both algo-chip scripts before `bundle.js` and verify `algoChipSession != null` after the first input.
 
-**`input.isJustPressed` merges ALL keyboard keys plus pointer.** In a game with key movement plus an action button, reading `input.isJustPressed` for the action fires on every arrow-key press. Read specific keys via `keyboard.code[...]`, and detect pointer-only clicks with `pointer.isJustPressed` (deriving it as `input.isJustPressed && !keyboard.isJustPressed` misses a click landing on the same frame as a key press).
+**`input.isJustPressed` merges ALL keyboard keys plus pointer.** In a game with key movement plus an action button, reading `input.isJustPressed` for the action fires on every arrow-key press. Read specific keys via `keyboard.code[...]`, and detect pointer-only clicks with `pointer.isJustPressed` (deriving it as `input.isJustPressed && !keyboard.isJustPressed` misses a click landing on the same frame as a key press). `input.isJustPressed` remains correct for exactly one thing: "any input starts the game".
+
+**Bind keys once per named action, never per screen.** Define each action as a **set of synonym keys** in one place, and have every phase — play, ceremony screens, name entry, menus — read that set. Inlining key codes per screen is how one screen ends up accepting a binding the others do not: observed case, a name-entry cursor wired to arrows only in a game whose movement also accepted WASD, so WASD players could not enter their initials, and neither the probe suite nor the screenshot harness noticed because both press arrows.
+
+Default assignment:
+
+```javascript
+// movement (held)
+const moveLeft  = () => keyboard.code.ArrowLeft.isPressed  || keyboard.code.KeyA.isPressed;
+// action (edge) — Space plus both cabinet button positions, for either handedness
+const actionPressed = () =>
+  keyboard.code.Space.isJustPressed || keyboard.code.KeyZ.isJustPressed ||
+  keyboard.code.KeyX.isJustPressed  || keyboard.code.KeyJ.isJustPressed ||
+  keyboard.code.KeyK.isJustPressed;
+// confirm = the action set ∪ Enter
+const confirmPressed = () => actionPressed() || keyboard.code.Enter.isJustPressed;
+```
+
+Rationale, in order of importance: the two synonym pairs (`Z`/`X` with arrows, `J`/`K` with WASD) cover both handedness layouts; confirm is a **superset** of action, so a hand that learned the action button always works on ceremony screens; `Enter` is confirm-only, so a ceremony key never leaks into play.
+
+**Physical button count ≠ action count.** Binding both cabinet button positions (`Z`/`X`, `J`/`K`) to a single action is a synonym set, not a second action, and does not relax a one-button design constraint. Say so explicitly in the spec, or a later reader will treat the second key as evidence that a second action is available.
+
+**Owning the arcade cycle.** The default flow — library title screen, `end()` for game over, library-drawn score — is one mode. A game that wants its own attract loop, ceremony screens, name entry and score table takes the other, and the contract is all-or-nothing:
+
+- Leave `title` and `description` **undefined**. That keeps the bundle's `isNoTitle` true so `update()` runs from frame 0 and your code owns every phase. Defining either one hands control back to the library and breaks a custom attract mode.
+- **Never call `end()`.** Game over, name entry and the score table become your own phases.
+- Set `options.isShowingScore` **off** and draw score yourself — the library refreshes its own display only inside `initInGame()`, so in this mode a library-drawn score silently stops updating.
+- Queue frame-scheduled jingles while the update loop is still running; anything scheduled past the point where the loop stops never fires.
+
+Mixing the two modes is the failure: a self-owned cycle that still relies on the library's score display, or a default-mode game that defines its own game-over phase, produces bugs that look like rendering faults.
 
 ## 5. Common Implementation Patterns (Optional)
 
