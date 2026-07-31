@@ -73,7 +73,7 @@
 | [`gating-expensive-batch-work`](.agents/skills/gating-expensive-batch-work/SKILL.md) | 高コストなアイテム単位作業のバッチを、全アイテムを対象とする安価で可逆なパスと、高コストで不可逆なパスに分割し、その間に手法凍結チェックポイントを置く。fresh seed、held-out データ、一度きりのクォータを消費する前に、誤ったルーブリックや変換規則を検出する。 |
 | [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 大きな repo agent 指示ファイルを監査し、反復 workflow を skill へ、必須 check を script/hook/CI へ、安定 policy を簡潔な repo 指示へ移す。 |
 | [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実行結果の artifact をもとに再利用可能な agent workflow を改善する。失敗原因を分類してから、根拠のある最小の workflow 差分を提案する。 |
-| [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の応答を構造的に自己批判する。前提、論理、AI 特有の失敗、リスク、信頼度を点検する。                  |
+| [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の自分の応答を、前提、論理の飛躍、代替案、未検証の主張という観点で見直す advisory pass。明示的に呼び出して使う。批判対象と盲点を共有するため、独立した品質保証ではない。 |
 
 ## 補助ディレクトリ
 

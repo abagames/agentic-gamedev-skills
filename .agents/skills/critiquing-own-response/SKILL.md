@@ -1,96 +1,75 @@
 ---
 name: critiquing-own-response
-description: "Performs structured, ruthless critical self-review of the agent's own immediately preceding response. Use ONLY when the user explicitly requests critical-thinking, self-critique, criticalthink, or asks the agent to challenge / poke holes in its own prior answer. Do not use for code review of someone else's code, normal follow-up questions, or summarizing the prior answer."
+description: "Reviews the agent's own immediately preceding response as an advisory pass, surfacing assumptions, logical gaps, alternatives, and claims that remain unverified. Use ONLY when the user explicitly asks for self-critique, critical thinking, or for the agent to challenge or poke holes in its own prior answer. This is not independent quality assurance — it shares blind spots with the response it critiques. Do not use for normal follow-up questions, review of someone else's code, an automatic gate before finishing work, or a ritual self-check before every answer."
 ---
 
 # Critiquing Own Response
 
 ## Purpose
 
-Force the agent into a skeptical, adversarial review of its own immediately preceding answer in the same conversation, surfacing hidden assumptions, logical gaps, AI-specific failure modes, and overlooked risks rather than defending the prior response.
+Re-examine the agent's own immediately preceding answer from a skeptical stance, surfacing assumptions, logical gaps, unconsidered alternatives, and claims that were asserted without verification.
+
+This is an advisory pass, not a verdict. It does not certify the prior answer as correct.
 
 ## When to Use
 
-- The user invokes the skill by name, or asks for `criticalthink`, "critical thinking mode", "self-critique", "poke holes in your last answer", "challenge your previous response", "批判的に検討", or similar explicit triggers.
-- The agent has just produced a non-trivial answer (plan, design, recommendation, technical claim) that benefits from adversarial review before action is taken.
+- The user explicitly asks for `criticalthink`, "critical thinking mode", "self-critique", "poke holes in your last answer", "challenge your previous response", "批判的に検討", or invokes this skill by name.
+- The user asks the agent to examine the assumptions, reasoning, weaknesses, or counterexamples of its own immediately preceding answer.
 
 ## When Not to Use
 
-- The user wants a normal follow-up, clarification, or extension of the prior answer.
-- The user is asking for review of someone else's code or document — use `code-review` or another appropriate skill instead.
-- There is no immediately preceding agent response to critique (e.g. the very first turn).
-- The user wants praise, summary, or restatement.
+- A normal follow-up, clarification, or extension of the prior answer.
+- Review of someone else's code or document.
+- An automatic check before finishing work, or a ritual self-check before every final answer.
+- Formal review of a high-impact or irreversible change — that needs a reviewer who did not write the artifact and who works from the artifact and its verification results, not from this critique.
+- There is no immediately preceding agent response to critique.
+
+## Known Limitation
+
+The critique comes from the same model that wrote the answer, in the same context. It inherits the same blind spots, so a clean critique is weak evidence of correctness. Report it as one perspective on the prior answer, never as verification.
 
 ## Required Inputs
 
 - The agent's own immediately preceding response in the current conversation.
-- Earlier conversation context, to verify constraints and requirements were respected.
+- Earlier conversation context, to check whether stated constraints and requirements were respected.
 
 ## Language Matching
 
-Detect the primary language of the immediately preceding agent response. Conduct the entire critique in that language. Do not switch to English by default if the prior response was in Japanese (or vice versa).
+Detect the primary language of the immediately preceding agent response and write the entire critique in that language.
 
 ## Procedure
 
-Analyze ONLY the agent's immediately preceding response. Do not rewrite or improve the prior answer; critique it. Use these exact headings and numbering.
+Analyze ONLY the immediately preceding response. Critique it; do not rewrite it into an improved answer.
 
-### 1. Core Thesis & Confidence Score (Initial)
+1. State its central claim or recommendation in one sentence.
+2. Name the assumptions it depends on, prioritizing those whose falsification would invalidate it.
+3. Identify where the reasoning skips a step, overreaches, or contradicts an earlier constraint in the conversation.
+4. Give a concrete alternative or counterexample that the answer did not consider.
+5. Separate what was verified from what was asserted. Name the specific claims still resting on nothing.
+6. State whether the critique raised or lowered confidence in the answer, and which finding moved it.
 
-- **1-1. Core Thesis:** State the central solution or argument of the previous answer in one concise sentence.
-- **1-2. Initial Confidence:** Rate the confidence felt at generation time on a 1–10 scale.
-
-### 2. Foundational Analysis: Assumptions & Context
-
-- **2-1. High-Impact Assumptions:** List the top 3 assumptions whose falsification would invalidate the proposal. Cover technical, environmental, and resource assumptions.
-- **2-2. Contextual Integrity:** Verify that all earlier constraints and requirements were respected. Call out contradictions or forgotten details.
-
-### 3. Logical Integrity Analysis
-
-- **3-1. Premise Identification:** Name the fundamental premises or starting points of the argument.
-- **3-2. Chain of Inference:** Check whether premises connect step-by-step to the conclusion. Flag logical leaps and unsupported jumps.
-- **3-3. Potential Fallacies:** Identify any false dichotomy, hasty generalization, appeal to questionable authority, or similar fallacy.
-
-### 4. AI-Specific Pitfall Analysis
-
-Mark Pass/Fail for each, with a one-line justification on Fail.
-
-- **4-1. Problem Evasion:** Did the answer solve the stated problem but dodge the real underlying difficulty?
-- **4-2. "Happy Path" Bias:** Were error handling, edge cases, and failure scenarios neglected?
-- **4-3. Over-Engineering:** Was the solution unnecessarily complex?
-- **4-4. Factual Accuracy & Hallucination:** Are all technical details verifiably correct?
-
-### 5. Risk & Mitigation Analysis
-
-- **5-1. Overlooked Risks:** List the top 3 practical risks or negative consequences of acting on the suggestion.
-- **5-2. Alternative Scenarios:** Describe a fundamentally different approach that was not considered.
-
-### 6. Synthesis & Revised Recommendation
-
-- **6-1. Summary of Flaws:** Bullet the most critical weaknesses found.
-- **6-2. Revised Confidence Score:** Re-rate confidence on a 1–10 scale.
-- **6-3. Actionable Next Step:** State the single most important action the user should take BEFORE acting on the original advice.
-
-## Validation
-
-The critique is acceptable only if all of the following hold:
-
-- It targets the agent's immediately preceding response, not the user's prompt or earlier turns.
-- All six sections are present with the specified subsections and numbering.
-- At least one Fail is reported in section 4, OR each Pass is justified with concrete evidence (avoid blanket Pass without reasoning).
-- Section 6-2 Revised Confidence differs from 1-2 Initial Confidence, or the equality is explicitly justified by the findings.
-- Section 6-3 Actionable Next Step is concrete and executable (a specific check, test, or decision the user can perform), not generic advice like "consider carefully".
-- Output language matches the language of the prior response.
-
-## Common Failure Modes
-
-- **Defending instead of critiquing.** Restating the prior answer's strengths. Fix: lead with weaknesses; assume the prior answer is wrong until proven otherwise.
-- **Generic critique.** Producing platitudes such as "could be more robust". Fix: each finding must reference a specific claim, assumption, or step from the prior answer.
-- **Symmetric Pass/Fail.** Marking everything Pass to avoid conflict. Fix: if no Fail is found, justify each Pass with concrete evidence drawn from the prior answer.
-- **Skipping the language match.** Switching to English when the prior response was Japanese. Fix: detect language explicitly before writing.
-- **No revised confidence movement.** Repeating the initial score without analysis. Fix: state which findings raised or lowered confidence.
-- **Vague next step.** Closing with "be careful" instead of an executable action.
-- **Scope drift.** Critiquing the user's request, the conversation as a whole, or unrelated past turns. Fix: restrict scope strictly to the immediately preceding agent message.
+Every finding must point at a specific claim, assumption, or step in the prior answer. If a section has nothing real to report, say so and move on. Do not invent a flaw to fill it.
 
 ## Output
 
-A single critique document using the six top-level headings and the specified subsection numbering, in the language of the prior response. Do not append a rewritten "improved" answer; the user decides next steps based on section 6-3.
+```text
+Core claim:
+Important assumptions:
+Potential failure modes:
+Counterexamples or alternatives:
+Evidence still needed:
+Revised confidence: higher | unchanged | lower
+```
+
+`Revised confidence` records only the direction the critique moved confidence in, relative to how strongly the prior answer asserted itself. Do not produce a numeric score — a number assigned after the fact is a generated self-explanation, not a measurement.
+
+Close with the single most useful next check if one exists. Do not append a rewritten answer; the user decides what to act on.
+
+## Common Failure Modes
+
+- **Defending instead of critiquing.** Restating the prior answer's strengths. Fix: lead with weaknesses.
+- **Generic critique.** Platitudes such as "could be more robust". Fix: cite the specific claim or step being criticized.
+- **Manufactured findings.** Inventing flaws so the critique looks thorough. Fix: an honest "nothing found here" beats a fabricated concern.
+- **Scope drift.** Critiquing the user's request, the whole conversation, or unrelated earlier turns. Fix: restrict scope to the immediately preceding agent message.
+- **Skipping the language match.** Switching to English when the prior response was Japanese.
+- **Claiming verification.** Presenting the critique as confirmation that the answer is correct. Fix: see Known Limitation.
