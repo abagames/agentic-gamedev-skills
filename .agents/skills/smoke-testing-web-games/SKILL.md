@@ -1,6 +1,6 @@
 ---
 name: smoke-testing-web-games
-description: "Smoke-tests a browser game build by loading it in a headless browser, letting it idle, then sending input bursts, and failing on any console error, uncaught exception, or page crash. Use as a machine gate after implementing or changing a web game, especially to catch code that passes mock or simulator tests but crashes in a real browser. Checks runtime health only — it does not evaluate gameplay quality or balance. Requires Node 18+ and Playwright with Chromium available in the target project."
+description: "Smoke-tests a browser game build by loading it in a headless browser, letting it idle, then sending input bursts, and failing on any console error, uncaught exception, or page crash. Use as a machine gate once a change that can reach browser runtime is complete — game loop, input handling, dependency or entry-point wiring, build output — especially to catch code that passes mock or simulator tests but crashes in a real browser. Skip for documentation, comments, test-only edits, and assets the running build never loads. Checks runtime health only — it does not evaluate gameplay quality or balance. Requires Node 18+ and Playwright with Chromium available in the target project."
 ---
 
 # Smoke-Testing Web Games
@@ -14,6 +14,7 @@ Mock- or simulator-based tests share an environment gap with the browser: a mock
 ## Scope
 
 - **In scope**: page loads, runs idle without errors, and survives taps, holds, and key presses.
+- **When to run**: once per completed change unit, not after each edit. A run of several small edits to the same build needs one gate at the end, and a change that cannot reach the running build needs none.
 - **Out of scope**: gameplay quality, balance, difficulty, visual correctness, and performance. A PASS means "the build runs", not "the game is good". For spec-conformance checks of individual mechanics (state transitions, scoring formulas), use `probing-web-game-mechanics` instead; silent failures that produce no error (e.g. audio that no-ops when a dependency is missing) also pass this gate and need their own runtime check.
 
 ## Requirements

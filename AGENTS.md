@@ -31,6 +31,15 @@ Local skills should follow this style; external skills may keep their upstream f
 - Include both _what the skill does_ and _when to use it_ in the description so the agent can match on either.
 - The only required directory name for in-skill documentation is `references/`. Do not use `skills/`, `docs/`, or other variants.
 
+## Verification Scope
+
+Applies both to work done in this repository and to the verification steps skills prescribe.
+
+- Choose verification by what the change can reach at runtime and what a failure would cost, not by diff size or by which skill produced the change.
+- Start from the cheapest check that covers the change and stop once the current failure mode is covered.
+- Do not enter an expensive gate — real-browser runs, bot ladders, telemetry sweeps, independent agent review — merely because a skill mentions it, because an earlier step used a related skill, or because prior evidence is absent rather than negative.
+- Keep strict rules that exist for reproducibility, sandboxing, or irreversible cost; they are not scope creep.
+
 ## Validation
 
 Before finishing skill changes:

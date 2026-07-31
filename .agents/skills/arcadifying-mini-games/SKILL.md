@@ -13,12 +13,12 @@ The gap between a mini-game and a finished arcade game is rarely mechanics — i
 
 ## When to Use
 
-- A playable game exists, its core loop is verified (runs clean, idle/mash-proof, balance checked), and the goal is "make it a complete arcade game".
+- A playable game exists, its core loop is verified (runs clean, idle/mash-proof, balance checked), and the goal is "make it a complete arcade game". Confirm that from evidence that already exists — prior test runs, telemetry, play reports. Absent evidence is not a trigger to sweep smoke, mechanics probes, and balance evaluation before starting: run only the smallest check the arcadification itself depends on, or record the gap as a stated uncertainty.
 - The current difficulty is a monotonic drift and needs round-based pacing.
 
 ## When Not to Use
 
-- The core loop is not fun or not verified yet — fix that first (`designing-mini-games`, `evaluating-gameplay-balance`).
+- The core loop is known to be unfun or known to be broken — fix that first (`designing-mini-games`, `evaluating-gameplay-balance`).
 - Turn-based/puzzle games: round ceremony assumes real-time waves.
 
 ## Procedure

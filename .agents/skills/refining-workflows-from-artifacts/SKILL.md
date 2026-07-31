@@ -51,14 +51,16 @@ For capability-boundary-caused problems (E), add a human review point, tool requ
 
 ## Role Execution Model
 
-When the runtime supports subagents, use independent reviewers for:
+The four roles are Success Extractor, Failure Classifier, Workflow Diff Editor, and Deletion Reviewer.
 
-- Success Extractor
-- Failure Classifier
-- Workflow Diff Editor
-- Deletion Reviewer
+Run them as a single pass for a small, localized workflow fix. Availability of subagents is not by itself a reason to dispatch them. Split the roles into independent reviewers (separate subagents, or isolated sequential passes when subagents are unavailable) when one of these holds:
 
-If subagents are unavailable, run them as isolated sequential passes. The Failure Classifier must classify causes before the Workflow Diff Editor proposes changes. The Workflow Diff Editor must not change the workflow for A (task-caused) or B (execution-caused) problems unless the same issue recurs across runs.
+- The change affects several workflows or skills.
+- The evaluation criteria themselves are in dispute.
+- A wrong fix is expensive to undo.
+- Independence materially raises confidence in the conclusion.
+
+In either mode, the Failure Classifier must classify causes before the Workflow Diff Editor proposes changes. The Workflow Diff Editor must not change the workflow for A (task-caused) or B (execution-caused) problems unless the same issue recurs across runs.
 
 ## Cause Classification
 

@@ -88,6 +88,8 @@ If any item above is unspecified, do not start engine implementation — return 
 
 Once the engine satisfies Part 1, evaluate quality on two layers.
 
+Run Part 2 when quality itself is the question: a new or reworked rule set, an explicit balance or bot-strength assessment, or a change to `scoreState`, action legality, or bot logic. UI, wording, rendering, and pure serialization changes that leave the rule semantics untouched need the Part 1 contract checks only — do not re-run the ladder and metric suite for them.
+
 ### Layer A: Win-rate ladder
 
 Implement three bots over the contract:

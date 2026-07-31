@@ -1,6 +1,6 @@
 ---
 name: probing-web-game-mechanics
-description: "Verifies that implemented game mechanics match their spec by injecting game state into a live headless browser and asserting the resulting transitions (phase changes, scoring formulas, gates, resets). Use after implementing or changing a specific mechanic in a browser game — when a smoke test (runtime health) passes but spec conformance is unverified, or when a mechanic is too rare or slow to reach through organic play. Not for crash detection (use smoke-testing-web-games) or play-quality judgment (use evaluating-gameplay-balance)."
+description: "Verifies that implemented game mechanics match their spec by injecting game state into a live headless browser and asserting the resulting transitions (phase changes, scoring formulas, gates, resets). Use when a change actually reaches a mechanic whose spec conformance is unverified — a smoke test (runtime health) passes but the mechanic's own behavior has not been checked, or when a mechanic is too rare or slow to reach through organic play. Not for crash detection (use smoke-testing-web-games) or play-quality judgment (use evaluating-gameplay-balance)."
 ---
 
 # Probing Web-Game Mechanics
@@ -17,12 +17,13 @@ This sits between two other layers — keep them separate:
 
 ## When to Use
 
-- After implementing or changing a mechanic with discrete expected outcomes: scoring formulas, phase/state transitions, cooldowns, gates, multiplier resets, spawn rules.
+- After implementing or changing a mechanic with discrete expected outcomes: scoring formulas, phase/state transitions, cooldowns, gates, multiplier resets, spawn rules. Probe the mechanics the change reaches, not the whole rule set.
 - When the target state is rare or slow to reach organically (game over at high score, round 7 modifier, an enemy-vs-enemy interaction).
 - To verify anti-degenerate-play invariants with bot comparison (idle bot vs. active bot).
 
 ## When Not to Use
 
+- The change under review does not reach the mechanic in question.
 - The game's state is not reachable from the page's global scope and no debug handle can be added (see Required Inputs).
 - You only need "does it load and survive input" — that is a smoke test.
 - You are judging difficulty or fun — that is balance evaluation, not spec verification.
@@ -30,7 +31,7 @@ This sits between two other layers — keep them separate:
 ## Required Inputs
 
 - A runnable build (local `index.html` or dev-server URL) and Playwright + Chromium resolvable from the project directory.
-- **State reachability**: game variables readable/writable via `page.evaluate`. Top-level `let`/`var` in a classic `<script>` (e.g. crisp-game-lib games) are reachable by evaluating their names as expressions. For bundled/module games, expose a deliberate debug handle first (e.g. `window.__game = { state, step }`) — do not skip verification because state is hidden; add the handle.
+- **State reachability**: game variables readable/writable via `page.evaluate`. Top-level `let`/`var` in a classic `<script>` (e.g. crisp-game-lib games) are reachable by evaluating their names as expressions. For bundled/module games, reaching state usually requires a deliberate debug handle (e.g. `window.__game = { state, step }`). Adding one is a change to the product, so decide it explicitly rather than by default: add the minimal handle when the current work already includes testability or touches that surface; otherwise report the mechanic as unprobeable instead of widening the change. If verification genuinely requires changing a production surface, say so and state why.
 - The spec of the mechanic under test, stated as concrete expected values ("bank of n=3 at mult 2 adds 180 and sets mult to 3").
 
 **Treat the debug handle as a maintained contract, not one-time setup.** It grows with the game: any state a rule depends on must stay reachable through it, because a rule buried in a frame-local variable is unverifiable — it cannot be probed, and it will be the rule nobody notices breaking. Two sub-patterns are worth building deliberately rather than discovering late:

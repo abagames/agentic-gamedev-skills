@@ -183,7 +183,7 @@ Use `if (!ticks) { ... }` for one-time initialization.
 
 ### Step 3: Apply Mandatory Rules and Validate
 
-Apply section 4 (Mandatory Rules) as required validation criteria, then run the section 6 checklist on desktop and/or mobile.
+Apply section 4 (Mandatory Rules) as required validation criteria. Scope the section 6 checklist to the change: run it in full for a new game or a change that reaches the runtime broadly (loop structure, input wiring, audio setup, entry point), and for a localized fix check only the items covering the behavior you changed, plus a short runtime check that the game still starts. Audio, mobile input, collision, and scoring do not need re-verification when the change cannot reach them.
 
 For this repository's automated testers:
 
@@ -328,7 +328,7 @@ if (input.isJustPressed && player.onGround) {
 
 ## 6. Verification Checklist
 
-Open the game in a browser and check:
+Open the game in a browser and check the items the change can reach — all of them for a new game or a broad runtime change (see Step 3):
 
 - Game initializes without errors
 - Controls respond correctly
