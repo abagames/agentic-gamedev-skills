@@ -53,6 +53,7 @@
 | [`directing-game-visuals`](.agents/skills/directing-game-visuals/SKILL.md)                   | HUD 説明に頼らず、視覚階層、パレット役割、画面構成、イベントフィードバックを定義する。                |
 | [`maximizing-game-feel`](.agents/skills/maximizing-game-feel/SKILL.md)                       | squash/stretch、傾き、パーティクル、軌跡、ヒット演出で操作感を高める。                                |
 | [`creating-godot-procedural-audio`](.agents/skills/creating-godot-procedural-audio/SKILL.md) | Godot の組み込み API で手続き型音声を設計・実装する。ゲームイベントや状態変化ごとに音を分ける。       |
+| [`building-era-authentic-game-audio`](.agents/skills/building-era-authentic-game-audio/SKILL.md) | BGM、SE、ジングル、イベント配線、ボイス競合制御を含むゲーム固有の手続き型音声システムを、時代風または対象ハード準拠の制約で設計・実装・検証する。 |
 | [`styling-web-game-typography`](.agents/skills/styling-web-game-typography/SKILL.md)         | 配布ゲーム向けの読みやすくライセンス上問題ないタイポグラフィを実装する。Godot 4.2+ の実装例を含む。   |
 | [`designing-retro-arcade-sound-kits`](.agents/skills/designing-retro-arcade-sound-kits/SKILL.md) | ゲームコードが抽象イベント名を発火し、アダプター層が音を解決・再生するアーキテクチャで、レトロアーケードのサウンドキット（SE・ジングル）を設計・検証する。エンジン非依存。 |
 | [`generating-dot-assets`](.agents/skills/generating-dot-assets/SKILL.md)                     | 画像生成、クロマキー除去、ピクセル化、キャンバス調整、検証により透明 PNG のピクセルアート素材を作る。 |
