@@ -20,6 +20,8 @@ Local skills follow [Anthropic's Skill authoring best practices](https://platfor
 - New local skills should prefer gerund-style names, such as `designing-mini-games`.
 - Descriptions should state what the skill does and when to use it, written in third person.
 - `SKILL.md` should stay concise and point to `references/`, `assets/`, `scripts/`, `tools/`, or `agents/` only as needed.
+- Keep load-bearing decisions and the shortest complete workflow in `SKILL.md`; route variant setup, technique catalogs, long examples, and conditional edge cases to directly linked `references/` with explicit read conditions.
+- Do not preserve project validation history in the executable skill body. Retain only the generalized rule or failure mode that changes future agent behavior.
 
 External imported skills may keep their upstream names and structure.
 

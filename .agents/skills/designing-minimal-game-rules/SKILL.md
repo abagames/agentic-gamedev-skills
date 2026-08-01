@@ -5,259 +5,79 @@ description: "Turns an abstract game-design seed into a minimal discrete-state r
 
 # Designing Minimal Game Rules
 
-## Purpose
+Produce a small rule machine that survives basic rule, strategy, and reachability attacks before implementation. Reject candidates whose appeal depends on numeric tuning, manual content, exception rules, or presentation quality.
 
-Turn an abstract game-design seed into a minimal game rule system.
+## Core test
 
-The goal is not to expand a fun-sounding idea.
-The goal is to reject weak ideas early and keep only a rule machine that survives basic attacks.
-
-Reject ideas that rely on:
-
-- dominant simple strategies
-- undefined rule machinery
-- high implementation load
-- manual level design
-- visual polish, animation quality, or content volume
-- numeric tuning as the main source of fun
-- exception rules or rescue buttons
-
-## When to Use
-
-- designing a discrete-state, turn-based, or step-based small game
-- the input is an abstract seed (not a fully formed concept)
-- the goal is a rule system that survives strategy attacks before any implementation
-
-Scope: small boards, slots, queues, gauges, lists, or abstract state spaces; few inputs; rules explainable in about one minute.
-
-## When Not to Use
-
-Do not use for action games, physics games, or precision timing games, or for games whose appeal depends primarily on feel or aesthetics. For those, use an input-model and prototype-testing workflow instead.
-
-## Required Input
-
-The seed should provide these fields. Infer missing ones and state assumptions explicitly.
-
-```text
-- Priority conflict axis:
-- Score source:
-- Danger source:
-- Score-danger connection:
-- Candidate state spaces:
-- Dominant strategies to watch:
-- Premature concretizations to watch:
-- Quality-dependence reduction policy:
-```
-
-## Core Principle
-
-The player should want something that is also dangerous.
-
-Every candidate rule core must answer all five:
+Every surviving candidate must answer:
 
 ```text
 What does the player want?
 Why is that same thing dangerous?
 Why does safe play lose score?
 Why does high-score play damage the future?
-Does this happen without extra exception rules?
+Does this happen without exception rules?
 ```
 
-## Role Execution Model
+The target is a discrete-state, turn-based, or step-based game using a small board, queue, gauge, list, slot set, or similar state space. Do not apply this workflow to real-time physics or precision-action games.
 
-Run these roles as independent subagents when the runtime supports it.
-If subagents are unavailable, run them as isolated sequential passes — each pass reads only the current candidate rules and prior pass outputs. A breaker pass must not silently repair what it finds.
+## Input
 
-| Role               | Priority |
-| ------------------ | -------- |
-| Rule Breaker       | High     |
-| Strategy Breaker   | High     |
-| Simulation Breaker | High     |
-| Editor             | Medium   |
-| Final Reducer      | Medium   |
-| Designer           | Low      |
+Use the available seed to identify:
 
-### Designer
+- priority conflict axis;
+- score source, danger source, and their causal connection;
+- candidate state spaces;
+- obvious dominant strategies and premature genre assumptions to attack;
+- which quality-dependent elements must be removed.
 
-Create small rule candidates from: state, operations, automatic update, scoring, failure condition, turn order.
+Infer missing fields and label the assumptions.
 
-Must not add theme, lore, content volume, upgrades, shops, complex AI, or manual level design.
+## Workflow
 
-### Rule Breaker
+### 1. Generate conflict cores
 
-Find rule-machine failures. Check:
+Create eight one-sentence candidates in the form “The player wants A, but A also creates danger B.” Reject renamed genres, separated score/danger systems, manual level design or content volume, high implementation load, and candidates defeated by always-wait, always-defend, always-maximize, or always-minimize. Keep the smallest three.
 
-- undefined terms, ambiguous timing, unclear targets
-- impossible updates, non-firing updates, runaway loops
-- ambiguous simultaneous processing
-- danger that never appears or appears too much
-- variables that never change
-- visible state tracks that do not change any decision
-- automatic danger growth that can outpace the player's per-turn repair capacity
+### 2. Specify three rule machines
 
-Must not fix rules or add mechanics.
+For each, define: name, strange core, conflict axis, diagnostic label, state variables and initial state, player operations, automatic update, score, failure, turn order, and invariants. If entities move, state whether accumulated state travels with them or remains in place.
 
-### Strategy Breaker
+### 3. Break rules and strategies independently
 
-Attack the rules with these simple strategies:
+Read [breaker-roles.md](references/breaker-roles.md), then run its Rule Breaker and Strategy Breaker against each candidate. Use independent subagents when the runtime supports them; otherwise use isolated sequential passes that see only the candidate and preceding findings. Breaker passes report defects and must not silently repair them.
 
-- always safest action
-- always highest score action
-- always highest visible score / largest visible payout, ignoring hidden state
-- always most dangerous target
-- always lowest value target
-- always wait
-- always first legal target
-- always same positional rule
-- if the player operation is contextual, always apply it using the same target-selection rule
-- ignore one visible state track at a time
+For every strong simple strategy, ask whether it succeeds without reading current state. Explicitly test greedy use of every visible score/danger value and any fixed contextual targeting rule.
 
-For each strong strategy ask: does it require reading the current state? If it works without state reading, it is a dominant-strategy warning.
-For any visible number used in scoring or danger, include at least one strategy that greedily maximizes that visible number.
+### 4. Edit by reduction
 
-Must not tune numbers or add mechanics.
+Repair only after breaker findings. Apply the canonical repair order in [breaker-roles.md](references/breaker-roles.md); keep repairs reductive and causal rather than additive. Do not add rescue actions, exception events, currencies, shops, complex AI, or local numeric patches.
 
-### Editor
+### 5. Trace or simulate
 
-Repair only after breaker findings. Prefer deletion, merging, target changes, causal rewiring, replacing permanent effects with temporary effects, merging score source and danger source.
+Run the Simulation Breaker rules in [breaker-roles.md](references/breaker-roles.md). Use exact simulation only when rules are sufficiently defined; otherwise provide a labeled 3–5 turn manual trace and mark uncertain conclusions.
 
-Must not add exception rules, rescue actions, special events, extra currencies, shops, or complex AI.
+Record survival, score, failure reason, operation usage, unused variables, repeated best actions, action economy, visible-greedy results, and reachability. Numeric comparison diagnoses structure here; it is not permission to tune the game into working.
 
-### Simulation Breaker
+### 6. Reduce again
 
-Compare simple strategies via traces. Goal: expose weak rules, dead variables, unused operations, obvious dominant strategies. Not optimal play search.
+Remove unused or duplicate variables, unused operations, extra failure conditions, exception rules, numeric-only repairs, and genre-shaped residue. State the strangest structural feature that remains. If none remains, report that the result may be safe but weak.
 
-Must not search for optimal play or tune the game.
+### 7. Produce the result
 
-Also run an action-economy check:
+Load [final-output-template.md](references/final-output-template.md) only at output time. Keep the audit log compressed, distinguish exact simulation from manual trace, and justify any high-cost element such as physics, precision input, shops, deckbuilding, complex AI, solver-dependent generation, rescue rules, exception events, or status effects.
 
-- Count how many independent hazards can worsen per automatic update.
-- Count how many hazards one player operation can repair or cash out.
-- If several hazards can worsen while only one can be handled, flag it unless trace/simulation shows reachability without making positional or greedy strategies dominate.
+## Completion criteria
 
-### Final Reducer
+- all terms, targets, and same-turn ordering are defined;
+- score and danger are causally coupled;
+- no tested simple strategy dominates without state reading;
+- automatic danger growth is compatible with the player's action economy;
+- the scoring target and failure condition are reachable under at least one tested policy;
+- every remaining variable and operation changes a decision;
+- uncertainty and rejected candidates are visible in the output.
 
-Remove everything not structurally necessary: unused variables, duplicate variables, unused operations, extra failure conditions, exception rules, numeric-only fixes, genre-shaped residue.
+## Companion skills
 
-Must not make the game safer by adding rules.
-
-## Procedure
-
-### 1. Generate one-sentence mechanics
-
-Create 8 candidates in this form:
-
-```text
-The player wants A.
-But A also creates danger B.
-```
-
-Reject any that: are renamed existing genres; separate score and danger; require heavy implementation or manual content; become obvious with always-wait, always-defend, always-maximize, or always-minimize; concretize the seed prematurely.
-
-Keep the smallest 3.
-
-### 2. Create 3 minimal rule candidates
-
-For each, specify:
-
-```text
-Name:
-Strange core:
-Conflict axis:
-Diagnostic label:
-State variables:
-Initial state:
-Player operations:
-  (If an operation moves entities: state whether accumulated state variables travel with them or stay in place.)
-Automatic update:
-Score condition:
-Failure condition:
-Turn order:
-Invariants:
-```
-
-### 3. Rule breaker pass
-
-For each candidate, check all items from the Rule Breaker role.
-
-For important issues, provide a 3–5 turn trace:
-
-```text
-Initial state:
-Action:
-Changed variables:
-Score effect:
-Danger effect:
-Freedom/space effect:
-Problem after 3–5 turns:
-```
-
-### 4. Strategy breaker pass
-
-Test all strategies from the Strategy Breaker role.
-
-For any strong simple strategy: does it work without reading the current state? If yes, it is a dominant-strategy warning.
-Explicitly include greedy strategies based on visible score, visible danger, and any contextual one-button action target rule.
-
-### 5. Edit by reduction
-
-Fix problems in this order:
-
-```text
-0.  Define undefined terms
-1.  Fix non-firing update conditions
-2.  Localize danger growth
-3.  Turn danger handling into scoring or positioning, not pure removal
-4.  Remove operations
-5.  Change operation targets
-6.  Merge score source and danger source into the same object or variable
-7.  Turn permanent effects into temporary effects
-8.  Replace position dependence with state dependence
-9.  Change auto-update direction
-10. Simplify failure conditions
-11. Replace an over-specific state space
-12. Reject the candidate
-```
-
-Do not fix by adding exception rules, rescue buttons, special events, or local numeric patches.
-
-### 6. Simulation or trace
-
-If exact simulation is possible:
-
-First — reachability check: run the strongest simple strategy until game-end or turn 20, whichever comes first.
-If no strategy reaches the win condition within that range, flag the scoring target as uncalibrated.
-If the game typically ends before turn 10, note it and shorten the comparison window to match.
-
-Then — compare simple strategies across 12–20 turns (or the reachable game duration) and 3 fixed initial states.
-For rules with countdowns, growing hazards, or refilling slots, include at least one trace long enough for each automatic cycle to complete once.
-
-If exact simulation is not possible, provide a 3–5 turn manual trace and mark uncertain claims as uncertain.
-
-Record per strategy: survival turns, score, failure reason, operation usage, variables that did not matter, repeated best action sequences.
-Also record: action-economy result, visible greedy strategy result, and whether target score / failure limit appears reachable without letting a simple positional strategy dominate.
-
-### 7. Final reduction
-
-Remove: unused variables, duplicate variables, unused operations, extra failure conditions, exception rules, numeric-only fixes, genre-shaped elements not needed for the core conflict.
-
-After reduction, state the strangest remaining structural feature.
-If no strange feature remains, the design is probably safe but weak.
-
-## High-Cost Elements
-
-These require explicit justification if used (see output template field 14):
-
-physics, real-time precision input, shops, deckbuilding, complex AI, solver-dependent generation, rescue buttons, exception events, status effects.
-
-## Output
-
-Load `references/final-output-template.md` at output time.
-
-Keep the audit log compressed. Do not output long hidden deliberation.
-Do not claim exact simulation if only a manual trace was used.
-
-## Companion Skills
-
-- `designing-mini-games` — controls-first practical design starting from a concrete idea; use when the input is a formed concept, not an abstract seed
-- `evaluating-gameplay-balance` — simulation-based balance evaluation for already-implemented games
+- Use `designing-mini-games` instead when the input is already a formed action-game concept.
+- Use `evaluating-gameplay-balance` for an implemented game's telemetry and tuning, not for this pre-implementation rule reduction.
