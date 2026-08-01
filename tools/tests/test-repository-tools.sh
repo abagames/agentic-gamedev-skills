@@ -310,6 +310,12 @@ make_readme_fixture() {
   mkdir -p "$root/tools" "$root/.agents/skills/local-skill" \
     "$root/.agents/skills/godot-tweening"
   cp "$REPO_ROOT/tools/check-readme-skills.sh" "$root/tools/"
+  cat >"$root/.agents/skills/local-skill/SKILL.md" <<'SKILL'
+---
+name: local-skill
+description: Fixture skill.
+---
+SKILL
   cat >"$root/README.md" <<'README'
 | Skill | Purpose |
 | --- | --- |
@@ -340,6 +346,14 @@ test_readme_check_requires_exact_external_entry() {
   [ "$?" -ne 0 ]
 }
 
+test_readme_check_ignores_directory_without_skill_entrypoint() {
+  local root="$TEST_ROOT/readme-empty-directory"
+  make_readme_fixture "$root"
+  mkdir -p "$root/.agents/skills/unfinished-skill/references"
+
+  "$root/tools/check-readme-skills.sh" >"$root/output.log" 2>&1
+}
+
 run_test "failed single-file update preserves the installed skill" \
   test_single_file_failure_preserves_existing
 run_test "failed subtree copy preserves the installed skill" \
@@ -364,6 +378,8 @@ run_test "README check treats matching glob directories as external" \
   test_readme_check_accepts_external_glob
 run_test "README check requires exact external entries" \
   test_readme_check_requires_exact_external_entry
+run_test "README check ignores directories without SKILL.md" \
+  test_readme_check_ignores_directory_without_skill_entrypoint
 
 if [ "$FAILURES" -ne 0 ]; then
   printf '%s test(s) failed\n' "$FAILURES" >&2

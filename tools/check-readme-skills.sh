@@ -18,8 +18,12 @@ GITIGNORE="$REPO_ROOT/.gitignore"
 [ -d "$SKILLS_DIR" ] || { echo "no $SKILLS_DIR" >&2; exit 2; }
 [ -f "$README" ] || { echo "no $README" >&2; exit 2; }
 
-# Skill directories present on disk
-mapfile -t on_disk < <(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf '%f\n' | sort)
+# Skills present on disk. A directory is not a skill until it has the required
+# entry point; ignore empty staging directories and abandoned support folders.
+mapfile -t on_disk < <(
+  find "$SKILLS_DIR" -mindepth 2 -maxdepth 2 -type f -name SKILL.md -printf '%h\n' \
+    | sed 's#.*/##' | sort
+)
 
 # Skill names mentioned in README, restricted to declaration positions:
 #   - table rows:    | `skill-name` | ... or | [`skill-name`](...) | ...
@@ -111,6 +115,6 @@ if [ "${#missing_external_from_readme[@]}" -gt 0 ]; then
 fi
 
 if [ "$status" -eq 0 ]; then
-  echo "README ↔ .agents/skills/ in sync (${#on_disk[@]} skill directories)."
+  echo "README ↔ .agents/skills/ in sync (${#on_disk[@]} skills)."
 fi
 exit "$status"
