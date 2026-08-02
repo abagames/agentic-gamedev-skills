@@ -45,8 +45,6 @@ External imported skills may keep their upstream names and structure.
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | Implements or repairs browser mini-games with `crisp-game-lib`, including input bindings, library-owned versus custom arcade cycles, drawing-order collision, scoring, audio setup, and validation. |
 | [`arcadifying-mini-games`](.agents/skills/arcadifying-mini-games/SKILL.md) | Converts a working mini-game into a complete arcade game by adding rounds, ceremony screens, score economy, visible initials entry and rankings, and replay- or autopilot-driven attract mode around a verified core loop. |
 | [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | Translates game design promises into engine-neutral implementation invariants, player-visible readouts, and validation checks that prevent monotonous strategies or hidden rules from dominating play. |
-| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | Smoke-tests a browser game build headlessly with idle time and input bursts, failing on console errors, uncaught exceptions, or crashes. Catches code that passes mock or simulator tests but crashes in a real browser. |
-| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | Verifies browser-game mechanics through maintained debug contracts, state injection, transition assertions, visual-contract checks, screenshots, and UI-binding probes. Sits between smoke testing and balance evaluation. |
 
 ### Game Presentation
 
@@ -65,6 +63,21 @@ External imported skills may keep their upstream names and structure.
 | Skill                         | Purpose                                                                                                                                                                                       |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | Evaluates balance through telemetry by comparing monotonous and exploratory policies with deterministic seeds or calibrated non-deterministic bands, including simulation, instrumentation, and structural repair guidance. |
+
+### Gameplay Verification And Debugging
+
+Ordered from the cheapest gate to the most expensive instrument: runtime health, spec conformance,
+coverage of behavior families, defect localization, repair validation, and measurement of the
+instruments themselves.
+
+| Skill | Purpose |
+| --- | --- |
+| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | Smoke-tests a browser game build headlessly with idle time and input bursts, failing on console errors, uncaught exceptions, or crashes. Catches code that passes mock or simulator tests but crashes in a real browser. |
+| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | Verifies browser-game mechanics through maintained debug contracts, state injection, transition assertions, visual-contract checks, screenshots, and UI-binding probes. Sits between smoke testing and balance evaluation. |
+| [`auditing-gameplay-implementation-coverage`](.agents/skills/auditing-gameplay-implementation-coverage/SKILL.md) | Audits bounded gameplay surfaces across specification, implementation, presentation, and tests to find missing sibling cases and concrete probe gaps. |
+| [`localizing-game-state-divergence`](.agents/skills/localizing-game-state-divergence/SKILL.md) | Replays a deterministic defect and finds the first event where a mechanically checked state invariant fails. |
+| [`adversarially-validating-game-repairs`](.agents/skills/adversarially-validating-game-repairs/SKILL.md) | Stress-tests an existing game repair with patch-reachable adversarial and inverse cases, returning reproducible patch evidence. |
+| [`generating-semantic-game-mutants`](.agents/skills/generating-semantic-game-mutants/SKILL.md) | Plants controlled gameplay defects, clean controls, and equivalent mutants to measure a test suite's detection power or an agent workflow's repair behavior. |
 
 ### Agent Workflow
 
@@ -96,7 +109,7 @@ The following individual skills are imported or referenced from other repositori
 - [`source-driven-development`](https://github.com/addyosmani/agent-skills/blob/main/skills/source-driven-development/SKILL.md): version-aware implementation workflow grounded in official documentation. Use alongside `developing-with-crisp-game-lib`, `running-headless-godot`, or `scaffolding-godot-mini-games` when behavior depends on a current engine, browser, or library API; it complements those domain workflows without replacing their project-specific validation.
 - [`browser-testing-with-devtools`](https://github.com/addyosmani/agent-skills/blob/main/skills/browser-testing-with-devtools/SKILL.md): live-browser diagnosis using console, network, DOM, and performance evidence. Use after `smoke-testing-web-games` or `probing-web-game-mechanics` localizes a browser-game problem that needs deeper runtime investigation; adapt the workflow when Chrome DevTools MCP is unavailable.
 - [`performance-optimization`](https://github.com/addyosmani/agent-skills/blob/main/skills/performance-optimization/SKILL.md): measure-first performance investigation and before/after verification. Use as a source for extending `smoke-testing-web-games` or `maximizing-game-feel` with performance gates, replacing general Web-app targets with game-relevant frame time, input latency, memory growth, load size, and representative-device budgets.
-- [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): root-cause-first debugging workflow for bugs, test failures, and unexpected behavior.
+- [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): root-cause-first debugging workflow for bugs, test failures, and unexpected behavior. Not installed by default: it claims every technical issue as its trigger, so it outranks `localizing-game-state-divergence`, `adversarially-validating-game-repairs`, `smoke-testing-web-games`, and `probing-web-game-mechanics` rather than complementing them, and its Phase 4 points at `superpowers:` sibling skills this repository does not carry. Pull it by name (`install-external-skills.sh systematic-debugging`) for non-game work, or for crashes, build failures, and multi-component boundary isolation, which the local debugging skills deliberately exclude.
 
 ## Repository Tools
 

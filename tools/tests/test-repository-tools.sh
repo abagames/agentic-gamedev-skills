@@ -252,7 +252,7 @@ test_successful_subtree_install() {
     && no_installer_artifacts "$root/.agents/skills"
 }
 
-test_default_install_updates_all_supported_skills() {
+test_default_install_skips_reference_only_skills() {
   local root="$TEST_ROOT/default-success"
   local mock_bin="$root/mock-bin"
   make_installer_fixture "$root"
@@ -263,8 +263,7 @@ test_default_install_updates_all_supported_skills() {
     "$root/tools/install-external-skills.sh" >"$root/output.log" 2>&1 \
     && grep -q '^name: downloaded$' \
       "$root/.agents/skills/empirical-prompt-tuning/SKILL.md" \
-    && grep -q '^name: systematic-debugging$' \
-      "$root/.agents/skills/systematic-debugging/SKILL.md" \
+    && [ ! -e "$root/.agents/skills/systematic-debugging" ] \
     && no_installer_artifacts "$root/.agents/skills"
 }
 
@@ -366,8 +365,8 @@ run_test "successful single-file update installs validated content" \
   test_successful_single_file_install
 run_test "successful subtree update installs validated content" \
   test_successful_subtree_install
-run_test "default installer run updates every supported skill" \
-  test_default_install_updates_all_supported_skills
+run_test "default installer run skips reference-only skills" \
+  test_default_install_skips_reference_only_skills
 run_test "unknown installer target exits non-zero" \
   test_unknown_target_fails
 run_test "path-like installer target is rejected" \

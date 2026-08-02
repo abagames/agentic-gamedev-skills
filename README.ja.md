@@ -43,8 +43,6 @@
 | [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | `crisp-game-lib` のブラウザミニゲームを実装または修復する。セットアップ、ループ、描画順、衝突、得点、検証を扱う。 |
 | [`arcadifying-mini-games`](.agents/skills/arcadifying-mini-games/SKILL.md) | 動作確認済みのミニゲームに、ラウンド構造、儀式画面（READY・クリア・ミス・ゲームオーバー）、スコア経済（エクステンド、イニシャル入力、ハイスコア表）、アトラクトモードを加え、完成したアーケードゲームに仕上げる。 |
 | [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | ゲーム設計上の約束を、エンジン非依存の実装不変条件と検証項目に変換する。放置、長押し固定、連打、反復得点の優位を防ぐ。 |
-| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | ブラウザゲームを headless で起動し、放置と入力バーストを与えて console エラー・未捕捉例外・クラッシュを検出する。モックやシミュレータは通るがブラウザで落ちるコードを機械検出する。 |
-| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | 稼働中の headless ブラウザにゲーム状態を注入し、フェーズ遷移、得点式、ゲート、リセットが仕様どおりかを検証する。スモークテスト（動作健全性）とバランス評価（プレイ品質）の中間層を担う。 |
 
 ### ゲーム演出
 
@@ -63,6 +61,19 @@
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較する。 |
+
+### ゲームプレイの検証とデバッグ
+
+安価なゲートから高価な計測手段の順に並べる。動作健全性、仕様適合、挙動ファミリの網羅、欠陥の局所化、修正の検証、そして計測手段そのものの測定。
+
+| Skill | 用途 |
+| --- | --- |
+| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | ブラウザゲームを headless で起動し、放置と入力バーストを与えて console エラー・未捕捉例外・クラッシュを検出する。モックやシミュレータは通るがブラウザで落ちるコードを機械検出する。 |
+| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | 稼働中の headless ブラウザにゲーム状態を注入し、フェーズ遷移、得点式、ゲート、リセットが仕様どおりかを検証する。スモークテスト（動作健全性）とバランス評価（プレイ品質）の中間層を担う。 |
+| [`auditing-gameplay-implementation-coverage`](.agents/skills/auditing-gameplay-implementation-coverage/SKILL.md) | 仕様、実装、演出、テストを横断して範囲を限定した監査を行い、兄弟ケースの実装漏れや具体的なprobe不足を検出する。 |
+| [`localizing-game-state-divergence`](.agents/skills/localizing-game-state-divergence/SKILL.md) | 決定的に再現できる不具合をリプレイし、機械判定可能な状態不変条件が最初に破れるeventを特定する。 |
+| [`adversarially-validating-game-repairs`](.agents/skills/adversarially-validating-game-repairs/SKILL.md) | 既存のゲーム修正を、patchが到達しうる敵対条件と逆ケースで検証し、再現可能な修正根拠を返す。 |
+| [`generating-semantic-game-mutants`](.agents/skills/generating-semantic-game-mutants/SKILL.md) | 制御されたゲームプレイ欠陥、clean control、equivalent mutantを生成し、テストやagent workflowの検出・修復能力を測定する。 |
 
 ### Agent Workflow
 
@@ -94,7 +105,7 @@
 - [`source-driven-development`](https://github.com/addyosmani/agent-skills/blob/main/skills/source-driven-development/SKILL.md): 公式ドキュメントに基づくバージョン対応の実装 workflow。現行の engine・browser・library API に依存する場合、`developing-with-crisp-game-lib`、`running-headless-godot`、`scaffolding-godot-mini-games` に組み合わせる。これらの domain workflow を置き換えず、プロジェクト固有の検証を補完する。
 - [`browser-testing-with-devtools`](https://github.com/addyosmani/agent-skills/blob/main/skills/browser-testing-with-devtools/SKILL.md): console、network、DOM、performance の実測による live browser 診断。`smoke-testing-web-games` または `probing-web-game-mechanics` がブラウザゲームの問題範囲を絞った後、より深い runtime 調査が必要な場合に組み合わせる。Chrome DevTools MCP が利用できない場合は workflow を調整する。
 - [`performance-optimization`](https://github.com/addyosmani/agent-skills/blob/main/skills/performance-optimization/SKILL.md): 計測優先の performance 調査と変更前後の検証。`smoke-testing-web-games` または `maximizing-game-feel` に performance gate を拡張する素材とし、汎用 Web application 向け指標は frame time、入力遅延、memory 増加、load size、代表的な device の budget などゲーム向け指標に置き換える。
-- [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。
+- [`systematic-debugging`](https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md): バグ、テスト失敗、想定外挙動に対する根本原因優先のデバッグ workflow。既定ではインストールしない。あらゆる技術的問題を trigger として主張するため、`localizing-game-state-divergence`、`adversarially-validating-game-repairs`、`smoke-testing-web-games`、`probing-web-game-mechanics` を補完せず上書きしてしまい、Phase 4 がこのリポジトリに存在しない `superpowers:` 系 skill を参照する。ゲーム以外の作業や、ローカルのデバッグ skill が意図的に対象外としている crash・build 失敗・多コンポーネント境界の切り分けが必要な場合に、名前を指定して取得する(`install-external-skills.sh systematic-debugging`)。
 
 ## リポジトリツール
 

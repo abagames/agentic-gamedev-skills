@@ -128,7 +128,10 @@ install_empirical_prompt_tuning() {
 }
 
 # systematic-debugging references sibling files (root-cause-tracing.md, etc.),
-# so it must be fetched as a directory, not a single SKILL.md.
+# so it must be fetched as a directory, not a single SKILL.md. Not a default
+# target: its trigger claims every technical issue, so it outranks the narrow
+# local verification and debugging skills instead of complementing them. Pull it
+# by name when a non-game or crash/build-failure investigation needs it.
 install_systematic_debugging() {
   install_subtree "systematic-debugging" \
     "https://github.com/obra/superpowers.git" "main" "skills/systematic-debugging"
@@ -149,7 +152,7 @@ declare -A INSTALLERS=(
 )
 
 if [ "$#" -eq 0 ]; then
-  targets=(empirical-prompt-tuning systematic-debugging)
+  targets=(empirical-prompt-tuning)
 else
   targets=("$@")
 fi
