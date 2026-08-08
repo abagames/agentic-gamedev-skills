@@ -90,6 +90,7 @@ instruments themselves.
 | [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | Audits large repo agent instruction files, then moves repeatable workflows into skills, mandatory checks into scripts/hooks/CI, and stable policy back into concise repo instructions. |
 | [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | Refines reusable agent workflows from real execution artifacts by classifying failure causes before proposing the smallest evidence-based workflow diff. |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | Re-examines the agent's own immediately preceding response as an advisory pass over assumptions, logical gaps, alternatives, and unverified claims. Invoke explicitly; it shares blind spots with the answer it critiques, so it is not independent quality assurance. |
+| [`dispatching-agent-work`](.agents/skills/dispatching-agent-work/SKILL.md) | Routes explicitly requested orchestration work to the appropriate execution boundary, model role, reasoning effort, and workspace isolation, and reports the status of Codex task handoffs. |
 
 ## Supporting Directories
 

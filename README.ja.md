@@ -86,6 +86,7 @@
 | [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 大きな repo agent 指示ファイルを監査し、反復 workflow を skill へ、必須 check を script/hook/CI へ、安定 policy を簡潔な repo 指示へ移す。 |
 | [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実行結果の artifact をもとに再利用可能な agent workflow を改善する。失敗原因を分類してから、根拠のある最小の workflow 差分を提案する。 |
 | [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の自分の応答を、前提、論理の飛躍、代替案、未検証の主張という観点で見直す advisory pass。明示的に呼び出して使う。批判対象と盲点を共有するため、独立した品質保証ではない。 |
+| [`dispatching-agent-work`](.agents/skills/dispatching-agent-work/SKILL.md) | 明示された orchestration 依頼に従い、適切な実行境界、model role、reasoning effort、workspace isolation を選択して作業を委譲し、Codex task handoff の状態を報告する。 |
 
 ## 補助ディレクトリ
 
