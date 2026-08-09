@@ -4,7 +4,7 @@ English | [日本語](README.ja.md)
 
 This repository collects agent skills extracted from game-development work and related agentic-workflow research. Each skill lives under `.agents/skills/`, uses `SKILL.md` as its entry point, and may include `references/`, `assets/`, `scripts/`, `tools/`, or `agents/` directories.
 
-The main use case is building mini-games with one-button controls, strong visual feedback, procedural audio, telemetry-guided tuning, and optional pixel-art assets. A few adjacent skills support that workflow: skill extraction, prompt/process review, and bilingual English/Japanese writing polish.
+The main use case is building mini-games with one-button controls, strong visual feedback, procedural audio, telemetry-guided tuning, and optional pixel-art assets. A few adjacent skills support that workflow: skill extraction, workflow refinement from real execution artifacts, and gating or dispatching expensive agent work.
 
 ## How To Use
 

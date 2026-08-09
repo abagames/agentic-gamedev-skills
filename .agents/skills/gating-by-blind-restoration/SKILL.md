@@ -1,6 +1,6 @@
 ---
 name: gating-by-blind-restoration
-description: "Validate that one abstraction layer (a spec, design doc, schema, contract, or generated artifact) is self-sufficient by spawning an ISOLATED sub-agent that sees only that layer and must reconstruct the adjacent layer, returning pass / weak-pass / fail. Use when checking whether an extracted or generated artifact preserves enough structure to be rebuilt or used without the original source, and to prevent an author from grading their own output."
+description: "Validates that one abstraction layer (a spec, design doc, schema, contract, or generated artifact) is self-sufficient by spawning an ISOLATED sub-agent that sees only that layer and must reconstruct the adjacent layer, returning pass / weak-pass / fail. Use when checking whether an extracted or generated artifact preserves enough structure to be rebuilt or used without the original source, and to prevent an author from grading their own output."
 ---
 
 # Gating by Blind Restoration

@@ -1,6 +1,6 @@
 ---
 name: extracting-spec-design-ladders
-description: "Reverse-engineer existing source code into a two-layer artifact ladder — a concrete reproduction spec (preserves behavior-affecting constants, same-tick ordering, input edges, collision/threshold semantics; drops cosmetics) and an abstract design doc (intentionally omits reproduction detail and records what is unspecified vs. safe-to-assume). Use to document or recover a program's intent and reproducible behavior without leaking implementation-only detail into the design layer."
+description: "Reverse-engineers existing source code into a two-layer artifact ladder — a concrete reproduction spec (preserves behavior-affecting constants, same-tick ordering, input edges, collision/threshold semantics; drops cosmetics) and an abstract design doc (intentionally omits reproduction detail and records what is unspecified vs. safe-to-assume). Use to document or recover a program's intent and reproducible behavior without leaking implementation-only detail into the design layer."
 ---
 
 # Extracting Spec / Design Ladders

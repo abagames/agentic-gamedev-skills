@@ -11,7 +11,7 @@ Treat `.agents/skills/` as the primary project content. Each skill should be reu
 - Keep skills under `.agents/skills/<skill-name>/`.
 - Use `SKILL.md` as the entry point for every skill.
 - Keep supporting material in skill-local directories such as `references/`, `assets/`, `scripts/`, `tools/`, or `agents/`.
-- Update `README.md` when adding, removing, renaming, or materially changing a skill.
+- Update both `README.md` and `README.ja.md` when adding, removing, renaming, or materially changing a skill.
 - Do not place generated experiments, game projects, or throwaway outputs at the repository root.
 
 ## Skill Maintenance
@@ -44,7 +44,12 @@ Applies both to work done in this repository and to the verification steps skill
 
 Before finishing skill changes:
 
-- Check that the relevant `SKILL.md` has a clear `name` and `description`.
+- Run `bash tools/check-readme-skills.sh`. It must exit 0; it diffs `.agents/skills/` against both `README.md` and `README.ja.md`.
+- Run `bash tools/tests/test-repository-tools.sh` after changing anything under `tools/`.
+
+The script only matches skill names. These still need a human or agent read:
+
+- Check that the relevant `SKILL.md` has a clear `name` and a `description` following the frontmatter convention above.
 - Confirm linked supporting files exist.
-- Confirm `README.md` reflects the current skill list and repository purpose.
+- Confirm the README overview paragraphs and section groupings still describe what the repository actually contains.
 - Note any validation that was not possible.

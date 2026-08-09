@@ -353,6 +353,27 @@ test_readme_check_ignores_directory_without_skill_entrypoint() {
   "$root/tools/check-readme-skills.sh" >"$root/output.log" 2>&1
 }
 
+test_readme_check_accepts_matching_translated_readme() {
+  local root="$TEST_ROOT/readme-ja-in-sync"
+  make_readme_fixture "$root"
+  cp "$root/README.md" "$root/README.ja.md"
+
+  "$root/tools/check-readme-skills.sh" >"$root/output.log" 2>&1
+}
+
+test_readme_check_detects_translated_readme_drift() {
+  local root="$TEST_ROOT/readme-ja-drift"
+  make_readme_fixture "$root"
+  sed '/local-skill/d' "$root/README.md" >"$root/README.ja.md"
+
+  "$root/tools/check-readme-skills.sh" >"$root/output.log" 2>&1
+  local status=$?
+
+  [ "$status" -ne 0 ] \
+    && grep -q 'not mentioned in README.ja.md:' "$root/output.log" \
+    && ! grep -q 'not mentioned in README.md:' "$root/output.log"
+}
+
 run_test "failed single-file update preserves the installed skill" \
   test_single_file_failure_preserves_existing
 run_test "failed subtree copy preserves the installed skill" \
@@ -379,6 +400,10 @@ run_test "README check requires exact external entries" \
   test_readme_check_requires_exact_external_entry
 run_test "README check ignores directories without SKILL.md" \
   test_readme_check_ignores_directory_without_skill_entrypoint
+run_test "README check accepts an in-sync README.ja.md" \
+  test_readme_check_accepts_matching_translated_readme
+run_test "README check reports README.ja.md drift" \
+  test_readme_check_detects_translated_readme_drift
 
 if [ "$FAILURES" -ne 0 ]; then
   printf '%s test(s) failed\n' "$FAILURES" >&2
