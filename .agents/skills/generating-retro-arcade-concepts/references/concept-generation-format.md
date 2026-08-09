@@ -1,5 +1,43 @@
 # Retro Arcade Concept Format, Evaluation, and Spec
 
+## Era Hardware Profile
+
+The single declaration point for hardware numbers. `SKILL.md` and every section
+below refer to this profile instead of restating values.
+
+**Default profile**: the 1980-1983 row of the table below. Resolution, sprite
+size, and color count vary by band and are declared only there. The tile grid is
+8x8 across the whole band — at the default resolution, a 32x28 cell screen.
+
+A project brief may replace the profile. It may not replace the other Hard
+Constraints in `SKILL.md` — those are design constraints chosen to keep
+generated games tractable, not consequences of the hardware.
+
+### Applicable band
+
+| Band | Resolution | Sprites | Colors | What changes in the procedure |
+|---|---|---|---|---|
+| ~1978-1980 | lower; often tall/rotated | single-color, small | very few, overlay-tinted | Color cannot carry role separation. Judge the rule-clarity and attract-appeal criteria on silhouette and motion alone, and require field 12's attract highlight to read without color cues. |
+| 1980-1983 (default) | 256x224 | 16x16 | 64 | Baseline. Every rubric criterion and template section assumes this row. |
+| 1983-1985 | somewhat wider | mixed sizes | more | More simultaneous objects become affordable, but "at most 3 enemy types" and "no hand-crafted level design" still hold — they are design limits, not hardware limits. Say so explicitly when using this row, so the extra budget goes into field 8's numerical escalation rather than new content types. |
+
+Outside roughly 1978-1985, scrolling playfields and multi-button control become
+the norm, and this skill's single-screen / movement-plus-one-button constraints
+stop following from anything. Do not add rows for later eras; those need a
+different design procedure, not a different profile.
+
+These rows are reproduction targets, not historical specification sheets — real
+cabinets varied widely within any single year. Do not cite them as facts about
+specific hardware.
+
+### Adding values to this profile
+
+Add a value only when some workflow step, rubric criterion, or template section
+reads it. A value nothing consumes is either ignored in practice or cited as an
+applied constraint that was never checked. Audio carries no profile value today
+because field 13 asks for a one-phrase audio identity and nothing consumes a
+channel count; add one only together with its consumer.
+
 ## Mechanism Signature Taxonomy
 
 Four axes of abstract mechanisms (no game names involved). Axis 1 values are
@@ -44,7 +82,7 @@ Generate each concept with all of these fields:
 
 After generating 5 concepts, score all 5 against each criterion and justify briefly:
 
-- Ease of implementation within the hardware constraints (256x224 / 16x16 sprites / 64 colors, or the project brief's limits)
+- Ease of implementation within the Era Hardware Profile above
 - Clarity of rules
 - Works on a single screen
 - Low dependency on level design
@@ -75,7 +113,9 @@ For each of the 2 selected concepts, produce:
 # <TITLE> — Implementation Spec
 
 ## Screen Layout
-<HUD vs playfield regions on the fixed screen; key fixed positions>
+<HUD vs playfield regions on the fixed screen; key fixed positions.
+ Put region boundaries on the profile's tile grid and give each region's
+ size in cells, so the layout is checkable against the profile.>
 
 ## Object List
 <player, each enemy/obstacle type, projectiles, rewards: shape, size, behavior>
@@ -96,5 +136,4 @@ For each of the 2 selected concepts, produce:
 
 ## Notes
 
-- The hardware numbers (256x224, 16x16 sprites, 64 colors, 8x8 tiles) are the 1978-1983 era default. If a project brief specifies different limits, substitute those and keep the rest of the procedure.
 - Use the target/avoid direction lists in `SKILL.md` as ideation seeds, then deliberately deviate from the most obvious interpretation of each seed.

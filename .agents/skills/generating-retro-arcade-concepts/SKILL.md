@@ -1,6 +1,6 @@
 ---
 name: generating-retro-arcade-concepts
-description: "Batch-generates, evaluates, and specs multiple fixed-screen arcade game concepts in the style of 1978-1983 cabinets. Use when asked to brainstorm several new arcade games at once, produce a concept slate to choose from, or turn era/hardware constraints into ranked concepts plus implementation specs. For hardening a single already-chosen concept, use designing-mini-games instead."
+description: "Batch-generates, evaluates, and specs multiple fixed-screen arcade game concepts in the style of 1978-1985 cabinets (default hardware profile: the 1980-1983 band). Use when asked to brainstorm several new arcade games at once, produce a concept slate to choose from, or turn era/hardware constraints into ranked concepts plus implementation specs. For hardening a single already-chosen concept, use designing-mini-games instead."
 ---
 
 Use this skill to invent a *slate* of new small arcade games and pick the best ones, not to recreate existing classics. The deliverable is several concepts → an evaluation → a shortlist → implementation specs. If the user already has one concept and wants its mechanics hardened, that is a different job (single-design), not this one.
@@ -19,7 +19,7 @@ Every generated concept must satisfy all of these:
 - Lives system: a mistake consumes a life rather than ending the game immediately.
 - No definitive ending; sustain infinite waves/rounds through numerical escalation.
 - In attract mode with no input, the game must still produce visually interesting motion.
-- Expressible within 256x224 logical resolution, 16x16 sprites, 64-color / 8x8 tile equivalents (the era default; a project brief may override these numbers).
+- Expressible within the Era Hardware Profile in `references/concept-generation-format.md` (default: the 1980-1983 band). This is the only constraint in this list a project brief may replace; the rest are design constraints that hold regardless of hardware.
 - The audio identity must be describable in a single phrase covering its signature SFX and jingle direction.
 
 ## Target And Avoid Directions
@@ -51,4 +51,5 @@ Read `references/concept-generation-format.md` for the per-concept field list, t
 - The slate honors the pre-assigned reward-conversion slots (no two concepts share a value), and every pair of concepts differs on at least 2 of the 4 mechanism-signature axes.
 - The 2 selected concepts differ on the reward-conversion axis.
 - Every concept's differentiation score went through the Nearest-Precedent Check in the reference: nearest well-known commercial precedent named with its 4-axis signature, matching-axes score cap applied, recall confidence stated.
+- Each selected spec's screen layout states region sizes in tile cells that sum within the active profile's grid.
 - Each selected concept's spec is concrete enough to start implementing from.
