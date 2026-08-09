@@ -38,12 +38,12 @@ When the destination is the Codex app and a separate user-visible task may match
 
 ### 3. Choose the execution boundary
 
-Use the first matching boundary:
+Assess the required model role and effort (step 4) together with the boundary, not after it. Use the first matching boundary:
 
-1. **Existing worker** — the new instruction has the same objective, artifact surface, authority, lifecycle, and suitable model role, and the user did not request a new boundary. Send a concise delta, not the original prompt again.
+1. **Existing worker** — the new instruction has the same objective, artifact surface, authority, lifecycle, and suitable model role and effort, and the user did not request a new boundary. Send a concise delta, not the original prompt again.
 2. **Automation or queued job** — work must run later or recur.
 3. **Durable task** — the user requested a separate user-visible task, needs direct follow-up or approvals, or the work has an independent lifecycle.
-4. **Current agent** — one small cohesive action with no suitable existing worker or separate lifecycle.
+4. **Current agent** — one small cohesive action with no suitable existing worker or separate lifecycle, and the current agent's own model role and reasoning effort both meet the required level. When either falls short and a higher tier or effort override is available, escalate to boundary 5, or to 3 when the lifecycle warrants it.
 5. **Subagent** — a bounded independent subproblem whose result should return to the parent for synthesis.
 
 Do not treat a subagent as equivalent to a user-visible task. Do not append a trivial follow-up to an expensive worker solely because it is already open; account for both separation cost and capability mismatch.
@@ -60,7 +60,11 @@ Resolve these semantic roles to models actually available on the destination hos
 | balanced | medium | Multi-condition audits, data analysis, or moderate cross-file synthesis |
 | frontier | high | Ambiguous, cross-cutting, long-horizon, architectural, creative, or weak-oracle work |
 
+Role and effort are independent axes; the starting-effort column is a default, not a binding. A frontier-role model running at low effort satisfies the frontier role but not a high-effort requirement.
+
 Raise the role or effort for high consequence, broad coupling, unclear specifications, large evidence sets, or judgment that tools cannot verify. Lower it when deterministic tools, focused tests, or a precise specification carry most of the work. Reserve maximum effort for demonstrated quality gains on genuinely hard work.
+
+Apply this to the orchestrator itself: when the required role or effort exceeds the current agent's own, dispatch instead of working locally. The orchestrator's own effort is normally fixed for the session, so raising effort means dispatching a worker. Trigger on conditions that are cheap to evaluate — scope breadth, a missing test, specification, or deterministic checker, unresolved ambiguity in the request — not on a sense of difficulty, and not on an analysis that itself needs the higher effort. If no higher tier or effort override is available, proceed and report the capability limit.
 
 Never infer quality needs from line count alone. Verify current model availability before naming a concrete model; otherwise report only the semantic role.
 
@@ -108,6 +112,8 @@ reasoning: low | medium | high | host-default
 isolation: shared-read | serialized-write | isolated-write
 reason: one sentence
 ```
+
+Report `model-role` and `reasoning` as the levels the work requires. When the current agent runs below them and no escalation is available, say so in `reason`.
 
 For `durable-task`, also report:
 
