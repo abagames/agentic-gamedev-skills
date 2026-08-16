@@ -1,19 +1,21 @@
 ---
 name: dispatching-agent-work
-description: "Routes a user's request to the appropriate execution boundary, model role, reasoning effort, and workspace isolation. Use only when the current user request or an authoritative host or repository instruction explicitly asks for dispatch, delegation, separate-task execution, scheduling, or execution-backend selection. Do not invoke merely because ordinary work is complex, long-running, or parallelizable, or when this skill is only being mentioned, reviewed, or edited."
+description: "Routes a user's request to a separate task, subagent, automation, or current agent with an appropriate model role, reasoning effort, and workspace isolation. Use when the user or an authoritative instruction asks to dispatch, delegate, orchestrate, enter dispatch mode, run work in another session, select an execution backend, or schedule work. While dispatch mode is active, proactively send substantive execution to the host's preferred worker boundary: a new user-visible task in Codex Desktop App and a subagent on hosts without durable tasks. Do not invoke merely because ordinary work is complex, long-running, or parallelizable, or when this skill is only being mentioned, reviewed, or edited."
 ---
 
 # Dispatching Agent Work
 
-Route work without coupling the decision to one vendor's model names or agent APIs. Prefer the smallest execution unit and lowest sufficient model role that can meet the success criteria reliably.
+Route work without coupling the decision to one vendor's model names or agent APIs. When dispatch mode is active, keep the current conversation as the coordinator and prefer a separate worker for substantive execution. Otherwise prefer the smallest execution unit and lowest sufficient model role that can meet the success criteria reliably.
 
 ## Workflow
 
 ### 0. Confirm activation and duration
 
-Proceed only when the current request or an authoritative host or repository instruction explicitly asks for dispatch or execution-boundary selection. Mentioning, reviewing, or editing this skill does not activate dispatch. Complexity, duration, cost, or possible parallelism alone does not activate it. Without activation, continue with the current agent under normal host policy.
+Proceed only when the current request or an authoritative host or repository instruction explicitly asks for dispatch or execution-boundary selection, or when a previously and explicitly established dispatch mode remains active in the conversation. Mentioning, reviewing, or editing this skill does not activate dispatch. Complexity, duration, cost, or possible parallelism alone does not activate it. When the current request provides no activation and no established dispatch mode is active, continue with the current agent under normal host policy.
 
-Treat activation as scoped to the current request by default. Keep coordinating workers created for that request, including in-scope follow-ups, until their results are returned or the request ends. Require fresh activation for a new objective or later request. Continue dispatching across requests only when the user or authoritative instruction explicitly establishes a persistent orchestration role; honor an instruction to leave that role.
+Distinguish one-request activation from **dispatch mode**. A request to dispatch or delegate one objective applies only to that objective. A request such as "enter dispatch mode," "act as an orchestrator," or an authoritative instruction establishing that role activates dispatch mode for later objectives in the same conversation. Keep that mode active until the user asks to leave it or an authoritative instruction changes the role. Do not mistake a request to inspect, review, or edit this skill for activation.
+
+In dispatch mode, treat the current agent primarily as a coordinator. Proactively dispatch every substantive objective that has a self-contained handoff and success criterion; the user does not need to repeat "dispatch" on each turn. Keep only clarification, routing, coordination, synthesis, and genuinely trivial one-step actions in the current conversation. Do not create an empty worker merely to await an objective: collect enough task content for a lean handoff first.
 
 Activation permits routing analysis but does not override host policy or broaden authority. Before considering a boundary, remove any backend that the host forbids or that requires authorization not present in the current request.
 
@@ -38,13 +40,22 @@ When the destination is the Codex app and a separate user-visible task may match
 
 ### 3. Choose the execution boundary
 
-Assess the required model role and effort (step 4) together with the boundary, not after it. Use the first matching boundary:
+Classify the instruction before selecting a boundary. Reuse a worker only when the instruction is affirmatively a continuation of that worker's objective and has the same artifact surface, authority, lifecycle, required model role, and required reasoning effort. Assess the required model role and effort fresh for the instruction before comparing them with the worker. If any dimension differs, is unknown, or has not been checked, treat the instruction as a new objective. A shared project, repository, conversation, chronology, or available worker is not continuity.
 
-1. **Existing worker** — the new instruction has the same objective, artifact surface, authority, lifecycle, and suitable model role and effort, and the user did not request a new boundary. Send a concise delta, not the original prompt again.
+When dispatch mode is active, first select the host-preferred worker boundary:
+
+- **Codex Desktop App:** create a new durable user-visible task for each new substantive objective. Prefer the current project and an isolated worktree for repository writes when host policy supports it. Use a new task even when the parent will later synthesize the result; task visibility is the mode's default, not a special case requiring the user to ask again.
+- **Other hosts with subagents but no durable tasks:** create a subagent for each bounded substantive objective and return or synthesize its result in the parent.
+- **Hosts with neither:** perform the work in the current agent and report the capability limit.
+- **Scheduled or recurring work:** use an automation or queued job instead of either default.
+
+Outside dispatch mode, or after classifying a continuation or exception within it, use the first matching boundary:
+
+1. **Existing worker** — the continuation gate above passes and the user did not request a new boundary. Send a concise delta, not the original prompt again.
 2. **Automation or queued job** — work must run later or recur.
 3. **Durable task** — the user requested a separate user-visible task, needs direct follow-up or approvals, or the work has an independent lifecycle.
-4. **Current agent** — one small cohesive action with no suitable existing worker or separate lifecycle, and the current agent's own model role and reasoning effort both meet the required level. When either falls short and a higher tier or effort override is available, escalate to boundary 5, or to 3 when the lifecycle warrants it.
-5. **Subagent** — a bounded independent subproblem whose result should return to the parent for synthesis.
+4. **Subagent** — a bounded independent subproblem whose result should return to the parent for synthesis.
+5. **Current agent** — clarification, routing, synthesis, or one trivial action for which creating a worker would provide no useful separation. Outside dispatch mode, it may also handle one small cohesive action when its model role and effort meet the requirement. When either falls short and an override is available, dispatch instead.
 
 Do not treat a subagent as equivalent to a user-visible task. Do not append a trivial follow-up to an expensive worker solely because it is already open; account for both separation cost and capability mismatch.
 
@@ -75,7 +86,7 @@ Inspect active work when the host exposes it.
 - Run read-only tasks in parallel when their observations will remain valid.
 - Serialize writes to the same workspace or overlapping artifact surface.
 - Use isolated workspaces for independent writes only when the host and repository policy support them.
-- If isolation is unavailable, queue the work or merge it into a suitable existing worker.
+- If isolation is unavailable, queue separate work; merge it into an existing worker only when the continuation gate passes.
 - Avoid launching a read-only audit against files that another worker is actively rewriting unless the audit explicitly accepts a point-in-time snapshot.
 
 ### 6. Build a lean handoff
@@ -95,10 +106,12 @@ Reference applicable skills by name; do not copy their full procedures. Include 
 
 ### 7. Dispatch and coordinate
 
+- Dispatch promptly once the handoff has an objective and success evidence. Do not ask the user to choose a backend that host policy and this workflow already determine.
+- In Codex Desktop App dispatch mode, use the host-native task-creation operation rather than an internal subagent. On other hosts, use the exposed subagent operation unless the task requires a different boundary.
 - Treat a durable task as created only when a host-native operation confirms creation and returns its task or chat handle or link. A prepared composer or deep link is not a successful dispatch.
 - Wait or monitor only when the parent must synthesize the result.
-- Route follow-up instructions to the responsible worker when they remain in scope.
-- Start a separate worker when the objective, artifact surface, authority, lifecycle, or appropriate model role changes materially.
+- Route an instruction to an existing worker only after the continuation gate passes.
+- Start a separate worker for every discontinuous substantive task. Select its model role and reasoning effort independently; do not inherit either merely because another worker is open.
 - Do not duplicate work already in progress.
 
 ## Output

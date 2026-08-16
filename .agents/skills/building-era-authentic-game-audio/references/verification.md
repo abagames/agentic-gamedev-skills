@@ -36,6 +36,22 @@ With a mock adapter, assert:
 - BGM plus worst-case SE/jingle collisions stay within the effective shared voice limit;
 - fixed options and seed reproduce exactly.
 
+For game-owned audio on browser targets, inject host visibility through the bus boundary and
+assert:
+
+- hidden stops or suspends active output, records the applied strategy, and blocks subsequent
+  adapter starts;
+- repeated hidden and visible notifications do not duplicate stop, suspend, resume, listener,
+  or playback operations;
+- after stop, visible restarts each continuous cue still eligible under current game state
+  exactly once;
+- after suspend, visible stops suspended cues that became ineligible and resumes each eligible
+  existing cue exactly once without creating a duplicate instance;
+- user mute, game pause/end, disabled demo sound, and missing user activation remain silent;
+- one-shots emitted while hidden are dropped rather than flushed on return;
+- a rejected or activation-blocked restart or resume produces no uncaught error, creates no
+  duplicate instance, and remains recoverable through the next valid user-activation path.
+
 ## Timeline and BGM
 
 - Assert note/program intervals have positive duration.
@@ -94,6 +110,13 @@ reasoning at all.
 Load the real game in its target runtime. Exercise idle, normal input bursts, rapid repeated
 actions, death/clear transitions, pause/resume, restart, and attract mode. Fail on console/audio
 exceptions or an uninitialized-context path that loses events permanently.
+
+For game-owned browser audio, also exercise a real hidden -> visible transition. Confirm physical
+silence while hidden and one state-correct restoration after return. Test both stop and suspend
+restoration when the implementation supports both; otherwise test its declared strategy. A
+synthetic `visibilitychange` event that leaves `document.visibilityState` unchanged is not
+sufficient evidence. If the pinned engine or library owns visibility handling, verify that
+behavior instead of layering a second listener over it.
 
 ## Experience evaluation
 

@@ -56,6 +56,11 @@ Read [hardware-profiles.md](references/hardware-profiles.md). Choose and record:
 - deterministic seed ownership and replay behavior;
 - duration, step-count, density, and loop-tail budgets.
 
+For browser targets with game-owned audio, also freeze a host-visibility policy. Hidden pages
+must promptly silence or suspend output; visible pages may restore only continuous audio that
+the current game state still requests. Preserve user mute, game pause/end, demo-sound, and
+browser activation gates across both transitions.
+
 Do not author sounds until this contract is stable. Change it later only when gameplay
 evidence shows that the chosen capability model cannot express the required feedback.
 
@@ -85,6 +90,9 @@ game -> emit(event) -> bus -> kit/alias resolution -> adapter -> synth/output
 
 Put mute/demo gating, per-frame repeat caps, priority, and event logging in the bus. Provide
 a silent/mock adapter so headless tests can assert resolved program IDs without audio output.
+On browser targets, bind `visibilitychange` once at the host boundary and forward it to the
+bus or adapter; do not duplicate lifecycle listeners in gameplay code. Treat host-provided
+audio behavior as authoritative when the pinned engine or library already owns this lifecycle.
 
 ### 5. Author BGM
 
@@ -142,6 +150,8 @@ Read [verification.md](references/verification.md). Require all applicable gates
 - deterministic replay for fixed options and seed;
 - matched note starts/releases and bounded loop tails;
 - mock-adapter assertions for emitted events, mute/demo gates, and repeat caps;
+- host-visibility assertions for game-owned browser audio, including hidden emission
+  suppression and state-correct restoration;
 - rendered or captured output measured for silence, clipping, onset and tail, with levels
   compared inside each co-occurrence group rather than across the whole game;
 - runtime smoke test in the real engine or browser;

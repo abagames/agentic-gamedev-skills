@@ -39,6 +39,7 @@ interface GameAudioBus {
   setMuted(muted: boolean): void;
   setDemoSoundEnabled(enabled: boolean): void;
   setIntent(value: number | readonly [number, number]): void;
+  setHostVisible(visible: boolean): void;
   beginFrame(frameId: number): void;
   stopAll(): void;
 }
@@ -53,7 +54,10 @@ interface AudioAdapter<Program, Cue> {
 ```
 
 Use engine-native equivalents where appropriate. Keep gameplay code dependent only on the bus
-or a still narrower event emitter.
+or a still narrower event emitter. `setHostVisible` represents a host lifecycle signal, not a
+user mute control. Browser hosts should bind `document.visibilitychange` once and pass
+`document.visibilityState === "visible"`; omit this method when the pinned engine or library
+already provides equivalent lifecycle behavior for all audio in use.
 
 ## Generic validation manifest
 
@@ -170,6 +174,17 @@ it name the artifact it validated.
 - Clamp exposed intent controls and master parameters at the bus/adapter boundary.
 - Make a fixed seed and fixed options reproduce the same resolved timeline.
 - Mark attract-mode emissions with `demo: true` and test suppression.
+- While the host is hidden, suppress new adapter playback and promptly stop or suspend active
+  output. Remember which strategy was applied, and make repeated hidden/visible notifications
+  idempotent.
+- On return to visible after a stop, restart each eligible continuous cue exactly once. After a
+  suspend, reconcile suspended instances with current game state: stop those now ineligible and
+  resume each eligible existing cue exactly once without creating a duplicate instance.
+- Preserve user mute, game pause/end, demo-sound, and activation gates during either restoration
+  path. Never replay one-shots emitted while hidden or catch up missed timeline events.
+- Treat a rejected or activation-blocked restart or resume as a safe silent state. Retry only
+  through the host's valid activation path, without losing the logical request for an eligible
+  continuous cue.
 
 If the host already has typed data that can enforce these invariants directly, validate that
 source rather than maintaining this manifest as duplicate production data.

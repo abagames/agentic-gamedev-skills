@@ -16,6 +16,10 @@ Determine whether the host provides:
 
 Use only capabilities that are actually exposed. Host policy overrides this reference.
 
+When host policy blocks the required new boundary or model selection, report the capability limit. Do not reinterpret a discontinuous task as a continuation merely to use an available backend.
+
+When persistent dispatch mode is active, capability discovery also selects the host-preferred worker boundary. Prefer durable tasks in Codex Desktop App, subagents on hosts without durable tasks, and the current agent only when no separate worker is exposed or the action is merely coordination or trivial.
+
 ## Backend semantics
 
 | Backend | Ownership | Result path | Best fit |
