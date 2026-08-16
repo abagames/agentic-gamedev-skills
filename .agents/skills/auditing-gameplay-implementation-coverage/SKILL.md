@@ -31,8 +31,7 @@ ledger of obligations and their status, not a repair.
 - A semantic divergence is already reproduced and needs a tick index; that is localization.
 - A patch exists and the question is whether it is the real fix; that is repair validation.
 - The question is balance, difficulty, or fun.
-- Exhaustive correctness is wanted. This procedure finds gaps; a clean result is
-  `no confirmed gap found` and never proof of completeness.
+- A proof of exhaustive correctness is required.
 
 ## Preserve Audit Integrity
 

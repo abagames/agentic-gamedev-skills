@@ -9,16 +9,8 @@ description: "Audits repositories that rely heavily on AGENTS.md, CLAUDE.md, cop
 
 Use this skill when a repository depends on large agent instruction files such as `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, or equivalent docs for both repository context and workflow execution.
 
-The goal is to move repeated or mandatory behavior into the right control surface:
-
-- `AGENTS.md`: stable repo context, architecture constraints, approval policy, and workflow entrypoints
-- `skills/`: broadly reusable agent workflows that still require judgment after deterministic checks are factored out
-- `scripts/`: executable checks, enumeration, validation, and helper commands
-- hooks, CI, task runners, or orchestrators: mandatory ordering, blocking gates, retries, and machine-readable state
-- reports: what moved, what stayed advisory, and what remains risky
-
-Do not replace one giant prose file with giant generated prompts hidden in skills or scripts.
-Do not treat skill creation as the default outcome of control-flow migration.
+The goal is to move repeated or mandatory behavior into the right control surface without replacing
+one giant prose file with giant generated prompts hidden in skills or scripts.
 
 ## Resources
 
@@ -51,79 +43,23 @@ Prefer audit-only output when most are true:
 
 If uncertain, produce a report and recommend against file changes until the user confirms the migration value.
 
-## Core Heuristics
+## Routing Model
 
-Ask "can this be runtime control flow?" before creating a skill. Skill creation is a fallback for reusable judgment-heavy workflows, not the first destination for extracted prose.
+Extract distinct operational rules, split rules that span categories, and assign each rule exactly one
+primary target:
 
-Prefer deterministic control flow for:
+| Rule shape | Primary target |
+| --- | --- |
+| Stable repository context, architecture constraints, naming, edit boundaries | Concise `AGENTS.md` policy |
+| Approval boundaries for dependencies, schemas, production config, external contracts, or critical deletion | Concise `AGENTS.md` policy; never automate away approval |
+| Reusable workflow that still needs judgment after deterministic checks are removed | `skills/<name>/SKILL.md`, only if the Skill Candidate Test passes |
+| Mechanically checkable behavior such as lint, schema/file validation, drift checks, formatting, or builds | `scripts/`, hooks, CI, or task-runner entries |
+| Required ordering, blocking gates, retries, fallbacks, or machine-readable state | Task runner, script, CI, hook configuration, or orchestrator |
 
-- mandatory ordering
-- required validation before proceeding
-- retries or fallback branches
-- artifact existence or freshness checks
-- forbidden paths or operations
-- machine-readable status
-- repeated command sequences
-- pass/fail decisions that do not require product judgment
-
-Use a skill only when the workflow needs agent judgment, repository interpretation, or flexible problem solving after scriptable checks have been removed. Skills should call or reference deterministic checks where those checks exist.
-
-Do not create skills for:
-
-- a single command sequence with fixed pass/fail behavior
-- one-off migration notes or temporary project state
-- project background, rationale, or roadmap context
-- rules that are better represented as concise `AGENTS.md` policy
-- checks that can be expressed as scripts, hooks, CI, task runners, or schema validation
-
-Label prose-only required behavior as advisory unless a script, hook, CI job, task runner, or orchestrator enforces it.
-
-Script checks when practical for:
-
-- instruction surface discovery
-- file existence and section/schema validation
-- command sequencing
-- generated-file drift checks
-- forbidden-path checks
-- required artifact checks
-- skill frontmatter validation
-- machine-readable summaries
-
-Use the LLM for interpretation, classification, tradeoffs, concise explanation, and residual-risk analysis.
-
-## Classification
-
-Extract distinct operational rules from instruction surfaces and classify each into exactly one primary category. Split rules that span categories.
-
-### A. Stable Repo Context
-
-Architecture, directory ownership, invariants, preferred stack, naming conventions, forbidden edit zones, and approval boundaries.
-
-Target: keep concise material in `AGENTS.md`.
-
-### B. Reusable Workflow
-
-Bug fix process, UI change process, release prep, dependency upgrade process, migration authoring process, or test triage sequence.
-
-Target: move to `skills/<name>/SKILL.md` only if it remains useful as a repeatable agent procedure across future tasks or repositories after deterministic checks are factored out.
-
-### C. Mandatory Executable Check
-
-Lint/typecheck/test execution, instruction enumeration, schema validation, report validation, forbidden-path blocking, artifact checks, generated-file verification, screenshots, diff policy checks, formatting, and build verification.
-
-Target: `scripts/`, hooks, CI, or task runner entries.
-
-### D. Approval Policy
-
-Dependency additions, schema changes, production config changes, external API contract changes, and deletion of critical assets.
-
-Target: keep a concise statement in `AGENTS.md`; do not silently automate away approval.
-
-### E. Deterministic Orchestration
-
-Multi-step workflows with required ordering, checkpoint gates, retry limits, fallback paths, structured manifests, task runners, package scripts, Makefiles, CI workflows, or hook coordination.
-
-Target: task runner scripts, Makefile/package scripts, CI, hook configuration, or machine-readable status files.
+Ask "can this be runtime control flow?" before creating a skill. Use the LLM for interpretation,
+tradeoffs, explanation, and residual-risk analysis; use deterministic mechanisms for mandatory or
+mechanically decidable behavior. Label prose-only required behavior as advisory unless an actual
+script, hook, CI job, task runner, or orchestrator enforces it.
 
 ## Procedure
 
@@ -133,8 +69,8 @@ Target: task runner scripts, Makefile/package scripts, CI, hook configuration, o
 2. Extract actionable statements:
    Normalize each instruction into a concise operational rule such as "Run tests after edits" or "Ask for approval before adding dependencies." Do not preserve rhetorical wording.
 
-3. Classify rules:
-   Use categories A-E above. For each repeated or mandatory workflow candidate, sketch:
+3. Classify and model rules:
+   Use the routing model above. For each repeated or mandatory workflow candidate, sketch:
 
    ```text
    inputs -> states -> deterministic checkpoints -> success/failure status -> next action
@@ -143,7 +79,9 @@ Target: task runner scripts, Makefile/package scripts, CI, hook configuration, o
    Include required inputs, ordered states, blocking checks, retry/fallback behavior, machine-readable output if useful, LLM-only judgment, stop conditions, and escalation conditions.
 
 4. Decide each candidate's target:
-   Prefer script/hook/CI/orchestration for mandatory or mechanically checkable behavior. Record each candidate as create skill, update existing skill, merge, keep in `AGENTS.md`, convert to script/hook/CI, convert to orchestration, or reject. Check existing repo-local and available skills before creating a new one.
+   Record each candidate as create skill, update existing skill, merge, keep in `AGENTS.md`, convert
+   to script/hook/CI, convert to orchestration, or reject. Check existing repo-local and available
+   skills before creating a new one, and apply the Skill Candidate Test below before choosing a skill.
 
 5. Produce a migration report before broad edits:
    Write `migration-report.md` with these sections:
@@ -169,7 +107,15 @@ Target: task runner scripts, Makefile/package scripts, CI, hook configuration, o
    If the repo is large or ambiguous, stop here unless the user explicitly asked to apply changes.
 
 6. Apply changes conservatively when requested:
-   Shorten `AGENTS.md` without turning it into a stub. When a procedure moves into a skill, script, hook, CI job, task runner, or orchestrator, remove duplicated procedural prose from `AGENTS.md`; leave concise context, policy, approval boundaries, and workflow entrypoints that point to the new control surface. Create narrow skills only for reusable judgment-heavy workflows. Create scripts for deterministic checks. Add orchestration when it exposes real pass/fail state. Add hooks only for zero-exception behavior.
+   Shorten `AGENTS.md` without turning it into a stub. When a procedure moves into a skill, script,
+   hook, CI job, task runner, or orchestrator, remove duplicated procedural prose from `AGENTS.md`;
+   leave concise context, policy, approval boundaries, and workflow entrypoints that point to the new
+   control surface. Produce only the approved artifacts: the report, updated instructions, qualifying
+   repo-local skills, deterministic helpers, or control-flow configuration. For a generated skill,
+   include a clear name and trigger, applicability boundaries, required inputs, an ordered procedure,
+   validation, stop/escalation conditions, output expectations, and links to enforcing mechanisms.
+   Keep project-specific lore out of skill bodies, and include concrete commands only when the skill
+   is specifically about that tool, framework, or environment. Add hooks only for zero-exception behavior.
 
 7. Review failure modes:
    Load `references/failure-modes.md` and verify no weak skill, README duplication, prompt relocation, false enforcement claim, fake state machine, unsupported policy inference, or unnecessary hook was introduced.
@@ -193,30 +139,6 @@ Create or update a skill only when deterministic control flow is insufficient an
 
 Reject candidates that merely relocate long instructions without an executable checkpoint, clearer entrypoint, or real judgment procedure. Prefer no new skill over a narrow, repo-specific, or low-reuse skill.
 
-## Output Requirements
-
-Unless the user asks for analysis only, produce appropriate artifacts from this set:
-
-- `migration-report.md`
-- updated `AGENTS.md`
-- one or more repo-local skill files, such as `.agents/skills/<skill-name>/SKILL.md` when that is the repository convention, only when the skill candidate test passes
-- helper scripts under `scripts/`
-- task runner, hook, or CI snippets/files when they add real control flow
-- residual-risk notes in the report
-
-When writing generated skills, include:
-
-- clear name and trigger
-- applicability boundaries
-- required inputs
-- ordered procedure
-- validation
-- stop and escalation conditions
-- output expectations
-- references to scripts, hooks, CI jobs, task runners, or status files when applicable
-
-Keep project-specific lore out of skill bodies. Include concrete commands only when the skill is specifically about that tool, framework, or environment.
-
 ## Safety Boundaries
 
 Do not automatically:
@@ -228,20 +150,3 @@ Do not automatically:
 - infer approval policy not present in the repo
 - invent architectural constraints unsupported by repository evidence
 - claim enforcement without an actual enforcing mechanism
-
-## Final Checklist
-
-- Gate decision made and documented.
-- Instruction sources inventoried.
-- Operational rules extracted and classified.
-- Runtime shape defined for repeated or mandatory workflow candidates.
-- Deterministic control flow preferred for mandatory sequencing and validation.
-- Scriptable checks scripted or explicitly left advisory with justification.
-- Weak skill candidates rejected.
-- Existing skills checked before new skills were created.
-- Stable context, policy, approval boundaries, and short workflow entrypoints preserved in `AGENTS.md`.
-- Duplicated procedural prose removed from `AGENTS.md` after equivalent skill/script/hook/CI/task-runner assets were created.
-- Generated assets reviewed against `references/failure-modes.md`.
-- Migration report produced when appropriate.
-- Finalization state assigned to each generated or updated skill.
-- Remaining advisory guidance clearly identified.

@@ -10,7 +10,10 @@ Scope:
 
 Required rules (highest priority):
 - Always use `--headless --path <PROJECT_DIR>` (removes `cwd` dependency)
-- Always capture logs under the project: `2>&1 | tee <PROJECT_DIR>/logs/<name>.log`
+- Always capture logs under the project. Use `2>&1 | tee <PROJECT_DIR>/logs/<name>.log` for commands
+  that terminate themselves, and capture Godot's status from `${PIPESTATUS[0]}`. When `timeout` is
+  the only termination mechanism, redirect directly with `> <PROJECT_DIR>/logs/<name>.log 2>&1`
+  and capture `timeout`'s status explicitly; do not pipe that run through `tee`.
 - Always set project-local `XDG_DATA_HOME`, `XDG_CONFIG_HOME`, **and** `XDG_CACHE_HOME` for any scripted Godot run. Set all three together — Godot writes to all three categories, and partial redirection still hits the unwritable default for the unset ones. Required to avoid CI/sandbox write failures (`Can't open file for writing: ~/.config/godot/...`); harmless on a developer machine because the only effect is that per-project metadata/cache live under `<PROJECT_DIR>/.godot-xdg/` instead of the user's globals. Add `.godot-xdg/` to `.gitignore`.
   - These `export`s affect every process started from the same shell, not just `godot`. If the same shell session also runs non-Godot tooling that honors XDG vars (e.g. a Node/Playwright browser-automation step for web-export testing), that tooling's own cache/data lookup silently moves under `<PROJECT_DIR>/.godot-xdg/` too and can fail to find things it installed elsewhere (observed: Playwright reporting a missing browser executable). Export these three vars only in the specific command/subshell that invokes `godot`, or explicitly unset/restore them before running unrelated tools in the same shell.
 - Never edit `.tscn` as raw text (edits must go through `--headless --script`)

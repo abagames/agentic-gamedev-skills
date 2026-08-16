@@ -80,14 +80,10 @@ require_literal "$openai_yaml" "Use \$$folder_name" 'default prompt names this s
 
 required_sections=(
   '## Applicability Gate'
-  '## Core Heuristics'
-  '## Classification'
-  '### E. Deterministic Orchestration'
+  '## Routing Model'
   '## Procedure'
   '## Skill Candidate Test'
-  '## Output Requirements'
   '## Safety Boundaries'
-  '## Final Checklist'
 )
 
 for section in "${required_sections[@]}"; do

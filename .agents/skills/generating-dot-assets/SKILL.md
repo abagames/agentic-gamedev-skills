@@ -42,32 +42,15 @@ Default project layout:
 
 ## Workflow
 
-1. Prompt built-in `image_gen` for an oversized source image of exactly one object.
-2. Use a flat chroma-key background, usually `#00ff00`; use `#ff00ff` if the subject is green.
-3. Copy the selected generated image from `$CODEX_HOME/generated_images/...` into the project raw directory.
-4. Run `scripts/cutout.mjs` to remove the chroma-key background.
-5. Run `scripts/pixelize.mjs` to reduce detail and apply a palette or color limit.
-6. Run `scripts/fit-canvas.mjs` to enforce the exact requested `WxH` transparent canvas.
-7. Run `scripts/validate-pixel-asset.mjs` to check dimensions, alpha, transparent corners, and optional color count.
-8. Save a prompt record in the source directory using `<stem>.prompt.md` unless the project has a stronger convention.
+1. Read `references/prompt-patterns.md`, then prompt built-in `image_gen` for an oversized source image of exactly one object on the selected chroma-key background.
+2. Copy the selected generated image from `$CODEX_HOME/generated_images/...` into the project raw directory.
+3. Run `scripts/cutout.mjs` to remove the chroma-key background.
+4. Run `scripts/pixelize.mjs` to reduce detail and apply a palette or color limit.
+5. Run `scripts/fit-canvas.mjs` to enforce the exact requested `WxH` transparent canvas.
+6. Run `scripts/validate-pixel-asset.mjs`, then apply the automated and visual acceptance checks in `references/validation.md`.
+7. Save a prompt record in the source directory using `<stem>.prompt.md` unless the project has a stronger convention.
 
 Prefer project-local equivalent tools if they already exist and satisfy the same contract. Otherwise use this skill's bundled scripts.
-
-## Prompt Pattern
-
-Use built-in `image_gen` by default.
-
-```text
-Use case: stylized-concept
-Asset type: transparent pixel-art source image for a game object
-Primary request: Create one <subject>.
-Subject: <single object only>, readable silhouette, clean edges.
-Style: <project style>, pixel-art friendly source image, simplified forms, broad color areas, low detail clustering.
-Composition: centered isolated object, generous padding, no cropped important edges.
-Background: perfectly flat solid <key-color> chroma-key background. The background must be one uniform color with no floor plane, no shadow, no gradient, no texture, and no lighting variation. Do not use <key-color> anywhere in the subject.
-Color/detail constraints: compatible with reduction to <N> colors and final size <WxH>.
-Avoid: photorealism, text, logos, watermark, extra props, background clutter, contact shadow, cast shadow, reflection, UI, frame, border.
-```
 
 ## Commands
 
@@ -105,7 +88,6 @@ Palette files must contain a `colors` array of hex colors:
 - Keep raw generated images and final transparent PNGs separate.
 - Do not overwrite existing assets unless explicitly asked; create a versioned filename instead.
 - Do not require an explicit palette for every asset. Use one when the project already defines colors, when role colors matter, or when multiple assets must look like they belong to the same set.
-- Automated validation enforces exact size, alpha, transparent corners, and maximum color count. If the design asks for a color range such as 16-24 colors, enforce the upper bound with `--max-colors` and treat the lower bound as a visual acceptance check for readability and sufficient detail.
 - Default pixelize resize: use an intermediate long edge about 2x the final long edge. For square or landscape assets, set `--width` to `final_width * 2`; for portrait assets, set `--height` to `final_height * 2`. Use both `--width` and `--height` only when intentional pre-fit stretching is acceptable.
 
 ## Failure Handling
@@ -115,3 +97,9 @@ Palette files must contain a `colors` array of hex colors:
 - If the subject is cropped, regenerate with stronger padding instructions or use a larger intermediate size.
 - If the object becomes unreadable at final size, regenerate with simpler shapes or pixelize from a less detailed source.
 - If ImageMagick `convert` is unavailable, report that the bundled scripts require ImageMagick and stop.
+
+## References
+
+- `references/prompt-patterns.md` — canonical image-generation prompts and key-color selection.
+- `references/validation.md` — canonical automated and visual acceptance checks.
+- `references/imagegen-cli-recovery.md` — recover successful Codex CLI image output when no generated file is visible.

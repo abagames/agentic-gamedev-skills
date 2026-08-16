@@ -61,27 +61,13 @@ Phase 2: Specification hardening
 Phase 3: Verification
 
 9. **Emergence Review**: if implementation revealed a behavior not in the original spec, document it and decide whether to preserve it as a design revision. Unintentional but interesting mechanics should be formalized rather than fixed away.
-10. **Consistency Verification**: run the checklist below.
+10. **Consistency Verification**: run the canonical checklist in `references/mini-game-design-guide.md` §9.
 
 > Treat seeds as stimulus for steps 1–2. From step 3 onward, do not be bound by them. A finished design that no longer references the original tags is fine.
 
-## Design Quality Checklist
-
-- [ ] Is the input scheme within the button-count limit chosen in the project brief (for one-button briefs: completes with press, hold, release, or a combination — no second input required)?
-- [ ] Is the game-over condition single and visually obvious?
-- [ ] Is each monotonous policy in the scheme's policy set strictly suboptimal, and does the deliverable explicitly include an `Idle weakness`, `Mashing weakness`, and `Skilled play` bullet, plus `Hold-only weakness` (one-button) or the multi-button equivalents?
-- [ ] Does each important monotonous-input weakness include at least one testable implementation invariant?
-- [ ] Does the design document the state model and tradeoff, or explicitly justify the absence of state variables with a geometric/physical decision space?
-- [ ] Does every state variable have a non-text in-world feedback channel?
-- [ ] Can you give a reasoned answer to all four principles in §2 of the reference guide?
-- [ ] Is score tied to an in-world causal event? If using survival score, is survival itself the central skill expression?
-- [ ] Are persistent consequences or safety costs specified where needed (lost multiplier, shrinking space, fuel drain, crumbling platform, cooldown, exposed hitbox, etc.)?
-- [ ] Does the design state what scales with difficulty and why?
-- [ ] Does the design record the first association and an explicit reason for rejecting it (the Intentional Deviation content)?
-- [ ] Did the idea start from the seed but contain elements beyond it?
-- [ ] Is there a "I've never seen this before" moment?
-- [ ] Is this **not** a clone or minor variation of a widely-known existing game?
-- [ ] **For new-design tasks**, does the document capture the required content (name + slug, seeds, core mechanics, state/tradeoff, object specs, design principle analysis, basis for novelty, similarity check)? See `references/mini-game-design-guide.md` Appendix A for an example layout.
+For new-design tasks, completion additionally requires the deliverable to capture name and slug,
+seeds, core mechanics, state/tradeoff, object specifications, design-principle analysis, basis for
+novelty, and a similarity check. Use Appendix A of the reference guide as an example layout.
 
 ## References
 

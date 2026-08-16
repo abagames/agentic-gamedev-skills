@@ -207,8 +207,10 @@ State what scales with difficulty and why. Good defaults:
 - [ ] Is each monotonous policy in the scheme's set (see §8.1) explicitly documented as worse than skilled play?
 - [ ] Does each key weakness include a testable implementation invariant, not just prose?
 - [ ] Does the design record the first association and an explicit reason for rejecting it (the Intentional Deviation content)?
+- [ ] When seeds were supplied, did the idea begin from them and develop at least one element beyond them?
 - [ ] Does score come from in-world causality rather than raw input facts? If survival score is used, is survival itself the central skill expression?
 - [ ] Can rules and object roles be understood without text?
+- [ ] Can the design give a reasoned answer to all four principles in §2, including when auditing an existing design?
 - [ ] Does every state variable create a distinct player decision, or is the absence of state variables justified by a geometric/physical decision space?
 - [ ] Does every state variable have a non-text in-world feedback channel?
 - [ ] Is there at least one explicit safe/risky tradeoff?

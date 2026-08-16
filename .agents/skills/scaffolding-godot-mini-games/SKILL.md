@@ -36,13 +36,26 @@ export XDG_CONFIG_HOME="$PROJECT_DIR/.godot-xdg/config"
 export XDG_CACHE_HOME="$PROJECT_DIR/.godot-xdg/cache"
 mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
-godot --headless --path "$PROJECT_DIR" --version 2>&1 | tee "$PROJECT_DIR/logs/version.log"
-timeout 5s godot --headless --path "$PROJECT_DIR" 2>&1 | tee "$PROJECT_DIR/logs/smoke_main_initial.log"
+if godot --headless --path "$PROJECT_DIR" --version > "$PROJECT_DIR/logs/version.log" 2>&1; then
+  version_status=0
+else
+  version_status=$?
+fi
+
+if timeout 5s godot --headless --path "$PROJECT_DIR" > "$PROJECT_DIR/logs/smoke_main_initial.log" 2>&1; then
+  smoke_status=0
+else
+  smoke_status=$?
+fi
+
+printf 'version_exit=%s\nsmoke_exit=%s\n' "$version_status" "$smoke_status"
 ```
 
 Pass criteria for the validation pair:
-- `version.log` shows a Godot 4.2+ version line and no "Project file not found" / GDScript parse errors.
-- `smoke_main_initial.log` shows clean boot to the `timeout`-induced exit (exit code 124 from `timeout` is **expected** here — the template has no quit hook). Treat any `SCRIPT ERROR` / `ERROR:` line outside a project-known-warning whitelist as failure.
+- `version_status` is `0`, and `version.log` shows a Godot 4.2+ version line and no "Project file not found" / GDScript parse errors.
+- `smoke_status` is `124`, proving `timeout` ended the run as expected for this template's lack of a
+  quit hook. `smoke_main_initial.log` shows clean boot to that exit; treat any `SCRIPT ERROR` /
+  `ERROR:` line outside a project-known-warning whitelist as failure.
 
 Validation milestones:
 - Post-copy: version check plus startup smoke is enough; the template intentionally has no game-specific logic.

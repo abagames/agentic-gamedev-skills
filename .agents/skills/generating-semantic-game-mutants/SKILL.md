@@ -125,38 +125,9 @@ is not a firewall.** Isolation is procedural:
 
 ## Bundled Fixture
 
-`assets/fixtures/` holds a runnable instance of this whole structure: a pure reducer, eight event
-traces an evaluee is given, six more that exist only for scoring, an invariant checker, and thirteen
-standalone artifacts: nine defects across five families, two clean controls, and two equivalent
-mutants.
-
-```bash
-cd assets/fixtures
-node check.mjs                  # reference: invariants and complete finals match, exit 0
-node check.mjs mutants/m01.mjs  # exit 1 with the first violating step
-node check.mjs mutants/m09.mjs traces-scoring.json   # scoring set; needed for the withheld tapes
-```
-
-`check.mjs` reports, per trace, the final state and the **first** step at which each invariant
-fails. It also compares the complete final state with the bundled clean reducer, so missing effects
-that never create an illegal intermediate state still fail. It derives its verdict from executions
-and never inspects the candidate reducer source, so it scores a repair it has never seen.
-
-One defect, `m09`, is unreachable from `traces.json` on purpose: an evaluee that only folds the
-tapes it was handed cannot see it. Score repairs against `traces-scoring.json`; several other
-mutants also gain additional coverage there. Both it and `check.mjs` are answer key
-alongside `references/fixture-manifest.md`; none of the three goes into a working copy.
-
-**What this fixture can and cannot measure.** Each mutant is a single ~135-line reducer that a
-capable evaluee reads end to end in one pass, so localization is nearly free and most arms converge
-on a repair. That makes the fixture suitable for **suite detection** — where the subject is a test
-suite, not a reader — and for the **over-repair control**, where reading the whole file is exactly
-what should stop a change to healthy code. It is a weak instrument for **with / without
-comparison**: when both arms repair everything, a null result measures the fixture's size, not the
-instructions under test. Before claiming an instruction set makes no difference, confirm the arms
-were separated by something other than reading effort. To measure that comparison, build mutants
-whose site is not visible from a single readable file — defects split across modules, reachable
-only through a specific tape, or observable only in an aggregate the evaluee must construct.
+When using `assets/fixtures/`, read `references/bundled-fixture-manual.md` for its commands, scoring
+boundary, and measurement limitations. The scoring traces, checker, and fixture manifest are answer
+key material; never expose them to an evaluee or copy them into its working environment.
 
 ## Validation
 
@@ -177,4 +148,5 @@ only through a specific tape, or observable only in an aggregate the evaluee mus
 
 - `references/mutation-families.md` — operator catalog by family.
 - `references/mutant-manifest.md` — manifest schema and the rules that keep it usable as ground truth.
+- `references/bundled-fixture-manual.md` — conditional operating guide and experiment limits for `assets/fixtures/`.
 - `references/fixture-manifest.md` — the bundled fixture's answer key. Withhold from evaluees.

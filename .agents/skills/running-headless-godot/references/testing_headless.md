@@ -20,12 +20,20 @@ For known script warnings (RID/Object leak, etc.), see `headless_cli.md`.
 Startup smoke (minimal):
 ```bash
 mkdir -p <PROJECT_DIR>/logs
-timeout -k 2 5 godot --headless --path <PROJECT_DIR> > <PROJECT_DIR>/logs/smoke_main.log 2>&1
-echo "godot_exit=$?"
+if timeout -k 2 5 godot --headless --path <PROJECT_DIR> > <PROJECT_DIR>/logs/smoke_main.log 2>&1; then
+  smoke_status=0
+else
+  smoke_status=$?
+fi
+echo "godot_exit=$smoke_status"
 ```
+- For a project known to lack an internal quit condition, expect status `124`. Status `0` fails this
+  timeout-owned smoke because the process ended unexpectedly before the timeout.
+- Accept status `0` when intentional self-termination such as `quit(0)` or `--quit-after` is expected
+  and the startup and log criteria pass. Any other nonzero status is a command or Godot failure.
 - Treat `Node not found` and script errors as failures
 - After patches, add checks for important node counts (e.g., verify expected singleton nodes exist exactly once)
-- **Do not pipe this command through `tee`** (i.e. do not use `timeout ... | tee log`). When a project has no internal quit condition (no `--quit-after`, no `quit()` call), `timeout` is the only thing killing the process; observed in practice, that combination can leave the pipeline blocked well past the timeout in headless/sandboxed environments (the run hung for the surrounding tool's full default wall-clock limit instead of exiting at 5s), even though redirecting straight to a file with the same `timeout` terminates cleanly. Redirect to a file (`> log 2>&1`) instead, and `cat`/read the file afterward if you want to see it inline. This only applies when `timeout` is the sole thing ending the process — a script that calls `quit(0|1)` itself, or a run using `--quit-after N`, exits on its own and is not affected, so piping through `tee` there is fine.
+- **Do not pipe this command through `tee`** (i.e. do not use `timeout ... | tee log`). When a project has no internal quit condition (no `--quit-after`, no `quit()` call), `timeout` is the only thing killing the process; observed in practice, that combination can leave the pipeline blocked well past the timeout in headless/sandboxed environments (the run hung for the surrounding tool's full default wall-clock limit instead of exiting at 5s), even though redirecting straight to a file with the same `timeout` terminates cleanly. Redirect to a file (`> log 2>&1`) instead, and `cat`/read the file afterward if you want to see it inline. A script that calls `quit(0|1)` itself, or a run using `--quit-after N`, exits on its own and may use `tee`; capture Godot's status from `${PIPESTATUS[0]}` in that case.
 
 Required:
 - Scripts run via `--script` must extend `SceneTree` or `MainLoop` (Godot 4)
