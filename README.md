@@ -6,6 +6,8 @@ This repository collects agent skills extracted from game-development work and r
 
 The main use case is building mini-games with one-button controls, strong visual feedback, procedural audio, telemetry-guided tuning, and optional pixel-art assets. A few adjacent skills support that workflow: skill extraction, workflow refinement from real execution artifacts, and gating or dispatching expensive agent work.
 
+Games built with these skills live in [agentic-gamedev-games](https://github.com/abagames/agentic-gamedev-games).
+
 ## How To Use
 
 - Invoke a skill by name, or let the task trigger the skill through its `description` field.

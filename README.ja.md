@@ -6,6 +6,8 @@
 
 主な用途は、ミニゲームの制作である。一ボタン操作、強い視覚フィードバック、手続き型音声、テレメトリによる調整、任意のピクセルアート素材生成を扱う。補助的に、skill 抽出、実行成果物からの workflow 改善、高コストな agent 作業のゲートとディスパッチも扱う。
 
+これらの skill を使って制作したゲームは [agentic-gamedev-games](https://github.com/abagames/agentic-gamedev-games) にある。
+
 ## 使い方
 
 - skill 名を指定するか、タスク内容を `description` にマッチさせて使う。
