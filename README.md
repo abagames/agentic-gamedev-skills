@@ -65,6 +65,7 @@ External imported skills may keep their upstream names and structure.
 | Skill                         | Purpose                                                                                                                                                                                       |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | Evaluates balance through telemetry by comparing monotonous and exploratory policies with deterministic seeds or calibrated non-deterministic bands, including simulation, instrumentation, and structural repair guidance. |
+| [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | Measures whether an isolated grader who never saw the design or source can read a game's goal, options, and risk off sampled gameplay frames, with a withheld follow-up frame as oracle and a degraded control, returning intent, decision-variety, and entry-point verdicts. |
 
 ### Gameplay Verification And Debugging
 
