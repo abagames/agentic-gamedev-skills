@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "slug": "one-button-game-builder",
+  "version": "0.1.0",
+  "description": "Design and improve compact one-button games from mechanic through gameplay validation.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills",
+  "license": "MIT",
+  "keywords": [
+    "one-button",
+    "mini-game",
+    "game-design",
+    "legibility",
+    "playtesting"
+  ],
+  "skills": [
+    "designing-minimal-game-rules",
+    "designing-mini-games",
+    "implementing-gameplay-invariants",
+    "directing-game-visuals",
+    "maximizing-game-feel",
+    "gating-intent-legibility",
+    "evaluating-gameplay-balance"
+  ],
+  "targets": {
+    "codex": {
+      "displayName": "One-Button Game Builder",
+      "shortDescription": "Build compact one-button games from rules through validation.",
+      "category": "Developer Tools",
+      "defaultPrompts": [
+        "Design a 30-second one-button game with anti-idle invariants.",
+        "Audit this prototype's input, scoring, and failure conditions.",
+        "Check blind whether this prototype's goal reads without HUD text."
+      ]
+    },
+    "claude": {
+      "displayName": "One-Button Game Builder"
+    }
+  },
+  "requirements": [
+    "A host with isolated subagents is needed for blind legibility grading.",
+    "Telemetry evaluation needs a runnable game and an appropriate simulator or engine; no engine is bundled."
+  ]
+}

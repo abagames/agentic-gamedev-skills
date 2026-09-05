@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "agent-workflow-engineering",
+  "displayName": "Agent Workflow Engineering",
+  "version": "0.1.0",
+  "description": "Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "agent",
+    "workflow",
+    "skills",
+    "evaluation"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "retro-arcade-game-finisher",
+  "version": "0.1.0",
+  "description": "Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "license": "MIT",
+  "keywords": [
+    "arcade",
+    "retro",
+    "pixel-art",
+    "audio"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Retro Arcade Game Finisher",
+    "shortDescription": "Finish arcade games with rounds, pixels, and retro sound.",
+    "longDescription": "Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.",
+    "developerName": "abagames",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Propose three original fixed-screen arcade concepts.",
+      "Add rounds and a high-score loop to this playable game.",
+      "Build a coherent retro sound kit for this game."
+    ]
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

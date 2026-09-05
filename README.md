@@ -14,6 +14,23 @@ Games built with these skills live in [agentic-gamedev-games](https://github.com
 - Treat each `SKILL.md` as the canonical workflow for that capability.
 - Use `AGENTS.md` for repository-level maintenance rules.
 
+## Plugin Distributions
+
+Six repository-hosted plugins package the skills for Codex and Claude Code. Their version `0.1.0` installable roots and catalogs are generated from the canonical skills and compositions in this repository. They become available from GitHub after the reviewed change is committed and pushed. GitHub distribution is separate from submission to an OpenAI or Anthropic curated directory. See the [maintainer guide](PLUGIN_RELEASE.md) for regeneration, validation, versioning, and the publication boundary.
+
+| Plugin | Skills |
+| --- | ---: |
+| [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 7 |
+| [Gameplay Verification & Debugging Toolkit](plugins/gameplay-debugging-toolkit/README.md) | 5 |
+| [Retro Arcade Game Finisher](plugins/retro-arcade-game-finisher/README.md) | 5 |
+| [Godot Mini-Game Builder](plugins/godot-mini-game-builder/README.md) | 4 |
+| [Web Mini-Game Kit](plugins/web-mini-game-kit/README.md) | 4 |
+| [Agent Workflow Engineering](plugins/agent-workflow-engineering/README.md) | 9 |
+
+The bundles cover 32 local skills with 34 memberships; externally referenced skills are excluded.
+
+After GitHub publication, Claude Code users can add `abagames/agentic-gamedev-skills` as a marketplace and install `<plugin>@agentic-gamedev-skills`. Codex CLI users can add the same `owner/repo` marketplace, list available plugins, and install `<plugin>@agentic-gamedev-skills`; workspace administrators can import the GitHub repository through plugin management. The repository contains the standard Codex catalog, an API-key-login Codex catalog, and the Claude Code catalog. Maintainers regenerate them with `python3 tools/plugin-bundles/published.py --repo . --write`.
+
 ## Skill Authoring Conventions
 
 Local skills follow [Anthropic's Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices) where practical:
@@ -117,5 +134,9 @@ The following individual skills are imported or referenced from other repositori
 ## Repository Tools
 
 - `tools/install-external-skills.sh` — stage and validate supported external skills before replacing `.agents/skills/<name>/`; failed updates preserve the installed version. Reference-only entries above are not automatic targets.
-- `tools/check-readme-skills.sh` — verify local skill directories and exact external `.gitignore` entries against this README, while honoring external family globs such as `godot-*`. Exits non-zero on drift.
+- `tools/check-readme-skills.sh` — verify local skill directories and external `.gitignore` entries against this README. Exits non-zero on drift.
 - `tools/tests/test-repository-tools.sh` — exercise installer success, failure recovery, path containment, and README consistency without network access or changes to installed skills.
+- `python3 tools/plugin-bundles/build.py plugin-bundles/<bundle>.json --target codex|claude` — build a self-contained plugin with a v3 payload hash/mode inventory. `--publishable` gates clean inputs; it does not imply strict reproducibility or official approval. Rebuild ignored `dist/` outputs instead of editing or committing them.
+- `tools/tests/test-plugin-bundles.sh` — validate compositions, generated artifacts, deterministic skill hashes, and rejection of unsafe or malformed inputs.
+- `python3 tools/plugin-bundles/published.py --write|--check` — regenerate or verify the six tracked plugin roots and the Codex, Codex API-key, and Claude catalogs from compositions and canonical skills. The check rejects stale payloads, missing or extra roots, path escape, and identity/version drift.
+- `python3 tools/plugin-bundles/package.py --output <new-dir>` — build and round-trip all six bundles as ZIPs with checksums and a validation report. See the release guide for platform validator options.

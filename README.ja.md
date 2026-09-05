@@ -14,6 +14,23 @@
 - 各 `SKILL.md` をその機能の標準手順とする。
 - リポジトリ管理ルールは `AGENTS.md` に従う。
 
+## プラグイン配布
+
+Codex と Claude Code 向けに、6つのリポジトリ配布プラグインを用意している。各 `0.1.0` の導入可能なルートとカタログは、このリポジトリの canonical skill と composition から生成される。レビュー済みの変更を commit して GitHub に push すると利用可能になる。GitHub 配布と OpenAI / Anthropic の curated directory への申請は別の操作である。再生成、検証、versioning、公開境界は [maintainer guide](PLUGIN_RELEASE.md) を参照。
+
+| Plugin | Skills |
+| --- | ---: |
+| [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 7 |
+| [Gameplay Verification & Debugging Toolkit](plugins/gameplay-debugging-toolkit/README.md) | 5 |
+| [Retro Arcade Game Finisher](plugins/retro-arcade-game-finisher/README.md) | 5 |
+| [Godot Mini-Game Builder](plugins/godot-mini-game-builder/README.md) | 4 |
+| [Web Mini-Game Kit](plugins/web-mini-game-kit/README.md) | 4 |
+| [Agent Workflow Engineering](plugins/agent-workflow-engineering/README.md) | 9 |
+
+32のローカルスキルを延べ34件収録し、外部参照スキルは同梱しない。
+
+GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を marketplace として追加し、`<plugin>@agentic-gamedev-skills` をインストールできる。Codex CLI でも同じ `owner/repo` marketplace を追加し、available plugin を確認して `<plugin>@agentic-gamedev-skills` をインストールできる。workspace admin は plugin management から GitHub repository を import できる。リポジトリには標準 Codex catalog、API key login 用 Codex catalog、Claude Code catalog があり、maintainer は `python3 tools/plugin-bundles/published.py --repo . --write` で再生成する。
+
 ## Skill 作成規約
 
 ローカル skill は、実用上可能な範囲で [Anthropic の Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices) に従う。
@@ -113,5 +130,9 @@
 ## リポジトリツール
 
 - `tools/install-external-skills.sh`: 対応済みの外部 skill を段階配置先へ取得・検証してから `.agents/skills/<name>/` を置き換える。失敗時は導入済み版を保持する。参照のみの項目は自動取得の対象外。
-- `tools/check-readme-skills.sh`: ローカル skill ディレクトリと `.gitignore` の外部 skill 完全名を README と照合し、`godot-*` のような外部 family glob も考慮する。不一致なら非ゼロ終了する。
+- `tools/check-readme-skills.sh`: ローカル skill ディレクトリと `.gitignore` の外部 skill を README と照合する。不一致なら非ゼロ終了する。
 - `tools/tests/test-repository-tools.sh`: ネットワークや導入済み skill を変更せず、installer の成功・失敗復元・path containment・README 整合性を検証する。
+- `python3 tools/plugin-bundles/build.py plugin-bundles/<bundle>.json --target codex|claude`: スキルと資産から自己完結した plugin を生成する。全ペイロードの hash・実行権限を lock v3 に記録する。`--publishable` は clean input のゲートであり、完全再現性や公式承認は意味しない。生成された `dist/` は直接編集・commit せず再生成する。
+- `tools/tests/test-plugin-bundles.sh`: composition、生成 artifact、決定的な skill hash、不正または危険な入力の拒否を検証する。
+- `python3 tools/plugin-bundles/published.py --write|--check`: composition と canonical skill から、追跡対象の6つの plugin root と Codex、Codex API key、Claude catalog を再生成または検証する。stale payload、root の不足・過剰、path escape、identity / version drift を拒否する。
+- `python3 tools/plugin-bundles/package.py --output <new-dir>`: 全6構成をZIP化して展開後も検証し、checksum と結果レポートを生成する。公式 validator の指定方法は公開ガイドを参照。

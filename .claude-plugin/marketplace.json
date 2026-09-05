@@ -1,0 +1,48 @@
+{
+  "name": "agentic-gamedev-skills",
+  "owner": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "metadata": {
+    "description": "Game development and agent workflow skills by abagames."
+  },
+  "plugins": [
+    {
+      "name": "one-button-game-builder",
+      "source": "./plugins/one-button-game-builder",
+      "description": "Design and improve compact one-button games from mechanic through gameplay validation.",
+      "strict": true
+    },
+    {
+      "name": "gameplay-debugging-toolkit",
+      "source": "./plugins/gameplay-debugging-toolkit",
+      "description": "Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.",
+      "strict": true
+    },
+    {
+      "name": "retro-arcade-game-finisher",
+      "source": "./plugins/retro-arcade-game-finisher",
+      "description": "Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.",
+      "strict": true
+    },
+    {
+      "name": "godot-mini-game-builder",
+      "source": "./plugins/godot-mini-game-builder",
+      "description": "Design and scaffold Godot mini-games with headless workflows, web export preparation, and procedural sound effects.",
+      "strict": true
+    },
+    {
+      "name": "web-mini-game-kit",
+      "source": "./plugins/web-mini-game-kit",
+      "description": "Build crisp-game-lib mini-games, set up licensed game typography, and verify browser runtime health and mechanic conformance.",
+      "strict": true
+    },
+    {
+      "name": "agent-workflow-engineering",
+      "source": "./plugins/agent-workflow-engineering",
+      "description": "Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.",
+      "strict": true
+    }
+  ]
+}

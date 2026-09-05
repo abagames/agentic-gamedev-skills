@@ -1,0 +1,35 @@
+{
+  "name": "one-button-game-builder",
+  "version": "0.1.0",
+  "description": "Design and improve compact one-button games from mechanic through gameplay validation.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "license": "MIT",
+  "keywords": [
+    "one-button",
+    "mini-game",
+    "game-design",
+    "legibility",
+    "playtesting"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "One-Button Game Builder",
+    "shortDescription": "Build compact one-button games from rules through validation.",
+    "longDescription": "Design and improve compact one-button games from mechanic through gameplay validation.",
+    "developerName": "abagames",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Design a 30-second one-button game with anti-idle invariants.",
+      "Audit this prototype's input, scoring, and failure conditions.",
+      "Check blind whether this prototype's goal reads without HUD text."
+    ]
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

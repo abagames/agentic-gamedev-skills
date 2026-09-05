@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "web-mini-game-kit",
+  "displayName": "Web Mini-Game Kit",
+  "version": "0.1.0",
+  "description": "Build crisp-game-lib mini-games, set up licensed game typography, and verify browser runtime health and mechanic conformance.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "crisp-game-lib",
+    "typography",
+    "playwright"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

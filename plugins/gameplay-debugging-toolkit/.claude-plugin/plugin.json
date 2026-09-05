@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "gameplay-debugging-toolkit",
+  "displayName": "Gameplay Verification & Debugging Toolkit",
+  "version": "0.1.0",
+  "description": "Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "gameplay",
+    "debugging",
+    "validation"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

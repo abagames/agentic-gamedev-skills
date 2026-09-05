@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "slug": "web-mini-game-kit",
+  "version": "0.1.0",
+  "description": "Build crisp-game-lib mini-games, set up licensed game typography, and verify browser runtime health and mechanic conformance.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills",
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "crisp-game-lib",
+    "typography",
+    "playwright"
+  ],
+  "skills": [
+    "developing-with-crisp-game-lib",
+    "styling-web-game-typography",
+    "probing-web-game-mechanics",
+    "smoke-testing-web-games"
+  ],
+  "targets": {
+    "codex": {
+      "displayName": "Web Mini-Game Kit",
+      "shortDescription": "Build crisp-game-lib games and verify browser mechanics.",
+      "category": "Developer Tools",
+      "defaultPrompts": [
+        "Build a compact browser game using crisp-game-lib.",
+        "Smoke-test this browser game for runtime errors.",
+        "Verify this game mechanic against its written spec."
+      ]
+    },
+    "claude": {
+      "displayName": "Web Mini-Game Kit"
+    }
+  },
+  "requirements": [
+    "Browser probes need Node.js 18+, Playwright, and Chromium available in the target project.",
+    "The crisp-game-lib workflow applies only to projects using crisp-game-lib.",
+    "Fonts must be obtained and licensed for redistribution; font binaries are not bundled."
+  ]
+}

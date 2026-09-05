@@ -7,5 +7,8 @@
 .agents/skills/systematic-debugging/
 
 tmp/
+dist/
+__pycache__/
+*.py[cod]
 .codex/
 .claude/

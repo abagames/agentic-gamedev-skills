@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "slug": "agent-workflow-engineering",
+  "version": "0.1.0",
+  "description": "Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills",
+  "license": "MIT",
+  "keywords": [
+    "agent",
+    "workflow",
+    "skills",
+    "evaluation"
+  ],
+  "skills": [
+    "extracting-agent-skills",
+    "refining-workflows-from-artifacts",
+    "migrating-agents-md-to-control-flow",
+    "extracting-spec-design-ladders",
+    "gating-by-blind-restoration",
+    "gating-expensive-batch-work",
+    "generating-semantic-game-mutants",
+    "dispatching-agent-work",
+    "critiquing-own-response"
+  ],
+  "targets": {
+    "codex": {
+      "displayName": "Agent Workflow Engineering",
+      "shortDescription": "Extract skills and improve workflows with scoped evidence.",
+      "category": "Developer Tools",
+      "defaultPrompts": [
+        "Extract reusable agent skills from this completed project.",
+        "Refine this workflow using its latest execution artifact.",
+        "Recover a reproduction spec and abstract design from code."
+      ]
+    },
+    "claude": {
+      "displayName": "Agent Workflow Engineering"
+    }
+  },
+  "requirements": [
+    "Blind reconstruction and delegated work need a host with isolated agents or tasks.",
+    "Scheduling needs host automation support. Plugins do not add model, tool, or automation access.",
+    "Optional skill-authoring and empirical-tuning tools are discovered from the host and are not bundled."
+  ]
+}

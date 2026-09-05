@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "slug": "retro-arcade-game-finisher",
+  "version": "0.1.0",
+  "description": "Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills",
+  "license": "MIT",
+  "keywords": [
+    "arcade",
+    "retro",
+    "pixel-art",
+    "audio"
+  ],
+  "skills": [
+    "generating-retro-arcade-concepts",
+    "arcadifying-mini-games",
+    "generating-dot-assets",
+    "designing-retro-arcade-sound-kits",
+    "building-era-authentic-game-audio"
+  ],
+  "targets": {
+    "codex": {
+      "displayName": "Retro Arcade Game Finisher",
+      "shortDescription": "Finish arcade games with rounds, pixels, and retro sound.",
+      "category": "Developer Tools",
+      "defaultPrompts": [
+        "Propose three original fixed-screen arcade concepts.",
+        "Add rounds and a high-score loop to this playable game.",
+        "Build a coherent retro sound kit for this game."
+      ]
+    },
+    "claude": {
+      "displayName": "Retro Arcade Game Finisher"
+    }
+  },
+  "requirements": [
+    "Pixel asset generation needs an image-generation tool, Node.js, and ImageMagick convert.",
+    "Audio integration needs a runnable game and a host audio implementation; this package does not supply recorded music."
+  ]
+}

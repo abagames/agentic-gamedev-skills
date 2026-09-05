@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dispatching Agent Work"
+  short_description: "Route work to distinct tasks, agents, and workspaces"
+  default_prompt: "Use $dispatching-agent-work to route this request to the appropriate worker boundary, model role, and reasoning effort."

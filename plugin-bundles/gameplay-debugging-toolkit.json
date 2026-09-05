@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "slug": "gameplay-debugging-toolkit",
+  "version": "0.1.0",
+  "description": "Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills",
+  "license": "MIT",
+  "keywords": [
+    "gameplay",
+    "debugging",
+    "validation"
+  ],
+  "skills": [
+    "localizing-game-state-divergence",
+    "adversarially-validating-game-repairs",
+    "auditing-gameplay-implementation-coverage",
+    "verifying-turn-based-games",
+    "implementing-gameplay-invariants"
+  ],
+  "targets": {
+    "codex": {
+      "displayName": "Gameplay Verification & Debugging Toolkit",
+      "shortDescription": "Verify gameplay rules, trace defects, and validate repairs.",
+      "category": "Developer Tools",
+      "defaultPrompts": [
+        "Find the first tick where this reproducible gameplay bug violates an invariant.",
+        "Stress-test this gameplay repair with inverse and sibling cases.",
+        "Audit the affected behavior for implementation coverage gaps."
+      ]
+    },
+    "claude": {
+      "displayName": "Gameplay Verification & Debugging Toolkit"
+    }
+  },
+  "requirements": [
+    "Defect localization needs a reproducible case and observable game state.",
+    "Turn-based verification assumes two players with strictly alternating turns and a pure engine contract."
+  ]
+}

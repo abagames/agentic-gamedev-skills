@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "godot-mini-game-builder",
+  "displayName": "Godot Mini-Game Builder",
+  "version": "0.1.0",
+  "description": "Design and scaffold Godot mini-games with headless workflows, web export preparation, and procedural sound effects.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "godot",
+    "mini-game",
+    "headless",
+    "procedural-audio"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

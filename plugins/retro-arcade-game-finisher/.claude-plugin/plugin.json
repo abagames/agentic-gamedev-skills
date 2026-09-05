@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "retro-arcade-game-finisher",
+  "displayName": "Retro Arcade Game Finisher",
+  "version": "0.1.0",
+  "description": "Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "arcade",
+    "retro",
+    "pixel-art",
+    "audio"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

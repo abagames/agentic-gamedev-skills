@@ -1,0 +1,80 @@
+{
+  "name": "agentic-gamedev-skills-api",
+  "interface": {
+    "displayName": "Agentic Game Development Skills"
+  },
+  "plugins": [
+    {
+      "name": "one-button-game-builder",
+      "source": {
+        "source": "local",
+        "path": "./plugins/one-button-game-builder"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "gameplay-debugging-toolkit",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gameplay-debugging-toolkit"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "retro-arcade-game-finisher",
+      "source": {
+        "source": "local",
+        "path": "./plugins/retro-arcade-game-finisher"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "godot-mini-game-builder",
+      "source": {
+        "source": "local",
+        "path": "./plugins/godot-mini-game-builder"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "web-mini-game-kit",
+      "source": {
+        "source": "local",
+        "path": "./plugins/web-mini-game-kit"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "agent-workflow-engineering",
+      "source": {
+        "source": "local",
+        "path": "./plugins/agent-workflow-engineering"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

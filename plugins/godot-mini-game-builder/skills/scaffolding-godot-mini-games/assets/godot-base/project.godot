@@ -1,0 +1,23 @@
+; Engine configuration file.
+; Template defaults:
+; - name: Template Game
+; - resolution: 960x540
+
+config_version=5
+
+[application]
+
+config/name="Template Game"
+run/main_scene="res://main.tscn"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

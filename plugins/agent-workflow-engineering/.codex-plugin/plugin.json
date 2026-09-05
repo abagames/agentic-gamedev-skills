@@ -1,0 +1,34 @@
+{
+  "name": "agent-workflow-engineering",
+  "version": "0.1.0",
+  "description": "Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "license": "MIT",
+  "keywords": [
+    "agent",
+    "workflow",
+    "skills",
+    "evaluation"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Workflow Engineering",
+    "shortDescription": "Extract skills and improve workflows with scoped evidence.",
+    "longDescription": "Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.",
+    "developerName": "abagames",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Extract reusable agent skills from this completed project.",
+      "Refine this workflow using its latest execution artifact.",
+      "Recover a reproduction spec and abstract design from code."
+    ]
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

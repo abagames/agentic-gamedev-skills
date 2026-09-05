@@ -1,0 +1,4 @@
+interface:
+  display_name: "Era-Authentic Game Audio"
+  short_description: "Build era-authentic per-game BGM, SE, and jingles"
+  default_prompt: "Use $building-era-authentic-game-audio to design, implement, and validate a game-specific retro audio system."

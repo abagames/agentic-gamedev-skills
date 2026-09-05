@@ -1,0 +1,33 @@
+{
+  "name": "gameplay-debugging-toolkit",
+  "version": "0.1.0",
+  "description": "Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gameplay",
+    "debugging",
+    "validation"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Gameplay Verification & Debugging Toolkit",
+    "shortDescription": "Verify gameplay rules, trace defects, and validate repairs.",
+    "longDescription": "Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.",
+    "developerName": "abagames",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Find the first tick where this reproducible gameplay bug violates an invariant.",
+      "Stress-test this gameplay repair with inverse and sibling cases.",
+      "Audit the affected behavior for implementation coverage gaps."
+    ]
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

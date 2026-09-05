@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "one-button-game-builder",
+  "displayName": "One-Button Game Builder",
+  "version": "0.1.0",
+  "description": "Design and improve compact one-button games from mechanic through gameplay validation.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "one-button",
+    "mini-game",
+    "game-design",
+    "legibility",
+    "playtesting"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

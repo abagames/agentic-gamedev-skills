@@ -1,0 +1,1133 @@
+{
+  "basic": [
+    {
+      "type": "spawn",
+      "slot": "a"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "a"
+    },
+    {
+      "type": "strike",
+      "slot": "a"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "b"
+    },
+    {
+      "type": "strike",
+      "slot": "b"
+    },
+    {
+      "type": "strike",
+      "slot": "b"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "c"
+    },
+    {
+      "type": "strike",
+      "slot": "c"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "hazard"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "hazard"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "mash": [
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "hazard"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "hazard"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "pool": [
+    {
+      "type": "spawn",
+      "slot": "p"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "p"
+    },
+    {
+      "type": "despawn",
+      "slot": "p"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "p"
+    },
+    {
+      "type": "strike",
+      "slot": "p"
+    },
+    {
+      "type": "despawn",
+      "slot": "p"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "p"
+    },
+    {
+      "type": "strike",
+      "slot": "p"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "save": [
+    {
+      "type": "spawn",
+      "slot": "s"
+    },
+    {
+      "type": "strike",
+      "slot": "s"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "save"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "hazard"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "load"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "save2": [
+    {
+      "type": "spawn",
+      "slot": "q"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "save"
+    },
+    {
+      "type": "strike",
+      "slot": "q"
+    },
+    {
+      "type": "despawn",
+      "slot": "q"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "load"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "hold": [
+    {
+      "type": "spawn",
+      "slot": "h"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "h"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "hold2": [
+    {
+      "type": "spawn",
+      "slot": "k"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "k"
+    }
+  ],
+  "long": [
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L0"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L0"
+    },
+    {
+      "type": "despawn",
+      "slot": "L0"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L1"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L1"
+    },
+    {
+      "type": "despawn",
+      "slot": "L1"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L2"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L2"
+    },
+    {
+      "type": "despawn",
+      "slot": "L2"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L3"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L3"
+    },
+    {
+      "type": "despawn",
+      "slot": "L3"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L4"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L4"
+    },
+    {
+      "type": "despawn",
+      "slot": "L4"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L5"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L5"
+    },
+    {
+      "type": "despawn",
+      "slot": "L5"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L6"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L6"
+    },
+    {
+      "type": "despawn",
+      "slot": "L6"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L7"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L7"
+    },
+    {
+      "type": "despawn",
+      "slot": "L7"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "L8"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "strike",
+      "slot": "L8"
+    },
+    {
+      "type": "despawn",
+      "slot": "L8"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "spawn",
+      "slot": "Z"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "Z"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "hold_double_release": [
+    {
+      "type": "spawn",
+      "slot": "r"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "r"
+    },
+    {
+      "type": "spawn",
+      "slot": "t"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "t"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "hold_miss_then_hit": [
+    {
+      "type": "spawn",
+      "slot": "m"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "gone"
+    },
+    {
+      "type": "spawn",
+      "slot": "n"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "n"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "hold_short": [
+    {
+      "type": "spawn",
+      "slot": "u"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "u"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "hold_boundary": [
+    {
+      "type": "spawn",
+      "slot": "v"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "charge"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "v"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "release_bare": [
+    {
+      "type": "spawn",
+      "slot": "w"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "release",
+      "slot": "w"
+    },
+    {
+      "type": "tick"
+    }
+  ],
+  "drain": [
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tap"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tick"
+    },
+    {
+      "type": "tap"
+    }
+  ]
+}

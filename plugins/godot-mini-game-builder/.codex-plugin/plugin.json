@@ -1,0 +1,34 @@
+{
+  "name": "godot-mini-game-builder",
+  "version": "0.1.0",
+  "description": "Design and scaffold Godot mini-games with headless workflows, web export preparation, and procedural sound effects.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "license": "MIT",
+  "keywords": [
+    "godot",
+    "mini-game",
+    "headless",
+    "procedural-audio"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Godot Mini-Game Builder",
+    "shortDescription": "Build Godot mini-games with templates and headless tools.",
+    "longDescription": "Design and scaffold Godot mini-games with headless workflows, web export preparation, and procedural sound effects.",
+    "developerName": "abagames",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Scaffold a Godot mini-game from the bundled template.",
+      "Prepare this Godot game for a headless web export.",
+      "Add procedural sound effects to this Godot game."
+    ]
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}
