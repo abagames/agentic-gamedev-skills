@@ -54,10 +54,10 @@ Prefer project-local equivalent tools if they already exist and satisfy the same
 
 ## Commands
 
-Examples assume the current repository layout and set `SKILL_DIR` explicitly.
+Set `SKILL_DIR` to the absolute directory containing this loaded `SKILL.md`; plugin installations need not share the source repository layout.
 
 ```bash
-SKILL_DIR=.agents/skills/generating-dot-assets
+: "${SKILL_DIR:?Set SKILL_DIR to this skill directory}"
 node "$SKILL_DIR/scripts/cutout.mjs" raw.png tmp/cutout.png --trim --fuzz 8%
 node "$SKILL_DIR/scripts/pixelize.mjs" tmp/cutout.png tmp/pixel.png --width 96 --colors 24 --dither off
 node "$SKILL_DIR/scripts/fit-canvas.mjs" tmp/pixel.png final.png --size 64x64 --fit contain --gravity center
@@ -67,7 +67,7 @@ node "$SKILL_DIR/scripts/validate-pixel-asset.mjs" final.png --size 64x64 --max-
 With a palette:
 
 ```bash
-SKILL_DIR=.agents/skills/generating-dot-assets
+: "${SKILL_DIR:?Set SKILL_DIR to this skill directory}"
 node "$SKILL_DIR/scripts/pixelize.mjs" tmp/cutout.png tmp/pixel.png --width 96 --palette palette.json --dither off
 ```
 

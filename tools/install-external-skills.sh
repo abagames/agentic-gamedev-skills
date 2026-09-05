@@ -137,15 +137,6 @@ install_systematic_debugging() {
     "https://github.com/obra/superpowers.git" "main" "skills/systematic-debugging"
 }
 
-# godot-master (gd-agentic-skills): never auto-installed. Per README, pull
-# individual engine-topic skills only (e.g. godot-tweening, godot-particles,
-# godot-debugging-profiling); the architecture doctrine and genre skills target
-# production-scale Godot 4.7+ games and conflict with this repo's minimal
-# mini-game approach. To pull one skill by hand:
-#   install_subtree "godot-tweening" \
-#     "https://github.com/thedivergentai/gd-agentic-skills.git" "main" \
-#     "skills/godot-tweening"
-
 declare -A INSTALLERS=(
   [empirical-prompt-tuning]=install_empirical_prompt_tuning
   [systematic-debugging]=install_systematic_debugging

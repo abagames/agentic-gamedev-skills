@@ -132,7 +132,7 @@ All sounds are generated procedurally in GDScript. No pre-recorded `.wav`, `.ogg
 
 This section focuses on design decisions. Template assets are the source of truth for implementation code.
 
-- Waveform primitives and simple envelopes: `.agents/skills/creating-godot-procedural-audio/assets/audio_synth.gd`
+- Waveform primitives and simple envelopes: [audio_synth.gd](../assets/audio_synth.gd)
 - Test-driven implementation examples in this repository use `tmp/games/<slug>/main.gd` and `tmp/games/<slug>/tools/tests/run_tests.gd`; adapt paths to the project.
 
 ### 5.1 Runtime Architecture (Recommended)

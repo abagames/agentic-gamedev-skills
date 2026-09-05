@@ -18,7 +18,7 @@ Required rules (highest priority):
   - These `export`s affect every process started from the same shell, not just `godot`. If the same shell session also runs non-Godot tooling that honors XDG vars (e.g. a Node/Playwright browser-automation step for web-export testing), that tooling's own cache/data lookup silently moves under `<PROJECT_DIR>/.godot-xdg/` too and can fail to find things it installed elsewhere (observed: Playwright reporting a missing browser executable). Export these three vars only in the specific command/subshell that invokes `godot`, or explicitly unset/restore them before running unrelated tools in the same shell.
 - Never edit `.tscn` as raw text (edits must go through `--headless --script`)
 - For repeated validation commands, standardize them as `tools/*.sh`; after manual tweaks, re-run via the same scripts
-- If `res://tools/godot_apply_patch.gd` is missing, copy `.agents/skills/running-headless-godot/tools/godot_apply_patch.gd` to `<PROJECT_DIR>/tools/godot_apply_patch.gd` before running patch commands
+- If `res://tools/godot_apply_patch.gd` is missing, copy `tools/godot_apply_patch.gd`, resolved relative to this loaded `SKILL.md`, to `<PROJECT_DIR>/tools/godot_apply_patch.gd` before running patch commands
 - Keep startup smoke and logic tests separate: smoke starts `run/main_scene`; `run_tests.gd` holds project-specific logic checks
 
 ## Minimum smoke wrapper template

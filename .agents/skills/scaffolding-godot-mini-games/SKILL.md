@@ -15,12 +15,12 @@ Core rules:
 - Preserve Web export canvas sizing rules unless the project updates `project.godot`, `export_presets.cfg`, and `web/custom_shell.html` together.
 - Do not hardcode machine-specific export template paths in the bundled template. After copying, a project may set `custom_template/debug` and `custom_template/release` to absolute local paths when using project-local XDG directories.
 
-Canonical scaffold command:
+Set `SKILL_DIR` to the absolute directory containing this loaded `SKILL.md`, including when installed through a plugin. Then scaffold from its bundled assets:
 
 ```bash
 PROJECT_DIR=tmp/games/<slug>
 mkdir -p "$PROJECT_DIR"
-cp -R .agents/skills/scaffolding-godot-mini-games/assets/godot-base/. "$PROJECT_DIR"/
+cp -R "${SKILL_DIR:?Set SKILL_DIR to this skill directory}/assets/godot-base/." "$PROJECT_DIR"/
 mkdir -p "$PROJECT_DIR/logs" "$PROJECT_DIR/build/web"
 ```
 

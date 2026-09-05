@@ -9,7 +9,7 @@ Default artifacts:
 - If a project directory is known, put the full audio plan in `<PROJECT_DIR>/SOUND_DESIGN.md`.
 - If the project README has a `Visual And Audio Direction` or `Required sounds` section, keep it as a short summary and update it only when the audio direction changes.
 - Implement through a small project-specific module such as `<PROJECT_DIR>/audio_controller.gd`; keep `main.gd` as orchestration.
-- Reuse `.agents/skills/creating-godot-procedural-audio/assets/audio_synth.gd` or the template's existing `audio_synth.gd` primitives. Copy the helper into the project only if it is missing or materially different.
+- Reuse `assets/audio_synth.gd`, resolved relative to this loaded `SKILL.md`, or the template's existing `audio_synth.gd` primitives. Copy the helper into the project only if it is missing or materially different.
 - If visual tags are project-specific or concept-derived rather than exact guide entries, map them by nearest material, geometry, motion, or atmosphere family and record that mapping in `SOUND_DESIGN.md`.
 - Continuous sounds should expose a minimal control surface: `start_<sound>()`, `update_<sound>(params)`, `release_<sound>()`, and `stop_<sound>()`. Headless/no-op handles must preserve the same calls so tests can verify state transitions without playback.
 

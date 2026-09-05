@@ -117,7 +117,7 @@ require_literal "$skill_md" 'references/failure-modes.md' 'failure modes referen
 require_literal "$skill_md" 'scripts/validate-migration-skill.sh' 'self-validation script is referenced'
 require_literal "$skill_md" 'scripts/validate-migration-report.sh' 'migration report validator is referenced'
 
-quick_validate="${QUICK_VALIDATE:-/home/cs8k/.codex/skills/.system/skill-creator/scripts/quick_validate.py}"
+quick_validate="${QUICK_VALIDATE:-${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py}"
 if [[ -f "$quick_validate" ]]; then
   python3 "$quick_validate" "$skill_dir" >/tmp/migrating-flow-skill-quick-validate.log 2>&1 \
     && ok 'quick_validate.py passes' \
