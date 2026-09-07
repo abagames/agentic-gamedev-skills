@@ -9,6 +9,12 @@
   },
   "plugins": [
     {
+      "name": "game-concept-workbench",
+      "source": "./plugins/game-concept-workbench",
+      "description": "Explore, adversarially test, and curate game concepts before material implementation investment.",
+      "strict": true
+    },
+    {
       "name": "one-button-game-builder",
       "source": "./plugins/one-button-game-builder",
       "description": "Design and improve compact one-button games from mechanic through gameplay validation.",

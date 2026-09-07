@@ -4,7 +4,7 @@
 
 このリポジトリは、ゲーム開発と agentic workflow の研究から抽出した agent skill 集である。各 skill は `.agents/skills/` 以下に置き、`SKILL.md` を入口とする。必要に応じて `references/`、`assets/`、`scripts/`、`tools/`、`agents/` を含む。
 
-主な用途は、ミニゲームの制作である。一ボタン操作、強い視覚フィードバック、手続き型音声、テレメトリによる調整、任意のピクセルアート素材生成を扱う。補助的に、skill 抽出、実行成果物からの workflow 改善、高コストな agent 作業のゲートとディスパッチも扱う。
+主な用途は、ミニゲームの制作である。一ボタン操作、強い視覚フィードバック、手続き型音声、テレメトリによる調整、任意のピクセルアート素材生成を扱う。実装前の concept exploration、敵対的な concept review、mechanism の多様性を保つ portfolio curation も扱う。補助的に、skill 抽出、実行成果物からの workflow 改善、高コストな agent 作業のゲートとディスパッチも扱う。
 
 これらの skill を使って制作したゲームは [agentic-gamedev-games](https://github.com/abagames/agentic-gamedev-games) にある。
 
@@ -16,10 +16,11 @@
 
 ## プラグイン配布
 
-Codex と Claude Code 向けに、6つのリポジトリ配布プラグインを用意している。各 `0.1.0` の導入可能なルートとカタログは、このリポジトリの canonical skill と composition から生成される。レビュー済みの変更を commit して GitHub に push すると利用可能になる。GitHub 配布と OpenAI / Anthropic の curated directory への申請は別の操作である。再生成、検証、versioning、公開境界は [maintainer guide](PLUGIN_RELEASE.md) を参照。
+Codex と Claude Code 向けに、7つのリポジトリ配布プラグインを用意している。各 `0.1.0` の導入可能なルートとカタログは、このリポジトリの canonical skill と composition から生成される。GitHub 配布と OpenAI / Anthropic の curated directory への申請は別の操作である。再生成、検証、versioning、公開境界は [maintainer guide](PLUGIN_RELEASE.md) を参照。
 
 | Plugin | Skills |
 | --- | ---: |
+| [Game Concept Workbench](plugins/game-concept-workbench/README.md) | 3 |
 | [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 7 |
 | [Gameplay Verification & Debugging Toolkit](plugins/gameplay-debugging-toolkit/README.md) | 5 |
 | [Retro Arcade Game Finisher](plugins/retro-arcade-game-finisher/README.md) | 5 |
@@ -27,7 +28,7 @@ Codex と Claude Code 向けに、6つのリポジトリ配布プラグインを
 | [Web Mini-Game Kit](plugins/web-mini-game-kit/README.md) | 4 |
 | [Agent Workflow Engineering](plugins/agent-workflow-engineering/README.md) | 9 |
 
-32のローカルスキルを延べ34件収録し、外部参照スキルは同梱しない。
+35のローカルスキルを延べ37件収録し、外部参照スキルは同梱しない。
 
 GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を marketplace として追加し、`<plugin>@agentic-gamedev-skills` をインストールできる。Codex CLI でも同じ `owner/repo` marketplace を追加し、available plugin を確認して `<plugin>@agentic-gamedev-skills` をインストールできる。workspace admin は plugin management から GitHub repository を import できる。リポジトリには標準 Codex catalog、API key login 用 Codex catalog、Claude Code catalog があり、maintainer は `python3 tools/plugin-bundles/published.py --repo . --write` で再生成する。
 
@@ -48,9 +49,11 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 
 | Skill                        | 用途                                                                                                       |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| [`exploring-game-design-space`](.agents/skills/exploring-game-design-space/SKILL.md) | 広いmechanic空間を探索し、実証済みの行き止まりや重複だけを除き、推測的なfun rankingではなくstable ID付きの検証可能な仮説を返す。 |
 | [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 任意の入力構成(タップ、長押し、リリースの一ボタンゲームを含む)のミニゲームのルール、操作、得点、危険、難度曲線を設計する。放置、長押し固定、連打の最適化を防ぐ。 |
 | [`designing-minimal-game-rules`](.agents/skills/designing-minimal-game-rules/SKILL.md) | 抽象的なゲーム設計の種から、離散状態の最小ルール体系を作る。対立軸の候補生成、単純戦略による攻撃、最小核への削減を行う。 |
 | [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | 1978〜1985 年代の固定画面アーケードゲームコンセプトを複数一括生成・評価し、上位コンセプトの実装仕様を書く。 |
+| [`curating-game-concept-portfolio`](.agents/skills/curating-game-concept-portfolio/SKILL.md) | 供給済みconcept集合を、正規化したmechanism signature、evidence-awareなPareto frontier、構造coverageで小さなportfolioにする。欠測を0点扱いしない。 |
 | [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
 
 ### ゲーム実装
@@ -79,6 +82,7 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
+| [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 1件以上の既存concept、ruleset、初期prototypeを敵対的に監査し、実証済み欠陥とunknownを分離してclaim単位の証拠provenanceを保つ。 |
 | [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較する。 |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | 記録済みプレイから抽出した場面画像だけを見る隔離agentに、目的・選択肢・リスクを言わせて画面の伝達力を測る。伏せた後続フレームをoracleとし、劣化版controlで計器そのものを検証したうえで、意図・判断多様性・入口の各verdictを返す。 |
 
@@ -134,5 +138,5 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 - `tools/tests/test-repository-tools.sh`: ネットワークや導入済み skill を変更せず、installer の成功・失敗復元・path containment・README 整合性を検証する。
 - `python3 tools/plugin-bundles/build.py plugin-bundles/<bundle>.json --target codex|claude`: スキルと資産から自己完結した plugin を生成する。全ペイロードの hash・実行権限を lock v3 に記録する。`--publishable` は clean input のゲートであり、完全再現性や公式承認は意味しない。生成された `dist/` は直接編集・commit せず再生成する。
 - `tools/tests/test-plugin-bundles.sh`: composition、生成 artifact、決定的な skill hash、不正または危険な入力の拒否を検証する。
-- `python3 tools/plugin-bundles/published.py --write|--check`: composition と canonical skill から、追跡対象の6つの plugin root と Codex、Codex API key、Claude catalog を再生成または検証する。stale payload、root の不足・過剰、path escape、identity / version drift を拒否する。
-- `python3 tools/plugin-bundles/package.py --output <new-dir>`: 全6構成をZIP化して展開後も検証し、checksum と結果レポートを生成する。公式 validator の指定方法は公開ガイドを参照。
+- `python3 tools/plugin-bundles/published.py --write|--check`: composition と canonical skill から、追跡対象の7つの plugin root と Codex、Codex API key、Claude catalog を再生成または検証する。stale payload、root の不足・過剰、path escape、identity / version drift を拒否する。
+- `python3 tools/plugin-bundles/package.py --output <new-dir>`: 全7構成をZIP化して展開後も検証し、checksum と結果レポートを生成する。公式 validator の指定方法は公開ガイドを参照。

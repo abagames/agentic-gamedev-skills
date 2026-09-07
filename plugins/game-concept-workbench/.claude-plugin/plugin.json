@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "game-concept-workbench",
+  "displayName": "Game Concept Workbench",
+  "version": "0.1.0",
+  "description": "Explore, adversarially test, and curate game concepts before material implementation investment.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "skills": [
+    "./skills/"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "game-design",
+    "concept-exploration",
+    "stress-testing",
+    "portfolio"
+  ],
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

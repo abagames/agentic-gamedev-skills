@@ -5,6 +5,18 @@
   },
   "plugins": [
     {
+      "name": "game-concept-workbench",
+      "source": {
+        "source": "local",
+        "path": "./plugins/game-concept-workbench"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
       "name": "one-button-game-builder",
       "source": {
         "source": "local",

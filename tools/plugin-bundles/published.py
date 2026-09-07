@@ -15,7 +15,7 @@ from plugin_bundles import (BundleError, artifact_inventory, dump_json, read_jso
 MARKETPLACE = "agentic-gamedev-skills"
 DISPLAY_NAME = "Agentic Game Development Skills"
 # Publication order and identities are deliberate; membership/metadata live in compositions.
-LINEUP = ("one-button-game-builder", "gameplay-debugging-toolkit",
+LINEUP = ("game-concept-workbench", "one-button-game-builder", "gameplay-debugging-toolkit",
           "retro-arcade-game-finisher", "godot-mini-game-builder",
           "web-mini-game-kit", "agent-workflow-engineering")
 CATALOGS = (".agents/plugins/marketplace.json", ".agents/plugins/api_marketplace.json",
@@ -40,7 +40,7 @@ def compositions(repo: Path) -> list[dict]:
     directory = safe_path(repo, "plugin-bundles")
     expected = {f"{slug}.json" for slug in LINEUP} | {"schema.json"}
     if {p.name for p in directory.glob("*.json")} != expected:
-        raise BundleError("publication requires exactly the six lineup compositions and schema.json")
+        raise BundleError(f"publication requires exactly the {len(LINEUP)} lineup compositions and schema.json")
     validate_schema_parity(safe_path(repo, "plugin-bundles/schema.json"))
     safe_path(repo, ".agents/skills")
     safe_path(repo, "LICENSE")
@@ -178,7 +178,7 @@ def main() -> int:
     except (BundleError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
-    print("ok: six published plugin roots and three catalogs match canonical inputs")
+    print(f"ok: {len(LINEUP)} published plugin roots and three catalogs match canonical inputs")
     return 0
 
 

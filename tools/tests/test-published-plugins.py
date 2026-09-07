@@ -21,7 +21,7 @@ class PublishedTests(unittest.TestCase):
         self.repo.mkdir()
         shutil.copytree(REPO / "plugin-bundles", self.repo / "plugin-bundles")
         shutil.copyfile(REPO / "LICENSE", self.repo / "LICENSE")
-        # Small six-plugin fixture: preserve real composition metadata; replace payloads.
+        # Small seven-plugin fixture: preserve real composition metadata; replace payloads.
         for composition in (self.repo / "plugin-bundles").glob("*.json"):
             if composition.name == "schema.json":
                 continue
@@ -35,6 +35,15 @@ class PublishedTests(unittest.TestCase):
         (skill / "run.sh").chmod(0o755)
         published(self.repo, write=True)
         self.plugin = self.repo / "plugins" / LINEUP[0]
+
+    def test_expected_seven_plugin_lineup_and_every_composition_is_required(self):
+        self.assertEqual(len(LINEUP), 7)
+        for slug in LINEUP:
+            path = self.repo / "plugin-bundles" / f"{slug}.json"
+            original = path.read_bytes()
+            path.unlink()
+            self.reject()
+            path.write_bytes(original)
 
     def reject(self):
         with self.assertRaises((BundleError, OSError)):

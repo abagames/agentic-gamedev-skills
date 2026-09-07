@@ -4,7 +4,7 @@ English | [日本語](README.ja.md)
 
 This repository collects agent skills extracted from game-development work and related agentic-workflow research. Each skill lives under `.agents/skills/`, uses `SKILL.md` as its entry point, and may include `references/`, `assets/`, `scripts/`, `tools/`, or `agents/` directories.
 
-The main use case is building mini-games with one-button controls, strong visual feedback, procedural audio, telemetry-guided tuning, and optional pixel-art assets. A few adjacent skills support that workflow: skill extraction, workflow refinement from real execution artifacts, and gating or dispatching expensive agent work.
+The main use case is building mini-games with one-button controls, strong visual feedback, procedural audio, telemetry-guided tuning, and optional pixel-art assets. The collection also covers pre-implementation concept exploration, adversarial concept review, and mechanically diverse portfolio curation. A few adjacent skills support those workflows: skill extraction, workflow refinement from real execution artifacts, and gating or dispatching expensive agent work.
 
 Games built with these skills live in [agentic-gamedev-games](https://github.com/abagames/agentic-gamedev-games).
 
@@ -16,10 +16,11 @@ Games built with these skills live in [agentic-gamedev-games](https://github.com
 
 ## Plugin Distributions
 
-Six repository-hosted plugins package the skills for Codex and Claude Code. Their version `0.1.0` installable roots and catalogs are generated from the canonical skills and compositions in this repository. They become available from GitHub after the reviewed change is committed and pushed. GitHub distribution is separate from submission to an OpenAI or Anthropic curated directory. See the [maintainer guide](PLUGIN_RELEASE.md) for regeneration, validation, versioning, and the publication boundary.
+Seven repository-hosted plugins package the skills for Codex and Claude Code. Their version `0.1.0` installable roots and catalogs are generated from the canonical skills and compositions in this repository. GitHub distribution is separate from submission to an OpenAI or Anthropic curated directory. See the [maintainer guide](PLUGIN_RELEASE.md) for regeneration, validation, versioning, and the publication boundary.
 
 | Plugin | Skills |
 | --- | ---: |
+| [Game Concept Workbench](plugins/game-concept-workbench/README.md) | 3 |
 | [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 7 |
 | [Gameplay Verification & Debugging Toolkit](plugins/gameplay-debugging-toolkit/README.md) | 5 |
 | [Retro Arcade Game Finisher](plugins/retro-arcade-game-finisher/README.md) | 5 |
@@ -27,7 +28,7 @@ Six repository-hosted plugins package the skills for Codex and Claude Code. Thei
 | [Web Mini-Game Kit](plugins/web-mini-game-kit/README.md) | 4 |
 | [Agent Workflow Engineering](plugins/agent-workflow-engineering/README.md) | 9 |
 
-The bundles cover 32 local skills with 34 memberships; externally referenced skills are excluded.
+The bundles cover 35 local skills with 37 memberships; externally referenced skills are excluded.
 
 After GitHub publication, Claude Code users can add `abagames/agentic-gamedev-skills` as a marketplace and install `<plugin>@agentic-gamedev-skills`. Codex CLI users can add the same `owner/repo` marketplace, list available plugins, and install `<plugin>@agentic-gamedev-skills`; workspace administrators can import the GitHub repository through plugin management. The repository contains the standard Codex catalog, an API-key-login Codex catalog, and the Claude Code catalog. Maintainers regenerate them with `python3 tools/plugin-bundles/published.py --repo . --write`.
 
@@ -50,9 +51,11 @@ External imported skills may keep their upstream names and structure.
 
 | Skill                        | Purpose                                                                                                                                                                                      |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`exploring-game-design-space`](.agents/skills/exploring-game-design-space/SKILL.md) | Explores a broad mechanic space, removes only demonstrated dead ends or duplicates, and returns stable-ID testable hypotheses rather than a speculative fun ranking. |
 | [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | Designs original mini-games — rules, controls and physical bindings, scoring, hazards, and difficulty curves — for any input scheme, including one-button games. It helps prevent idle, hold-only, or button-mashing strategies from becoming optimal. |
 | [`designing-minimal-game-rules`](.agents/skills/designing-minimal-game-rules/SKILL.md) | Turns an abstract game-design seed into a minimal discrete-state rule system by generating conflict candidates, stress-testing simple strategies, and reducing to the smallest surviving core. |
 | [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | Batch-generates, evaluates, and specs multiple fixed-screen arcade game concepts in the style of 1978–1985 cabinets, then selects and writes implementation specs for the top concepts.   |
+| [`curating-game-concept-portfolio`](.agents/skills/curating-game-concept-portfolio/SKILL.md) | Curates a supplied concept set into a small portfolio using normalized mechanism signatures, evidence-aware Pareto frontiers, and structural coverage without treating missing data as zero. |
 | [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | Defines a pure-function engine interface contract and quality measurement methodology (bot-ladder win-rates, tension/decision-density metrics) for two-player strict-alternating-turn games. |
 
 ### Game Implementation
@@ -81,6 +84,7 @@ External imported skills may keep their upstream names and structure.
 
 | Skill                         | Purpose                                                                                                                                                                                       |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | Adversarially audits one or more existing concepts, rulesets, or early prototypes, separating demonstrated defects from unknowns and preserving claim-level evidence provenance. |
 | [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | Evaluates balance through telemetry by comparing monotonous and exploratory policies with deterministic seeds or calibrated non-deterministic bands, including simulation, instrumentation, and structural repair guidance. |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | Measures whether an isolated grader who never saw the design or source can read a game's goal, options, and risk off sampled gameplay frames, with a withheld follow-up frame as oracle and a degraded control, returning intent, decision-variety, and entry-point verdicts. |
 
@@ -138,5 +142,5 @@ The following individual skills are imported or referenced from other repositori
 - `tools/tests/test-repository-tools.sh` — exercise installer success, failure recovery, path containment, and README consistency without network access or changes to installed skills.
 - `python3 tools/plugin-bundles/build.py plugin-bundles/<bundle>.json --target codex|claude` — build a self-contained plugin with a v3 payload hash/mode inventory. `--publishable` gates clean inputs; it does not imply strict reproducibility or official approval. Rebuild ignored `dist/` outputs instead of editing or committing them.
 - `tools/tests/test-plugin-bundles.sh` — validate compositions, generated artifacts, deterministic skill hashes, and rejection of unsafe or malformed inputs.
-- `python3 tools/plugin-bundles/published.py --write|--check` — regenerate or verify the six tracked plugin roots and the Codex, Codex API-key, and Claude catalogs from compositions and canonical skills. The check rejects stale payloads, missing or extra roots, path escape, and identity/version drift.
-- `python3 tools/plugin-bundles/package.py --output <new-dir>` — build and round-trip all six bundles as ZIPs with checksums and a validation report. See the release guide for platform validator options.
+- `python3 tools/plugin-bundles/published.py --write|--check` — regenerate or verify the seven tracked plugin roots and the Codex, Codex API-key, and Claude catalogs from compositions and canonical skills. The check rejects stale payloads, missing or extra roots, path escape, and identity/version drift.
+- `python3 tools/plugin-bundles/package.py --output <new-dir>` — build and round-trip all seven bundles as ZIPs with checksums and a validation report. See the release guide for platform validator options.

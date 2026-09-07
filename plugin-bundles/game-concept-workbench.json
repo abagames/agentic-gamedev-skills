@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "slug": "game-concept-workbench",
+  "version": "0.1.0",
+  "description": "Explore, adversarially test, and curate game concepts before material implementation investment.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills",
+  "license": "MIT",
+  "keywords": [
+    "game-design",
+    "concept-exploration",
+    "stress-testing",
+    "portfolio"
+  ],
+  "skills": [
+    "exploring-game-design-space",
+    "stress-testing-game-concepts",
+    "curating-game-concept-portfolio"
+  ],
+  "targets": {
+    "codex": {
+      "displayName": "Game Concept Workbench",
+      "shortDescription": "Explore, challenge, and curate game concepts before building.",
+      "category": "Developer Tools",
+      "defaultPrompts": [
+        "Explore this game brief into distinct hypotheses, then return a post-exploration human-review checkpoint.",
+        "Stress-test these existing game concepts while preserving evidence provenance and unknowns.",
+        "Curate this supplied concept set for coverage, then mark review pending before material investment."
+      ]
+    },
+    "claude": {
+      "displayName": "Game Concept Workbench"
+    }
+  },
+  "requirements": [
+    "Interactive runs may request human review at investment boundaries; unattended runs must complete with review_pending instead of blocking.",
+    "The deterministic portfolio first pass requires Python 3 when structured JSON records are used."
+  ]
+}

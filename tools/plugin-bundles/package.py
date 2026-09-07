@@ -12,6 +12,7 @@ import zipfile
 
 from build import build
 from plugin_bundles import BundleError, dump_json, file_hash, read_json
+from published import LINEUP
 from validate import validate_artifact
 
 
@@ -60,9 +61,10 @@ def package(repo: Path, output: Path, codex_validator: Path | None, claude_valid
             publishable: bool = False) -> None:
     if output.exists():
         raise BundleError('package output already exists; choose a fresh directory')
-    compositions = sorted(p for p in (repo / 'plugin-bundles').glob('*.json') if p.name != 'schema.json')
-    if len(compositions) != 6:
-        raise BundleError('release set must contain exactly six compositions')
+    actual = {p.stem for p in (repo / 'plugin-bundles').glob('*.json') if p.name != 'schema.json'}
+    if actual != set(LINEUP):
+        raise BundleError(f'release set must match the published {len(LINEUP)}-composition lineup')
+    compositions = [repo / 'plugin-bundles' / f'{slug}.json' for slug in LINEUP]
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.package-', dir=output.parent) as temporary:
         stage = Path(temporary) / 'release'

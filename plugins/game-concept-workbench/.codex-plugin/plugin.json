@@ -1,0 +1,34 @@
+{
+  "name": "game-concept-workbench",
+  "version": "0.1.0",
+  "description": "Explore, adversarially test, and curate game concepts before material implementation investment.",
+  "author": {
+    "name": "abagames",
+    "url": "https://github.com/abagames"
+  },
+  "license": "MIT",
+  "keywords": [
+    "game-design",
+    "concept-exploration",
+    "stress-testing",
+    "portfolio"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Game Concept Workbench",
+    "shortDescription": "Explore, challenge, and curate game concepts before building.",
+    "longDescription": "Explore, adversarially test, and curate game concepts before material implementation investment.",
+    "developerName": "abagames",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Explore this game brief into distinct hypotheses, then return a post-exploration human-review checkpoint.",
+      "Stress-test these existing game concepts while preserving evidence provenance and unknowns.",
+      "Curate this supplied concept set for coverage, then mark review pending before material investment."
+    ]
+  },
+  "repository": "https://github.com/abagames/agentic-gamedev-skills"
+}

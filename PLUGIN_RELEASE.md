@@ -1,6 +1,6 @@
 # GitHub Plugin Distribution Maintenance
 
-The six repository-native plugins are distributed from this repository after a reviewed commit is pushed to GitHub. The tracked `plugins/` directories are the installable payloads; ignored `dist/` output is only for disposable ZIP-package checks. GitHub distribution does not submit a plugin to an OpenAI or Anthropic curated directory.
+The seven repository-native plugins are distributed from this repository after a reviewed commit is pushed to GitHub. The tracked `plugins/` directories are the installable payloads; ignored `dist/` output is only for disposable ZIP-package checks. GitHub distribution does not submit a plugin to an OpenAI or Anthropic curated directory.
 
 ## Source of truth and generated files
 
@@ -31,9 +31,10 @@ The check rejects stale payload bytes or executable modes, missing or extra root
 
 ## Catalog and layout summary
 
-Each catalog exposes these six plugin identities:
+Each catalog exposes these seven plugin identities:
 
 ```text
+game-concept-workbench
 one-button-game-builder
 gameplay-debugging-toolkit
 retro-arcade-game-finisher
@@ -58,7 +59,7 @@ python3 tools/plugin-bundles/published.py --repo . --check
 git diff --check
 ```
 
-`test-plugin-bundles.sh` includes the generated-tree mutation suite and package round-trip checks. It also verifies all six composition definitions. Run the plugin-creator validator against all six Codex roots and `claude plugin validate --strict` against the Claude marketplace and each root when those host tools are available.
+`test-plugin-bundles.sh` includes the generated-tree mutation suite and package round-trip checks. It also verifies all seven composition definitions. Run the plugin-creator validator against all seven Codex roots and `claude plugin validate --strict` against the Claude marketplace and each root when those host tools are available.
 
 Use disposable configuration directories for marketplace add/list/install or removal checks. Do not use normal user plugin configuration for validation.
 
