@@ -2,7 +2,7 @@
 
 Design and scaffold Godot mini-games with headless workflows, web export preparation, and procedural sound effects.
 
-Version: 0.1.0 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.1 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 

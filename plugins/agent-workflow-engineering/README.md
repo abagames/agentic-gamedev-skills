@@ -2,7 +2,7 @@
 
 Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.
 
-Version: 0.1.0 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.1 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "retro-arcade-game-finisher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.",
   "author": {
     "name": "abagames",

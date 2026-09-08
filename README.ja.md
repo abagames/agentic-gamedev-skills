@@ -16,7 +16,7 @@
 
 ## プラグイン配布
 
-Codex と Claude Code 向けに、7つのリポジトリ配布プラグインを用意している。各 `0.1.0` の導入可能なルートとカタログは、このリポジトリの canonical skill と composition から生成される。GitHub 配布と OpenAI / Anthropic の curated directory への申請は別の操作である。再生成、検証、versioning、公開境界は [maintainer guide](PLUGIN_RELEASE.md) を参照。
+Codex と Claude Code 向けに、7つのリポジトリ配布プラグインを用意している。バージョン付きの導入可能なルートとカタログは、このリポジトリの canonical skill と composition から生成される。GitHub 配布と OpenAI / Anthropic の curated directory への申請は別の操作である。再生成、検証、versioning、公開境界は [maintainer guide](PLUGIN_RELEASE.md) を参照。
 
 | Plugin | Skills |
 | --- | ---: |

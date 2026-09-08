@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "godot-mini-game-builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Design and scaffold Godot mini-games with headless workflows, web export preparation, and procedural sound effects.",
   "author": {
     "name": "abagames",

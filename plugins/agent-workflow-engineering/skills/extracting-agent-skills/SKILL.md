@@ -1,87 +1,35 @@
 ---
 name: extracting-agent-skills
-description: "Distills reusable agent skills (procedures, validation loops, debugging methods, tool-use patterns, decision rules) from completed, abandoned, paused, or failed projects. Use when closing/archiving a project, reducing side-project sprawl, or when the user asks to extract/harvest/distill/generalize project knowledge into reusable agent capabilities. Enforces trigger/validation/transferability checks to avoid creating weak skills."
+description: "Distills reusable agent procedures, validation loops, debugging methods, tool-use patterns, and decision rules from completed, paused, abandoned, or failed projects. Use when closing or archiving a project, reducing side-project sprawl, or when asked to harvest project knowledge into reusable agent capabilities. Gates candidates for trigger clarity, validation, and transferability to avoid weak skills."
 ---
 
-# Extract Reusable Agent Skills from a Project
+# Extracting Agent Skills
 
-Extract ways of working, not a summary of what the source project was. A failed or abandoned product may still contain a strong workflow; a successful project may contain nothing worth turning into a skill.
+Extract behavior-changing ways of working, not a project summary. Project outcome is context, not the criterion: a failed project may yield a strong procedure, while a successful one may yield none.
 
 ## Workflow
 
-### 1. Inspect available evidence
+1. Inspect the smallest useful evidence set: instructions, source, tests, scripts, commands, logs, errors, reviews, history, and outputs. State what was unavailable; do not imply it was inspected.
+2. Identify repeatable actions: safe tool/editing sequences, diagnosis methods, validation loops, decision or stop rules, and reproducible environment patterns. Exclude lore, wishes, TODOs, ordinary setup, motivation, and one-off facts.
+3. Recommend a skill only when the candidate has:
+   - a distinct trigger and repeatable procedure;
+   - plausible transfer to several future tasks after project names are removed;
+   - behavior-changing guidance beyond “be careful”;
+   - a concrete success check tied to an observed or credible failure;
+   - a better home in a skill than in a README, comment, issue, or postmortem;
+   - a focused scope.
+4. Search the current skill collection before proposing a directory. Update when trigger, workflow, and validation substantially match; merge project-named variants; split candidates whose triggers, tools, procedures, or checks differ.
+5. Generalize names and paths while preserving causal rules, ordering, tool constraints, failure signals, and validation. Keep tool commands only for tool-specific skills. Put conditional detail and long examples in directly linked `references/` files.
+6. Draft and review at most three strong recommendations by default. Use [output-templates.md](references/output-templates.md) for candidate, draft, and report formats, then use [failure-modes.md](references/failure-modes.md) to reject or revise anti-patterns. If reachable, review current official Agent Skills authoring guidance; otherwise report that limitation rather than blocking.
+7. After drafting, use [empirical-tuning-gate.md](references/empirical-tuning-gate.md) to decide whether fresh-executor testing is worth its cost. Structural self-review is not empirical validation.
 
-Inspect the smallest useful set of source artifacts: instructions, source, tests, scripts, build/export commands, logs, errors, reviews, history, and generated outputs. State what was unavailable; never imply that missing material was inspected.
+Prefer zero strong candidates to several weak ones. Do not create skills merely to salvage a project or satisfy a requested quantity.
 
-Identify the project outcome only to interpret the evidence. Product success is not the extraction criterion.
+## Final State
 
-### 2. Find behavior-changing candidates
+Report create/update/merge/reject decisions, intentionally excluded material, and remaining validation. Label each result honestly:
 
-Look for a repeatable agent action such as:
-
-- a safe tool or file-editing sequence;
-- a diagnosis or failure-classification method;
-- a validation loop that catches a known blind spot;
-- a decision or stop/escalation rule;
-- a reproducible environment or build pattern.
-
-Exclude project lore, feature wishes, temporary TODOs, ordinary setup instructions, personal motivation, and one-off implementation facts. Prefer zero or one strong candidate over several weak ones.
-
-### 3. Gate each candidate
-
-Recommend a skill only when the candidate:
-
-- has a distinct trigger and repeatable procedure;
-- plausibly transfers to several future tasks after project names are removed;
-- changes agent behavior beyond “be careful” or “test thoroughly”;
-- includes a concrete success check and prevents an observed or credible failure;
-- belongs in a skill rather than a README, script comment, issue, or postmortem;
-- can remain focused without unrelated background material.
-
-Reject a candidate that fails most of these checks. Do not create a skill merely to give a closed project a positive outcome.
-
-### 4. Update before creating
-
-Search the current skill collection before proposing a new directory.
-
-- Update an existing skill when trigger, workflow, and validation are substantially the same.
-- Split candidates when their triggers, tools, procedures, or validation methods differ.
-- Merge candidates when they are project-named variants of the same workflow.
-
-Prefer procedure, validation, and debugging skills. Express judgment skills as decision rules rather than essays. Put long examples, templates, and stable domain reference material under `references/`.
-
-### 5. Generalize without erasing the useful detail
-
-Remove source-project names and paths, but retain the causal rule, ordering constraint, tool behavior, failure signal, and validation method that made the technique work. Keep concrete commands only when the skill is specifically about that tool or environment.
-
-Define the boundary through frontmatter and the procedure: required inputs, actions, output, validation, exclusions, and failure handling. Avoid repeating the trigger throughout the body.
-
-### 6. Draft and review
-
-Load [output-templates.md](references/output-templates.md) when formatting candidates, drafting `SKILL.md`, or writing the final report. Choose at most three strong recommendations by default.
-
-Before finalizing:
-
-1. Confirm `name` and `description` make the trigger discoverable.
-2. Confirm the procedure is concrete and the validation covers its likely failure.
-3. Move details that are not needed on every invocation to a directly linked reference.
-4. Load [failure-modes.md](references/failure-modes.md) and reject or revise any candidate that matches its anti-patterns.
-5. Review the [current official Agent Skills authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices) when reachable. If it is unreachable, perform the structural checks above and report the limitation rather than blocking extraction.
-6. Load [empirical-tuning-gate.md](references/empirical-tuning-gate.md) after drafting and decide whether fresh-executor testing is worth its cost. Self-review is structural review, not empirical validation.
-
-### 7. Report an honest state
-
-Use one of these states:
-
-- **Draft** — extracted but not tested;
-- **Structurally reviewed** — checked for scope, clarity, links, and validation design;
-- **Empirically tuned** — exercised by fresh executors on realistic scenarios and revised from observed failures;
+- **Draft** — extracted but untested.
+- **Structurally reviewed** — checked for scope, clarity, links, and validation design.
+- **Empirically tuned** — exercised by fresh executors and revised from observed failures.
 - **Rejected** — not worth creating or merging.
-
-Report whether to create, update, merge, or reject; what source material was intentionally excluded; and what validation remains. Never present an untested draft as proven.
-
-## Reference routing
-
-- [output-templates.md](references/output-templates.md) — load only while producing candidate, draft, or final-report output.
-- [failure-modes.md](references/failure-modes.md) — load during candidate review or when extraction feels self-justifying.
-- [empirical-tuning-gate.md](references/empirical-tuning-gate.md) — load only after a draft exists.

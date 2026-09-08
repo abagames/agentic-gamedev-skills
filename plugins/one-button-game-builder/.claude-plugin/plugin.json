@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "one-button-game-builder",
   "displayName": "One-Button Game Builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Design and improve compact one-button games from mechanic through gameplay validation.",
   "author": {
     "name": "abagames",

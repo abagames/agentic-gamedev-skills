@@ -2,7 +2,7 @@
 
 Build crisp-game-lib mini-games, set up licensed game typography, and verify browser runtime health and mechanic conformance.
 
-Version: 0.1.0 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.1 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 

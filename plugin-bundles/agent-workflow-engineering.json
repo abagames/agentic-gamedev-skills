@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "agent-workflow-engineering",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Extract reusable agent skills, refine workflows from execution evidence, recover specifications, and validate agent evaluation methods.",
   "author": {
     "name": "abagames",

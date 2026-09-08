@@ -16,7 +16,7 @@ Games built with these skills live in [agentic-gamedev-games](https://github.com
 
 ## Plugin Distributions
 
-Seven repository-hosted plugins package the skills for Codex and Claude Code. Their version `0.1.0` installable roots and catalogs are generated from the canonical skills and compositions in this repository. GitHub distribution is separate from submission to an OpenAI or Anthropic curated directory. See the [maintainer guide](PLUGIN_RELEASE.md) for regeneration, validation, versioning, and the publication boundary.
+Seven repository-hosted plugins package the skills for Codex and Claude Code. Their versioned installable roots and catalogs are generated from the canonical skills and compositions in this repository. GitHub distribution is separate from submission to an OpenAI or Anthropic curated directory. See the [maintainer guide](PLUGIN_RELEASE.md) for regeneration, validation, versioning, and the publication boundary.
 
 | Plugin | Skills |
 | --- | ---: |
