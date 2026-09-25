@@ -147,6 +147,10 @@ Typical causes:
 
 Related balance patterns: `balance-patterns.md` input state tradeoff, contextual input semantics, state decay, and multi-resource tension patterns.
 
+### 3.4a Skill Dependence
+
+Before labeling a pattern "always optimal", compare it under the `precise` and `human-limited` execution profiles (`simulation-harness.md` section 5). If the best strategy changes between profiles, the game has a skill-dependent trade-off; report it as such instead of removing it as a dominant strategy. A flip does not clear either profile's best strategy: if the human-limited optimum is itself monotonous (idling, waiting, one-pattern spam), it is still a defect.
+
 ### 3.5 Experience Integrity Gate
 
 Before KPI checks, the following must hold.
@@ -455,8 +459,20 @@ if idle_time > 1.5:
 - Structural change:
 - Why it should work:
 
+## Execution Profiles
+- Profile behind each conclusion: <oracle | precise | human-limited>
+- Human-limited parameters: <reaction, timing error, lapse, re-orientation, ...>
+- Play reports and profile adjustments: <report> -> <parameter change>
+
+## Skill Dependence
+| Metric | precise | human-limited |
+|:---|:---|:---|
+| <key strategy A score> |  |  |
+| <key strategy B score> |  |  |
+
 ## Expected Effect
-- Exploratory ratio: <before> -> <after target>
+- Exploratory ratio (precise): <before> -> <after target>
+- Difficulty target (human-limited): <e.g. median reaches stage 5; ~10 % clear>
 - Secondary metrics:
 ```
 
@@ -468,6 +484,8 @@ if idle_time > 1.5:
 | monotonous.max_score |  |  |
 | exploratory.best.score |  |  |
 | exploratory_ratio |  |  |
+| human-limited progress / score |  |  |
+| simulated-player sanity checks | pass/fail | pass/fail |
 | death diversity |  |  |
 | spawn fairness |  |  |
 ```

@@ -83,7 +83,7 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 1件以上の既存concept、ruleset、初期prototypeを敵対的に監査し、実証済み欠陥とunknownを分離してclaim単位の証拠provenanceを保つ。 |
-| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較する。 |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較し、抜け道検出と人間の操作限界を模した難易度設定を分け、シミュレーション上のプレイヤー自体の不具合を検査する。 |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | 記録済みプレイから抽出した場面画像だけを見る隔離agentに、目的・選択肢・リスクを言わせて画面の伝達力を測る。伏せた後続フレームをoracleとし、劣化版controlで計器そのものを検証したうえで、意図・判断多様性・入口の各verdictを返す。 |
 
 ### ゲームプレイの検証とデバッグ

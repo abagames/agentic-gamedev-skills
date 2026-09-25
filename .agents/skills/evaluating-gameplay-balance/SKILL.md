@@ -1,6 +1,6 @@
 ---
 name: evaluating-gameplay-balance
-description: "Evaluates and improves gameplay balance from telemetry in any engine. Use when comparing monotonous vs exploratory play, diagnosing death/spawn/scoring/input issues, or proposing structural balance fixes instead of numeric tuning."
+description: "Evaluates and improves gameplay balance from telemetry in any engine. Use when comparing monotonous vs exploratory play, diagnosing death/spawn/scoring/input issues, setting difficulty, timer, or pacing targets with human-limited simulated players, or proposing structural balance fixes instead of numeric tuning."
 ---
 
 Use this skill to analyze whether a game rewards skillful play and to propose structural improvements.
@@ -12,6 +12,9 @@ Engine-neutral contract:
 - Record score, elapsed time, end state, and telemetry for death, spawn, scoring, and input behavior.
 - Compute `exploratory_ratio = exploratory.best.score / monotonous.max_score`.
 - Treat the ratio as a quality detector, not an optimization target.
+- Declare an execution profile for every non-baseline policy as well as its visible-state features: `oracle` (hidden information allowed; upper bound), `precise` (visible state, near-perfect timing and attention), or `human-limited` (visible state plus the human limits in `references/simulation-harness.md`). Compute the ratio from `precise` policies (search-based runners included, unless labeled `oracle`); it detects exploits, not difficulty.
+- Set difficulty, timers, pacing, and progression targets only from `human-limited` runs, and label every conclusion with the profile it rests on. Without a human-limited run, do not state a difficulty or pacing verdict — report it as not yet measured.
+- A claim that a strategy dominates, or that a trade-off is balanced, names the profiles it was tested on. If the ranking flips between profiles, that alone is not a balance defect — report it as skill-dependent, but still apply the experience guardrails to each profile's best strategy (a human-limited optimum of idling or waiting is a defect).
 
 Non-deterministic harnesses:
 
@@ -28,6 +31,8 @@ Experience guardrails:
 - Game-over should be tied to hazards or world-state collapse.
 - Do not add hidden behavior that only helps or hurts test agents.
 - Avoid numeric-only tuning, branch-only fixes, and added randomness as the primary answer.
+- Treat hands-on play reports as calibration data for the human-limited profile. When a report conflicts with simulated results, first check the harness for defects, then adjust the profile toward the report, re-run, and record the adjustment; do not dismiss the report with bot data alone.
+- Do not tune a parameter with a policy whose behavior is defined by that parameter (e.g. "wait while the timer is above 80 %"); the measurement moves with the tuning.
 
 Workflow:
 1. Locate an existing simulation harness. If none exists, design one using the harness contract before judging balance.
@@ -36,10 +41,11 @@ Workflow:
    - If seeding is genuinely unavailable, use the non-deterministic band protocol above and keep run count, wall-clock window, policy definitions, and sampling cadence comparable.
 3. Validate that the report includes run configuration plus death, spawn, scoring, and input telemetry.
 4. If telemetry is incomplete, report the gap and request instrumentation/rerun instead of judging balance from score alone.
-5. Analyze death, spawn, scoring, and input patterns.
-6. Identify root causes in rules or generation logic.
-7. Propose at least three candidate fixes with expected impact, risk, and complexity.
-8. Re-test with the same policies, budgets, aggregation, and comparison protocol after implementation. Preserve the same seeds for deterministic runs; preserve the same run count and sampling setup for non-deterministic runs.
+5. Sanity-check non-trivial policies before analyzing the game (see *Simulated-player sanity checks* in `references/simulation-harness.md`). A failed check is a harness defect: fix the policy, re-run, and report the defect instead of drawing conclusions from it.
+6. Analyze death, spawn, scoring, and input patterns.
+7. Identify root causes in rules or generation logic.
+8. Propose at least three candidate fixes with expected impact, risk, and complexity.
+9. Re-test with the same policies, budgets, aggregation, and comparison protocol after implementation. Preserve the same seeds for deterministic runs; preserve the same run count and sampling setup for non-deterministic runs.
 
 Project checker triage, when the report includes `ratio.diagnostic`:
 - Before applying any verdict below, check instrument confidence using evidence independent of the final score comparison. The verdicts are trustworthy only when the exploratory search demonstrably played the game: its best score improved across search iterations instead of staying flat from the start, or its runs engaged scoring opportunities and mechanics that the monotonous policies never touched. If neither signal is present, treat the result as instrument failure (the searcher could not find skilled play), not as evidence about the design: route the game to human or LLM review instead of triggering redesign or structural fixes. If the report lacks the search history or engagement telemetry needed to judge this, report the gap and request instrumentation rather than applying a verdict.
@@ -54,7 +60,7 @@ When this skill runs inside a selection funnel — many candidates are generated
 When telemetry is summarized or sparse, request or add the smallest focused probe before editing. Useful probes include: death hazard id/type/age and player input window, spawn position and safety distance, score reason/target id/risk context, input cadence around score/death, active entity counts, and score per unique opportunity.
 
 Read these references as needed:
-- `references/simulation-harness.md` for designing deterministic simulators, input policies, and telemetry emitters.
+- `references/simulation-harness.md` for designing deterministic simulators, input policies, execution profiles, sanity checks, and telemetry emitters.
 - `references/log-contract.md` for the engine-neutral telemetry schema.
 - `references/improvement-analysis.md` for analysis perspectives and report templates.
 - `references/balance-patterns.md` for structural balance patterns.

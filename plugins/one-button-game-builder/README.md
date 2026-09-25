@@ -2,7 +2,7 @@
 
 Design and improve compact one-button games from mechanic through gameplay validation.
 
-Version: 0.1.1 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.2 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 
