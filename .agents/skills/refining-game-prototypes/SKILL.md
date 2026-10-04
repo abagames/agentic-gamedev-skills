@@ -82,10 +82,11 @@ A change in a later stage that reaches the rules reopens only the earlier questi
 | 3. Presentation | The screen and sound report what the rules do |
 | 4. Cleanup | Nothing fails for a reason the player cannot see |
 
-Each stage exits as in step 7. Questions are conditional on the game: those about rounds, a
-defined end, and one new element per round apply to finite, round-based runs only; an intended
-endless score attack is checked for what it promises instead (pressure that keeps rising, or a
-stated plateau).
+Each stage exits as in step 7. Questions are conditional on the game, and the conditions are
+independent: boundary checks apply wherever play has round or wave boundaries, finite or endless;
+fairness after a return applies wherever the player can be taken out of play, with or without a
+lives economy; a defined end is asked only of a run meant to end, and an intended endless score
+attack is checked for what it promises instead (pressure that keeps rising, or a stated plateau).
 
 Stage 1 comes first because presentation spent on a mechanic that is later removed is wasted, and
 because a difficulty curve tuned on the wrong core has to be redone.
@@ -97,17 +98,20 @@ Use these to choose among candidates without a reviewer.
 1. **Move play toward the core before adding anything.** Prefer changing where an action is
    possible, what a position costs, or what a round starts with over adding an enemy, a meter, or a
    mode.
-2. **Remove what cannot be seen.** A variation whose effect is below what a player can perceive is
-   removed, not tuned up, unless a one-rule change makes its effect unmistakable.
+2. **Do not keep what cannot be seen.** A variation whose effect is below what a player can
+   perceive either gets a change that makes its effect unmistakable or is removed. Leaving it in
+   and raising its numbers is the option to avoid. Prefer removal when the rework would add a rule.
 3. **Keep the reward the player already feels.** When closing an exploit, prefer raising the cost
    of the exploit over withdrawing a reward that ordinary play enjoys.
-4. **One rule for both sides.** When the player and the opposition do the same kind of thing, give
-   them the same rule; asymmetric exceptions are where loopholes live.
-5. **Fairness before difficulty.** Fix failures the player could not have prevented before
+4. **Fairness before difficulty.** Fix failures the player could not have prevented before
    adjusting how hard the game is.
-6. **Subtract from the screen.** For a display nobody can interpret: remove it, else tie it to a
-   visible in-world event, else label it.
-7. **Stop after three attempts** on one finding. Record it as unresolved with what was tried.
+5. **A display must earn its place.** For a display nobody can interpret, first ask whether a
+   decision depends on it. If one does, connect it to a visible in-world event or label it; remove
+   it only when none does.
+6. **Stop after three attempts** on one finding. Record it as unresolved with what was tried.
+
+These rules choose among candidate fixes for a finding. They are not features to add: no rule here
+calls for a new mode, bonus round, enemy, indicator, or meter when no finding asks for one.
 
 Ask a person only for an irreversible or outward-facing action, or for calibration input. A request
 for calibration never blocks the loop.
@@ -172,3 +176,8 @@ unresolved, calibration status, and the open questions that need a person.
 - **Imposing a structure.** Adding rounds, an ending, or a lives economy to a game whose intent is
   an endless or single-screen experience, because the checks mention them.
 - **Silent reverts.** A tried-and-removed feature left out of the log, then proposed again.
+- **Copying the examples.** Treating a question's wording, a reviewer quote, or a worked example in
+  the references as a feature to build. They describe symptoms seen in other games; this game's
+  fix comes from its own intent.
+- **Fixing what the intent chose.** Removing an asymmetry, a harsh rule, or a sparse screen that
+  the design states on purpose, because a question flagged it.

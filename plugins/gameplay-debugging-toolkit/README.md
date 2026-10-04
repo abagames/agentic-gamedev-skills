@@ -2,7 +2,7 @@
 
 Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.
 
-Version: 0.1.1 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.2 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 

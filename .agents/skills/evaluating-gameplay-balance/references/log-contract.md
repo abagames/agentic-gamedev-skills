@@ -50,10 +50,10 @@ Required top-level fields:
     "scoring_analysis": {},
     "input_analysis": {},
     "usage_analysis": {
-      "action_share": {"core_mechanic": 0.62, "direct_pickup": 0.38},
-      "score_share": {"core_mechanic": 0.71, "direct_pickup": 0.29},
-      "region_time_share": {"surface": 0.16, "mid": 0.49, "deep": 0.35},
-      "threats": {"mine": {"fires_per_min": 2.2, "hits_per_min": 0.3}},
+      "action_share": {"mechanic_a": 0.62, "mechanic_b": 0.38},
+      "score_share": {"mechanic_a": 0.71, "mechanic_b": 0.29},
+      "region_time_share": {"region_1": 0.16, "region_2": 0.49, "region_3": 0.35},
+      "threats": {"threat_a": {"fires_per_min": 2.2, "hits_per_min": 0.3}},
       "longest_no_primary_threat_s": 1.4
     }
   },
@@ -76,7 +76,7 @@ Policy expectations:
 - When policies declare input kinds (for example `aimed`, `reactive`, `escape`; define kinds that fit the game's control scheme), `input_analysis` should count inputs per kind and `death_analysis` should break deaths down by `preceding_input_kind` and `since_last_input_ms`, so the sanity checks in `simulation-harness.md` can be computed from telemetry.
 - Policies that estimate positions or hidden state may add belief-error samples (estimated versus true) under `input_analysis` or a policy-specific block.
 - If `monotonous.max_score` is zero, report the ratio with an explicit convention and explain it in the analysis.
-- `usage_analysis` names its own mechanics, regions, and threats; the keys above are examples. Report it per policy profile when profiles differ, because a precise policy and a human-limited one often occupy the play space differently.
+- `usage_analysis` names its own mechanics, regions, and threats; the keys above are placeholders, and a game with one region or no discrete threats omits those blocks. Report it per policy profile when profiles differ, because a precise policy and a human-limited one often occupy the play space differently.
 - For goal-driven games, add `stall_for_score` and `survive_only` under `monotonous.cases` or a separate `objective_ignoring` block, with per-round score beside the prompt-clear score.
 - Telemetry details may vary by engine, but preserve the five analysis perspectives.
 - A report that only contains score, elapsed time, and `exploratory_ratio` is a summary, not enough for root-cause balance judgment.

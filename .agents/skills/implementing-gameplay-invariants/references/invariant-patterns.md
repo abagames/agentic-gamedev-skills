@@ -87,12 +87,13 @@ Implementation invariants:
 - The success state is unreachable without the stated goal; surviving alone does not advance the game.
 - A round ends only when every unit of the goal is resolved one way or the other, not when the field merely looks empty.
 
-Patterns:
+Patterns. Each answers a different finding, so choose per finding: for one finding, the mildest pattern that closes it and fits the game's fiction and tone. Independent findings are fixed and verified separately, and may need different patterns in the same game (an unbounded score source and a clear that ignores unsettled goal units are two findings). Do not stack several patterns on one finding. The last two make a game harsher and are not defaults.
 
 - `draining-bonus`: a clear bonus that falls with elapsed time or lost ground, sized from the measured yield of stalling and shown on screen while it drains.
-- `terminal-pressure`: reaching the limit ends the run instead of costing one life and resetting the pressure.
-- `loss-budget`: failing the goal a fixed number of times costs a life, so ignoring the goal is not survivable.
-- `resolved-everywhere`: the clear condition counts goal units still carried, in transit, or held by an opponent.
+- `resolved-everywhere`: the clear condition counts goal units that are still unsettled, wherever they are.
+- `finite-supply`: the renewable score source stops renewing after a bound within a round.
+- `terminal-pressure`: reaching the limit ends the run instead of costing one life and resetting the pressure. Use only where the design wants that limit to be final.
+- `loss-budget`: failing the goal a fixed number of times costs a life. Use only where ignoring the goal would otherwise be survivable and the game has lives.
 
 Validation:
 

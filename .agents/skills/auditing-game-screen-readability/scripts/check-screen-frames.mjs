@@ -119,9 +119,9 @@ function selfTest() {
         elements: [
           { id: "banner", kind: "text", rect: [60, 100, 104, 7], glyphH: 7 },
           { id: "notice", kind: "text", rect: [80, 102, 64, 7], glyphH: 7 },
-          { id: "radar", kind: "panel", rect: [0, 0, 224, 24], opaque: true, z: 10 },
+          { id: "hud", kind: "panel", rect: [0, 0, 224, 24], opaque: true, z: 10 },
           { id: "popup", kind: "text", rect: [40, 18, 20, 7], glyphH: 7, z: 5 },
-          { id: "buried-child", kind: "text", rect: [150, 4, 30, 7], glyphH: 7, z: 5, parent: "radar" },
+          { id: "buried-child", kind: "text", rect: [150, 4, 30, 7], glyphH: 7, z: 5, parent: "hud" },
           { id: "edge", kind: "text", rect: [215, 200, 20, 7], glyphH: 7 },
           { id: "tiny", kind: "text", rect: [10, 60, 20, 5], glyphH: 5 },
           { id: "line", kind: "indicator", rect: [10, 80, 40, 1], fg: [70, 70, 0], bg: [0, 0, 0] },
@@ -137,8 +137,8 @@ function selfTest() {
       {
         id: "good",
         elements: [
-          { id: "radar", kind: "panel", rect: [0, 0, 224, 24], opaque: true, z: 10 },
-          { id: "radar:label", kind: "text", rect: [4, 4, 30, 7], glyphH: 7, parent: "radar", z: 11 },
+          { id: "hud", kind: "panel", rect: [0, 0, 224, 24], opaque: true, z: 10 },
+          { id: "hud:label", kind: "text", rect: [4, 4, 30, 7], glyphH: 7, parent: "hud", z: 11 },
           { id: "popup-on-top", kind: "text", rect: [100, 18, 20, 7], glyphH: 7, z: 20 },
           { id: "log", kind: "panel", rect: [0, 230, 224, 26], opaque: true },
           { id: "log:line", kind: "text", rect: [4, 234, 60, 7], glyphH: 7, parent: "log" },

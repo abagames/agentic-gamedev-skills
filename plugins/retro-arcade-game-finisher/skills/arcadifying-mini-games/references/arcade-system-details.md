@@ -17,7 +17,7 @@ Load only the sections for arcade layers being implemented or changed.
 - Introduce at most one never-seen element per round and assert it in a test over the round table. Several elements arriving in one round is a common cause of a difficulty wall that tuning numbers does not remove.
 - When a round's targets grow, derive its time allowance from the target count (a base plus a per-target amount, scaled by a pressure factor that tightens over rounds) and compute speeds from the allowance. Raising speed and target count independently shrinks the allowance exactly when more is asked.
 - Give each round a personality through parameter mixes of existing enemies, speeds, ratios, spawn bias, rewards, and environment timers; do not require new content types.
-- Use a non-monotonic tension curve with a deliberate abundant/easier breather after the hardest stretch.
+- Use a non-monotonic tension curve with a deliberate abundant/easier breather after the hardest stretch. A breather is a gentler parameter mix of the ordinary round. It is not a call for a bonus stage or a separate mode: a round that only removes the normal game's pressure plays as the same round with less happening.
 - Prefer quotas based on countable in-world events such as deliveries, kills, units banked, or survival goals. Score points drift when multipliers change.
 - Limit true rule changes such as gates or altered goals to roughly one or two per lap. More harms arcade legibility.
 - Loop later laps by scaling the round table; about ×1.15 is a starting hypothesis, not a universal constant.

@@ -16,7 +16,7 @@ the running game — the rectangles the renderer actually used — never by hand
           "glyphH": 7, "fg": [255, 255, 255], "bg": [0, 0, 0] },
         { "id": "notice:extend", "kind": "text", "rect": [80, 112, 64, 7],
           "glyphH": 7, "visibleMs": 2000, "chars": 6 },
-        { "id": "hud:radar", "kind": "panel", "rect": [0, 0, 224, 24], "opaque": true, "z": 10 },
+        { "id": "hud:panel", "kind": "panel", "rect": [0, 0, 224, 24], "opaque": true, "z": 10 },
         { "id": "popup:score", "kind": "text", "rect": [40, 18, 20, 7], "glyphH": 7, "z": 5 }
       ]
     }
@@ -24,7 +24,7 @@ the running game — the rectangles the renderer actually used — never by hand
 }
 ```
 
-This example contains one defect on purpose: `popup:score` is drawn before the opaque `hud:radar`
+This example contains one defect on purpose: `popup:score` is drawn before the opaque `hud:panel`
 panel that covers it, so the script reports `occluded` and exits 1.
 
 ## Fields

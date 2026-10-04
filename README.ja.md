@@ -84,7 +84,7 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 1件以上の既存concept、ruleset、初期prototypeを敵対的に監査し、実証済み欠陥とunknownを分離してclaim単位の証拠provenanceを保つ。 |
 | [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較し、抜け道検出と人間の操作限界を模した難易度設定を分け、プレイの実際の中身(核の仕組みの割合、プレイ空間の利用、脅威ごとの発動と命中)を測り、引き延ばしや生存だけの方策で目的を攻撃し、シミュレーション上のプレイヤーが強すぎる場合と弱すぎる場合の両方を検査し、プレイ報告で較正する。 |
-| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 最初に動いたビルドを、構造、難度と進行、提示、掃除の段階で洗練する。レビュアーが指摘するはずの点を計測可能な問いとして先に答え、入力を待たずに修正を1つずつ選んで適用し、改訂記録を残す。 |
+| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 最初に動いたビルドを、構造、難度と進行、提示、掃除の段階で洗練する。レビュアーが指摘するはずの点を問いとして先に立て、プロジェクトに既にある最も安い証拠で答え、答えられない点はunknownとして記録に残す。適用する問いはゲームの意図とランの構造から選び(目的、ラウンド境界、復帰、残機、HUD、音は互いに独立した条件)、不合格の問いは追加すべき機能ではなく検討すべきfindingとして扱う。設計が意図した非対称、厳しい規則、簡素な画面は尊重する。入力を待たずに修正を1つずつ適用し、改訂記録を残す。 |
 | [`auditing-game-screen-readability`](.agents/skills/auditing-game-screen-readability/SKILL.md) | ゲーム内の出来事の瞬間と、意図的に重ねた瞬間の画面を撮り、表示の重なり、隠れ、薄さ、小ささ、短さ、隔離した読み手が意味を言えないHUD要素、どの判断にも使われない表示を検査する。 |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | 記録済みプレイから抽出した場面画像だけを見る隔離agentに、目的・選択肢・リスクを言わせて画面の伝達力を測る。伏せた後続フレームをoracleとし、劣化版controlで計器そのものを検証したうえで、意図・判断多様性・入口の各verdictを返す。 |
 
