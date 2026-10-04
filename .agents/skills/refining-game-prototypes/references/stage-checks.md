@@ -47,12 +47,17 @@ heard in other projects, phrased generally; they are not features this game shou
 | *(goal)* Does a round end only when everything is resolved? | Goal units still in transit or held by either side at the moment of clear | "It counted that before it was settled." |
 | *(variants)* Can each variation be seen? | Effect size in pixels, seconds, or events per round against the baseline; a side-by-side frame pair | "That variant doesn't change how it plays." |
 | *(variants)* Is each variation a change of mechanic, not a removal of pressure? | What the variant adds to the decision, stated in one line | "It's the normal game with less going on." |
-| Are failures preventable? | For each failure, rewind a short interval and search every reachable input for an escape | "I failed and could do nothing about it." |
+| Are failures and unintended forced penalties preventable? | For each failure or suspected unintended forced penalty (lost ground, lost time, a forced setback), rewind to the causal choice or warning and search reachable inputs for a way to avoid it; record whether a person could read and act on that opportunity | "I failed and could do nothing about it." "It punished me when I had no other move." |
 | Does simple play lose? | Idle, hold, spam, and nearest-target greed against reading play, on at least two rungs | "Just doing the obvious thing works." |
 
 A variation that fails a *(variants)* row is handled by decision rule 2. A threat that fails its
 row is first examined for whether it should exist at all; if it should, make it constrain the core
 action with a warning the player can read. Do not answer it by adding another threat.
+
+For fairness, distinguish an unintended forced penalty from an intended tradeoff and a consequence
+of an earlier avoidable mistake. A late replay window with no escape does not by itself show
+unfairness; inspect the causal choice or warning. A deliberate cost in time, position, or resources
+is not a defect merely because it cannot be avoided after choosing the action.
 
 ## Stage 2: Difficulty and progression
 

@@ -49,44 +49,44 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 
 | Skill                        | 用途                                                                                                       |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| [`exploring-game-design-space`](.agents/skills/exploring-game-design-space/SKILL.md) | 広いmechanic空間を探索し、実証済みの行き止まりや重複だけを除き、推測的なfun rankingではなくstable ID付きの検証可能な仮説を返す。 |
-| [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md)             | 任意の入力構成(タップ、長押し、リリースの一ボタンゲームを含む)のミニゲームのルール、操作、得点、危険、難度曲線を設計する。放置、長押し固定、連打の最適化を防ぐ。 |
-| [`designing-minimal-game-rules`](.agents/skills/designing-minimal-game-rules/SKILL.md) | 抽象的なゲーム設計の種から、離散状態の最小ルール体系を作る。対立軸の候補生成、単純戦略による攻撃、最小核への削減を行う。 |
-| [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | 1978〜1985 年代の固定画面アーケードゲームコンセプトを複数一括生成・評価し、上位コンセプトの実装仕様を書く。 |
-| [`curating-game-concept-portfolio`](.agents/skills/curating-game-concept-portfolio/SKILL.md) | 供給済みconcept集合を、正規化したmechanism signature、evidence-awareなPareto frontier、構造coverageで小さなportfolioにする。欠測を0点扱いしない。 |
-| [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数エンジン契約と bot ladder、緊張度、判断密度で検証する。          |
+| [`exploring-game-design-space`](.agents/skills/exploring-game-design-space/SKILL.md) | 多様なゲームの仕組みを探索し、検証可能なコンセプト候補を作る。設計候補を絞り込む前に使う。 |
+| [`designing-mini-games`](.agents/skills/designing-mini-games/SKILL.md) | 一ボタンを含む任意の入力構成で、ミニゲームのルール、操作、得点、危険、難度の進行を設計する。 |
+| [`designing-minimal-game-rules`](.agents/skills/designing-minimal-game-rules/SKILL.md) | 抽象的な設計の種から、単純戦略に耐える最小の離散状態ルール体系を作る。 |
+| [`generating-retro-arcade-concepts`](.agents/skills/generating-retro-arcade-concepts/SKILL.md) | 1978〜1985年の固定画面アーケードを題材に複数のコンセプトを生成・評価し、選んだ案の実装仕様を書く。 |
+| [`curating-game-concept-portfolio`](.agents/skills/curating-game-concept-portfolio/SKILL.md) | 既存のゲーム案を仕組みと根拠で比較し、仕組みの異なる少数の案に絞る。 |
+| [`verifying-turn-based-games`](.agents/skills/verifying-turn-based-games/SKILL.md) | 二人用の厳密な交互ターンゲームを、純粋関数のエンジン契約とボットによる品質計測で検証する。 |
 
 ### ゲーム実装
 
 | Skill                            | 用途                                                                                                              |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| [`scaffolding-godot-mini-games`](.agents/skills/scaffolding-godot-mini-games/SKILL.md)     | Godot 4.2+ ミニゲームの最小構成を作る。Web export、テスト、テレメトリ、手続き型音声を含む。                       |
-| [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md)                 | Godot の headless CLI、ログ、スクリプトによるシーン編集、テスト、Web export を再現可能にする。                    |
-| [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | `crisp-game-lib` のブラウザミニゲームを実装または修復する。セットアップ、ループ、描画順、衝突、得点、検証を扱う。 |
-| [`arcadifying-mini-games`](.agents/skills/arcadifying-mini-games/SKILL.md) | 動作確認済みのミニゲームに、ラウンド構造、儀式画面（READY・クリア・ミス・ゲームオーバー）、スコア経済（エクステンド、イニシャル入力、ハイスコア表）、アトラクトモードを加え、完成したアーケードゲームに仕上げる。 |
-| [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | ゲーム設計上の約束を、エンジン非依存の実装不変条件と検証項目に変換する。放置、長押し固定、連打、反復得点の優位を防ぐ。 |
+| [`scaffolding-godot-mini-games`](.agents/skills/scaffolding-godot-mini-games/SKILL.md) | Web出力、テスト、テレメトリ、手続き型音声の基盤を備えたGodot 4.2+ミニゲームの最小構成を作る。 |
+| [`running-headless-godot`](.agents/skills/running-headless-godot/SKILL.md) | Godotをヘッドレスで実行し、シーン編集、テスト、Web出力を再現可能にする。 |
+| [`developing-with-crisp-game-lib`](.agents/skills/developing-with-crisp-game-lib/SKILL.md) | `crisp-game-lib`固有の入力、描画、衝突、ゲームループに沿って、ブラウザミニゲームを制作・修復する。 |
+| [`arcadifying-mini-games`](.agents/skills/arcadifying-mini-games/SKILL.md) | 動作するミニゲームにラウンド、開始・終了演出、スコア経済、ランキング、アトラクトモードを加え、アーケードゲームに仕上げる。 |
+| [`implementing-gameplay-invariants`](.agents/skills/implementing-gameplay-invariants/SKILL.md) | ゲーム設計上の約束を、エンジン非依存の実装不変条件と検証項目に変換する。 |
 
 ### ゲーム演出
 
 | Skill                             | 用途                                                                                                  |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| [`directing-game-visuals`](.agents/skills/directing-game-visuals/SKILL.md)                   | HUD 説明に頼らず、視覚階層、パレット役割、画面構成、イベントフィードバックを定義する。                |
-| [`maximizing-game-feel`](.agents/skills/maximizing-game-feel/SKILL.md)                       | squash/stretch、傾き、パーティクル、軌跡、ヒット演出で操作感を高める。                                |
-| [`creating-godot-procedural-audio`](.agents/skills/creating-godot-procedural-audio/SKILL.md) | Godot の組み込み API で手続き型音声を設計・実装する。ゲームイベントや状態変化ごとに音を分ける。       |
-| [`building-era-authentic-game-audio`](.agents/skills/building-era-authentic-game-audio/SKILL.md) | BGM、SE、ジングル、イベント配線、ボイス競合制御を含むゲーム固有の手続き型音声システムを、時代風または対象ハード準拠の制約で設計・実装・検証する。 |
-| [`styling-web-game-typography`](.agents/skills/styling-web-game-typography/SKILL.md)         | 配布ゲーム向けの読みやすくライセンス上問題ないタイポグラフィを実装する。Godot 4.2+ の実装例を含む。   |
-| [`designing-retro-arcade-sound-kits`](.agents/skills/designing-retro-arcade-sound-kits/SKILL.md) | ゲームコードが抽象イベント名を発火し、アダプター層が音を解決・再生するアーキテクチャで、レトロアーケードのサウンドキット（SE・ジングル）を設計・検証する。エンジン非依存。 |
-| [`generating-dot-assets`](.agents/skills/generating-dot-assets/SKILL.md)                     | 画像生成、クロマキー除去、ピクセル化、キャンバス調整、検証により透明 PNG のピクセルアート素材を作る。 |
+| [`directing-game-visuals`](.agents/skills/directing-game-visuals/SKILL.md) | 視覚階層、配色、画面構成、イベントの反応を定め、画面からゲームの状況を読み取れるようにする。 |
+| [`maximizing-game-feel`](.agents/skills/maximizing-game-feel/SKILL.md) | 動作するアクションゲームの反応と手応えを、アニメーションやエフェクトで高める。 |
+| [`creating-godot-procedural-audio`](.agents/skills/creating-godot-procedural-audio/SKILL.md) | Godotの組み込み音声APIで、ゲームイベントや状態変化に対応する手続き型音声を設計・実装する。 |
+| [`building-era-authentic-game-audio`](.agents/skills/building-era-authentic-game-audio/SKILL.md) | 初期アーケードの音源を参考に、音楽・効果音・ジングルを含むゲーム全体の手続き型音声システムを作る。 |
+| [`styling-web-game-typography`](.agents/skills/styling-web-game-typography/SKILL.md) | 配布ゲーム向けに、読みやすくライセンス上問題のない文字表示を実装する。Godotの実装例を含む。 |
+| [`designing-retro-arcade-sound-kits`](.agents/skills/designing-retro-arcade-sound-kits/SKILL.md) | エンジン非依存のゲームイベントから鳴らす、レトロアーケード風の効果音とジングルを設計・検証する。 |
+| [`generating-dot-assets`](.agents/skills/generating-dot-assets/SKILL.md) | 指定したキャンバスサイズで、背景が透明なピクセルアートの物体素材を生成・検証する。 |
 
 ### 評価と調整
 
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
-| [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 1件以上の既存concept、ruleset、初期prototypeを敵対的に監査し、実証済み欠陥とunknownを分離してclaim単位の証拠provenanceを保つ。 |
-| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較し、抜け道検出と人間の操作限界を模した難易度設定を分け、プレイの実際の中身(核の仕組みの割合、プレイ空間の利用、脅威ごとの発動と命中)を測り、引き延ばしや生存だけの方策で目的を攻撃し、シミュレーション上のプレイヤーが強すぎる場合と弱すぎる場合の両方を検査し、プレイ報告で較正する。 |
-| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 最初に動いたビルドを、構造、難度と進行、提示、掃除の段階で洗練する。レビュアーが指摘するはずの点を問いとして先に立て、プロジェクトに既にある最も安い証拠で答え、答えられない点はunknownとして記録に残す。適用する問いはゲームの意図とランの構造から選び(目的、ラウンド境界、復帰、残機、HUD、音は互いに独立した条件)、不合格の問いは追加すべき機能ではなく検討すべきfindingとして扱う。設計が意図した非対称、厳しい規則、簡素な画面は尊重する。入力を待たずに修正を1つずつ適用し、改訂記録を残す。 |
-| [`auditing-game-screen-readability`](.agents/skills/auditing-game-screen-readability/SKILL.md) | ゲーム内の出来事の瞬間と、意図的に重ねた瞬間の画面を撮り、表示の重なり、隠れ、薄さ、小ささ、短さ、隔離した読み手が意味を言えないHUD要素、どの判断にも使われない表示を検査する。 |
-| [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | 記録済みプレイから抽出した場面画像だけを見る隔離agentに、目的・選択肢・リスクを言わせて画面の伝達力を測る。伏せた後続フレームをoracleとし、劣化版controlで計器そのものを検証したうえで、意図・判断多様性・入口の各verdictを返す。 |
+| [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 既存のコンセプト、ルール、初期プロトタイプを敵対的に検査し、実証済みの欠陥と未確認事項を分ける。 |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリと単純戦略・意図したプレイの比較でバランスを評価する。抜け道を検出し、プレイ報告で較正した模擬プレイヤーを使って難度を調整する。 |
+| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 動作するプロトタイプを、構造・難度と進行・演出・仕上げの順に自律的に改善する。ゲームの意図と観測した根拠に基づいて修正を選び、改訂記録と未解決事項を残す。 |
+| [`auditing-game-screen-readability`](.agents/skills/auditing-game-screen-readability/SKILL.md) | ゲームイベントや通知が重なる場面の画像を調べ、読みにくい、隠れた、不要な表示を検出する。 |
+| [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | ルールを知らない独立した読み手が、プレイ画像だけから目的・選択肢・リスクを読み取れるかを検証する。 |
 
 ### ゲームプレイの検証とデバッグ
 
@@ -94,25 +94,25 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 
 | Skill | 用途 |
 | --- | --- |
-| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | ブラウザゲームを headless で起動し、放置と入力バーストを与えて console エラー・未捕捉例外・クラッシュを検出する。モックやシミュレータは通るがブラウザで落ちるコードを機械検出する。 |
-| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | 稼働中の headless ブラウザにゲーム状態を注入し、フェーズ遷移、得点式、ゲート、リセットが仕様どおりかを検証する。スモークテスト（動作健全性）とバランス評価（プレイ品質）の中間層を担う。 |
-| [`auditing-gameplay-implementation-coverage`](.agents/skills/auditing-gameplay-implementation-coverage/SKILL.md) | 仕様、実装、演出、テストを横断して範囲を限定した監査を行い、兄弟ケースの実装漏れや具体的なprobe不足を検出する。 |
-| [`localizing-game-state-divergence`](.agents/skills/localizing-game-state-divergence/SKILL.md) | 決定的に再現できる不具合をリプレイし、機械判定可能な状態不変条件が最初に破れるeventを特定する。 |
-| [`adversarially-validating-game-repairs`](.agents/skills/adversarially-validating-game-repairs/SKILL.md) | 既存のゲーム修正を、patchが到達しうる敵対条件と逆ケースで検証し、再現可能な修正根拠を返す。 |
-| [`generating-semantic-game-mutants`](.agents/skills/generating-semantic-game-mutants/SKILL.md) | 制御されたゲームプレイ欠陥、clean control、equivalent mutantを生成し、テストやagent workflowの検出・修復能力を測定する。 |
+| [`smoke-testing-web-games`](.agents/skills/smoke-testing-web-games/SKILL.md) | ブラウザゲームを放置と入力の両方で動かし、コンソールエラー、未捕捉例外、クラッシュを検出する。 |
+| [`probing-web-game-mechanics`](.agents/skills/probing-web-game-mechanics/SKILL.md) | ブラウザゲームに状態を注入して遷移を検査し、仕組み・表示・入力の接続が仕様どおりかを検証する。 |
+| [`auditing-gameplay-implementation-coverage`](.agents/skills/auditing-gameplay-implementation-coverage/SKILL.md) | 仕様・実装・演出・テストを横断し、関連するゲーム挙動の中で対応が漏れたケースを検出する。 |
+| [`localizing-game-state-divergence`](.agents/skills/localizing-game-state-divergence/SKILL.md) | 再現可能なゲーム不具合をリプレイし、状態不変条件が最初に破れるイベントを特定する。 |
+| [`adversarially-validating-game-repairs`](.agents/skills/adversarially-validating-game-repairs/SKILL.md) | 既存のゲーム修正を、変更が影響する敵対的なケースと、影響すべきでないケースで検証する。 |
+| [`generating-semantic-game-mutants`](.agents/skills/generating-semantic-game-mutants/SKILL.md) | 制御されたゲームの欠陥を注入し、テストの検出能力やエージェントの修復能力を測る。 |
 
 ### Agent Workflow
 
 | Skill                     | 用途                                                                                                     |
 | ------------------------- | -------------------------------------------------------------------------------------------------------- |
-| [`extracting-agent-skills`](.agents/skills/extracting-agent-skills/SKILL.md) | 完了、停止、放棄、失敗したプロジェクトから再利用可能な手順、検証ループ、デバッグ法、判断規則を抽出する。 |
-| [`extracting-spec-design-ladders`](.agents/skills/extracting-spec-design-ladders/SKILL.md) | ソースコードを「再現仕様」と「抽象設計書」の二層アーティファクトに逆工学する。両層の役割を重複させず、抽出ログで監査可能にする。 |
-| [`gating-by-blind-restoration`](.agents/skills/gating-by-blind-restoration/SKILL.md) | 仕様、設計書、スキーマ、契約などの抽象層が自己完結しているかを、その層のみを渡した独立サブエージェントによる盲目的再構築で検証する。判定は pass / weak-pass / fail。 |
-| [`gating-expensive-batch-work`](.agents/skills/gating-expensive-batch-work/SKILL.md) | 高コストなアイテム単位作業のバッチを、全アイテムを対象とする安価で可逆なパスと、高コストで不可逆なパスに分割し、その間に手法凍結チェックポイントを置く。fresh seed、held-out データ、一度きりのクォータを消費する前に、誤ったルーブリックや変換規則を検出する。 |
-| [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 大きな repo agent 指示ファイルを監査し、反復 workflow を skill へ、必須 check を script/hook/CI へ、安定 policy を簡潔な repo 指示へ移す。 |
-| [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実行結果の artifact をもとに再利用可能な agent workflow を改善する。失敗原因を分類してから、根拠のある最小の workflow 差分を提案する。 |
-| [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の自分の応答を、前提、論理の飛躍、代替案、未検証の主張という観点で見直す advisory pass。明示的に呼び出して使う。批判対象と盲点を共有するため、独立した品質保証ではない。 |
-| [`dispatching-agent-work`](.agents/skills/dispatching-agent-work/SKILL.md) | 実作業を適切な実行境界へ委譲し、既存 worker の再利用には objective、artifact、authority、lifecycle、model role、reasoning effort の継続性を必須とする。永続 dispatch mode は明示的に選択した場合のみ有効になる。 |
+| [`extracting-agent-skills`](.agents/skills/extracting-agent-skills/SKILL.md) | 完了・停止・放棄・失敗したプロジェクトから、再利用可能なエージェントの手順と判断規則を抽出する。 |
+| [`extracting-spec-design-ladders`](.agents/skills/extracting-spec-design-ladders/SKILL.md) | ソースコードから、具体的な再現仕様と抽象的な設計書の二層を抽出する。 |
+| [`gating-by-blind-restoration`](.agents/skills/gating-by-blind-restoration/SKILL.md) | 仕様などの抽象層だけを独立したエージェントに渡して再構築させ、情報が自己完結しているかを検証する。 |
+| [`gating-expensive-batch-work`](.agents/skills/gating-expensive-batch-work/SKILL.md) | 安価な試行と高コストな一括実行を分け、取り戻せない資源を使う前に手法を確定する。 |
+| [`migrating-agents-md-to-control-flow`](.agents/skills/migrating-agents-md-to-control-flow/SKILL.md) | 肥大化したエージェント指示から、反復手順をスキルへ、必須チェックをスクリプト・フック・CIへ移す。 |
+| [`refining-workflows-from-artifacts`](.agents/skills/refining-workflows-from-artifacts/SKILL.md) | 実際の実行結果から失敗原因を特定し、再利用可能なエージェントの手順に必要な変更を提案する。 |
+| [`critiquing-own-response`](.agents/skills/critiquing-own-response/SKILL.md) | 直前の自分の応答を、前提・推論の抜け・未検証の主張から見直す。明示的に呼び出して使い、独立したレビューとは区別する。 |
+| [`dispatching-agent-work`](.agents/skills/dispatching-agent-work/SKILL.md) | 文脈と権限を引き継ぎながら、作業を適切なタスク・エージェント・自動化に振り分ける。継続的な委譲モードは明示的に選択する。 |
 
 ## 補助ディレクトリ
 

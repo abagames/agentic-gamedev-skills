@@ -35,6 +35,9 @@ Rules for entries:
 - State the observation as a number or a named frame, not as an impression.
 - Record options that were not chosen; a later session should not re-derive them.
 - A reverted change keeps its entry, with the evidence that caused the revert.
+- An early stop keeps the concrete candidate comparison: expected benefit to the intent, cost or
+  risk, and why further attempts are not justified. Its status remains unresolved, with the number
+  of attempts made, including zero.
 - When a play report is the source, quote it and name the build it refers to.
 - When the finding was that the design intends what a question flagged, record that and close it.
 

@@ -68,10 +68,19 @@ Run the stages in order. Within a stage:
    finding; a finding seen in one replay is re-checked with that replay.
 6. **Log** the observation, cause, options, change, and before/after evidence, including reverted
    attempts.
-7. Repeat until the stage's exit condition holds: every applicable question is `yes`, or is an
-   accepted limitation or an `unknown` recorded with its reason.
+7. Repeat until the stage's exit condition holds: every applicable question is `yes`, a closed
+   `no`, or an `unknown` recorded with its reason.
 
-A change in a later stage that reaches the rules reopens only the earlier questions it can affect.
+A `no` backed by evidence is closed in one of three ways only: a kept change makes it `yes`; the
+repair effort stops under decision rule 6 and is logged as unresolved; or the design states the
+flagged property as intended, in words that predate the finding. Writing it down as a known weakness does not close
+it. Order the open `no`s by their effect on the intent statement and work on them in that order;
+a weakness in the core decision comes before anything in a later stage.
+
+A change that reaches the rules reopens the earlier questions it can affect, whatever prompted it:
+a later stage, a fix for another finding, or a response to a play report. Fairness questions are
+the ones most often invalidated this way; re-answer them on the changed rules instead of carrying
+the old answer forward.
 
 ## Stages
 
@@ -108,7 +117,11 @@ Use these to choose among candidates without a reviewer.
 5. **A display must earn its place.** For a display nobody can interpret, first ask whether a
    decision depends on it. If one does, connect it to a visible in-world event or label it; remove
    it only when none does.
-6. **Stop after three attempts** on one finding. Record it as unresolved with what was tried.
+6. **Use three attempts as an upper limit**, not a quota, on one finding. Stop earlier when a
+   comparison of concrete candidates shows that the expected benefit to the intent is too small
+   for the cost or risk, or no promising candidate remains. Log the candidates, the comparison,
+   and any attempts made; report the finding as unresolved, not fixed. Merely listing a known
+   weakness is not a reason to stop.
 
 These rules choose among candidate fixes for a finding. They are not features to add: no rule here
 calls for a new mode, bonus round, enemy, indicator, or meter when no finding asks for one.
@@ -150,6 +163,9 @@ so in the log.
 - Every kept change has before/after evidence of the same kind: the same seeds and policies when
   simulated, the same replay or scripted run otherwise.
 - No `unknown` is reported as confirmed. Unknowns about the core interaction are listed first.
+- No evidenced `no` is reported as an accepted limitation unless it was closed by one of the three
+  ways above; the report says which.
+- Answers to questions a later rule change could affect carry the build they were taken on.
 - Every reverted or rejected candidate is in the log; a later session must be able to see what was
   already tried.
 - The final report separates what was measured, what was only inspected in frames, and what no one
@@ -176,6 +192,10 @@ unresolved, calibration status, and the open questions that need a person.
 - **Imposing a structure.** Adding rounds, an ending, or a lives economy to a game whose intent is
   an endless or single-screen experience, because the checks mention them.
 - **Silent reverts.** A tried-and-removed feature left out of the log, then proposed again.
+- **Recording instead of deciding.** A measured weakness listed in the report, stage after stage,
+  with neither a repair attempt nor a concrete candidate comparison justifying an early stop.
+- **Stale fairness.** A rule changed in response to a report, and the earlier answer to "are
+  failures and unintended forced penalties preventable" kept without re-checking.
 - **Copying the examples.** Treating a question's wording, a reviewer quote, or a worked example in
   the references as a feature to build. They describe symptoms seen in other games; this game's
   fix comes from its own intent.
