@@ -21,14 +21,14 @@ Seven repository-hosted plugins package the skills for Codex and Claude Code. Th
 | Plugin | Skills |
 | --- | ---: |
 | [Game Concept Workbench](plugins/game-concept-workbench/README.md) | 3 |
-| [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 7 |
+| [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 9 |
 | [Gameplay Verification & Debugging Toolkit](plugins/gameplay-debugging-toolkit/README.md) | 5 |
 | [Retro Arcade Game Finisher](plugins/retro-arcade-game-finisher/README.md) | 5 |
 | [Godot Mini-Game Builder](plugins/godot-mini-game-builder/README.md) | 4 |
 | [Web Mini-Game Kit](plugins/web-mini-game-kit/README.md) | 4 |
 | [Agent Workflow Engineering](plugins/agent-workflow-engineering/README.md) | 9 |
 
-The bundles cover 35 local skills with 37 memberships; externally referenced skills are excluded.
+The bundles cover 37 local skills with 39 memberships; externally referenced skills are excluded.
 
 After GitHub publication, Claude Code users can add `abagames/agentic-gamedev-skills` as a marketplace and install `<plugin>@agentic-gamedev-skills`. Codex CLI users can add the same `owner/repo` marketplace, list available plugins, and install `<plugin>@agentic-gamedev-skills`; workspace administrators can import the GitHub repository through plugin management. The repository contains the standard Codex catalog, an API-key-login Codex catalog, and the Claude Code catalog. Maintainers regenerate them with `python3 tools/plugin-bundles/published.py --repo . --write`.
 
@@ -85,7 +85,9 @@ External imported skills may keep their upstream names and structure.
 | Skill                         | Purpose                                                                                                                                                                                       |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | Adversarially audits one or more existing concepts, rulesets, or early prototypes, separating demonstrated defects from unknowns and preserving claim-level evidence provenance. |
-| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | Evaluates balance through telemetry by comparing monotonous and exploratory policies with deterministic seeds or calibrated non-deterministic bands, separates exploit detection from human-limited difficulty targets, sanity-checks simulated players, and gives instrumentation and structural repair guidance. |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | Evaluates balance through telemetry by comparing monotonous and exploratory policies with deterministic seeds or calibrated non-deterministic bands, separates exploit detection from human-limited difficulty targets, measures what play actually consists of (core-mechanic share, play-space use, per-threat fire and hit rates), attacks goals with stalling and survive-only policies, sanity-checks simulated players in both directions, calibrates them against play reports, and gives instrumentation and structural repair guidance. |
+| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | Drives a first playable build through staged refinement (structure, difficulty and progression, presentation, cleanup) by answering measurable questions a reviewer would otherwise raise, choosing and applying one fix at a time without waiting for input, and keeping a revision log. |
+| [`auditing-game-screen-readability`](.agents/skills/auditing-game-screen-readability/SKILL.md) | Captures frames at gameplay events and forced coincidences and checks them for overlapping, occluded, faint, tiny, or too-brief displays, HUD elements an isolated reader cannot name, and labels no decision depends on. |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | Measures whether an isolated grader who never saw the design or source can read a game's goal, options, and risk off sampled gameplay frames, with a withheld follow-up frame as oracle and a degraded control, returning intent, decision-variety, and entry-point verdicts. |
 
 ### Gameplay Verification And Debugging

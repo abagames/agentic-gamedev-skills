@@ -2,7 +2,7 @@
 
 Develop 1978–1985 arcade concepts and finish playable games with rounds, scoring, pixel assets, and era-authentic procedural audio.
 
-Version: 0.1.1 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.2 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 

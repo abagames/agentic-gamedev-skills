@@ -75,6 +75,7 @@ Measure at least peak level, RMS, onset time, and last audible sample, per progr
 cue. Then assert:
 
 - **nothing is silent** — peak above an audibility floor;
+- **the whole mix is loud enough** — measured at the final output, after the master gain and any limiter, the loudest event sits near the declared ceiling. A mix that never clips can still be a tenth of the level it should be, and a compressor used as a limiter can cut short sounds to a fraction of their declared gain;
 - **nothing clips** — peak below the ceiling the master chain declares;
 - **onset matches the declared start** — a program that begins late has a bug in its first
   step, not a taste problem;
@@ -96,6 +97,24 @@ bed it plays over, reward and danger above ordinary consequence, ambience below 
 under all of it. Ordering survives a change to the master gain; absolute thresholds do not.
 Where a margin is needed, record one per group and justify it, rather than inheriting a number
 from another project.
+
+Always include one specific pair: the most frequently triggered feedback sound against the BGM
+of the state it plays in. It is short, it repeats, and it is the sound most often left 10 dB
+under the music. If raising it would make it tiring, move it to a register the music does not
+occupy instead of leaving it buried.
+
+### Check pitched effects against the music's key
+
+When BGM exists, the contract records, per pitched SE and jingle, whether it is meant to sit in
+the BGM's key. For those that are, collect their pitches, including the variants produced by
+chain, level, or multiplier steps, and assert that they belong to the declared scale. A stinger
+built on a chord foreign to the tune, or an effect that rises by a fixed interval per step, is
+correct in isolation and can be wrong the moment the music plays under it; the check exists to
+catch that when it was not intended.
+
+It is not a rule that everything be consonant. Intended dissonance, chromatic motion, warning
+tones, and unpitched or noise effects are declared as exceptions with a reason, and the check
+skips them. An event with no declaration either way fails, so the choice is always explicit.
 
 ### When rendering is not available
 

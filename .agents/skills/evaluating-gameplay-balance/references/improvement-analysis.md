@@ -78,7 +78,7 @@ The preferred engine-neutral contract is defined in `log-contract.md`. The analy
 - Default keys for `monotonous.cases` are `no_input` / `hold_action` / `spam_action`; custom policies are allowed when they match the game's controls.
 - `run_config` records the comparison conditions that must stay fixed across before/after runs, including policy visibility.
 - `exploratory_ratio` is placed at top level (`exploratory.best.score / monotonous.max_score`).
-- `telemetry` details may vary by game implementation, but the following four perspectives must be preserved.
+- `telemetry` details may vary by game implementation, but the following perspectives must be preserved, together with the usage perspective (`usage_analysis` in `log-contract.md`).
 
 ## 3. Log Analysis Perspectives
 
@@ -150,6 +150,26 @@ Related balance patterns: `balance-patterns.md` input state tradeoff, contextual
 ### 3.4a Skill Dependence
 
 Before labeling a pattern "always optimal", compare it under the `precise` and `human-limited` execution profiles (`simulation-harness.md` section 5). If the best strategy changes between profiles, the game has a skill-dependent trade-off; report it as such instead of removing it as a dominant strategy. A flip does not clear either profile's best strategy: if the human-limited optimum is itself monotonous (idling, waiting, one-pattern spam), it is still a defect.
+
+### 3.4b Usage Analysis
+
+Check items:
+
+- The core mechanic supplies a minority of actions or score
+- Part of the play space is almost never occupied
+- A threat fires but almost never hits, or never fires at all
+- The primary threat is absent for stretches long enough to notice
+- A stalling policy outscores prompt clearing over the whole run with an uncapped or cost-free gain, or a survive-only policy reaches the success state
+
+Typical causes:
+
+- A cheaper action reaches the same outcome as the core mechanic
+- Every action is available from one position, and that position carries no risk
+- A threat's trigger condition is narrow, or one small movement always escapes it
+- A respawn waits on a condition the player keeps resetting
+- A score source renews without limit inside a round, or progress is not tied to the goal
+
+Prefer fixes that move play toward the core mechanic over fixes that add a system: change where an action is possible, what a position costs, or what a round starts with. A new enemy or hazard is the last resort, and it should threaten the core action, not exist beside it.
 
 ### 3.5 Experience Integrity Gate
 

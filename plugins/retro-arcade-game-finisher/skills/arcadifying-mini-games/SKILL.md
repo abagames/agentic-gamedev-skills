@@ -38,6 +38,9 @@ Preserve these invariants:
 - Chained confirm-driven phases use a short grace period so one just-pressed edge cannot skip several screens.
 - READY, clear, and death freezes stop input, spawning, collision, movement, timers, and cooldown mutation; drawing and ceremony scheduling may continue.
 - Engine calls that stop the update loop happen only after custom entry/table phases and scheduled jingle work are complete.
+- A round boundary removes every hazard together with its in-flight effects (blasts, shockwaves, queued shots), on clear and again at the next round's start; time frozen during a ceremony otherwise resumes them on the new round.
+- A failure condition that accumulates (lost units, missed targets, a filling meter) does not advance while the player is dead or respawning, and state already beyond the player's reach at the moment of a miss is charged to that miss, not the next one.
+- The final clear sets no next-round state: no respawn invulnerability, no READY, no pending spawns.
 
 ### 4. Add a coherent score economy
 
@@ -58,6 +61,9 @@ Attract mode must not write rankings, stall indefinitely in entry screens, or di
 Scope checks to the layers changed, but validate the integrated cycle when the full wrapper changed.
 
 - Inject or arrange state to test quota → clear → next round, extend crossing, entry save/skip, ranking ties, and any rule-changing round.
+- Force ceremonies to coincide: an extend earned by the clear bonus itself, a miss on the frame of a clear, an extend during the death sequence. Each banner, counter change, and jingle must remain visible or audible; one overwriting another is the usual defect.
+- Place a live hazard and an in-flight effect at the next round's spawn point at the moment of a clear, and confirm the player survives the next round's first seconds.
+- Watch the lives display through a whole death sequence: every change matches a grant or loss event on that frame. It must not rise with no extend, and an extend earned during the sequence must show.
 - Capture each changed ceremony screen; value assertions do not catch clipped text, skipped screens, or off-frame cursors.
 - Exercise each named UI action through at least two configured synonym keys when multiple bindings are promised.
 - Run title → attract → play → game over → entry/table → title twice to catch re-entry and persistence defects.

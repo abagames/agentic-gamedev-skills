@@ -56,6 +56,22 @@ Recommended baseline policies:
 
 One-button games usually need press, hold, and release timing. Multi-input games should define equivalent monotonous policies for each dominant simple strategy, such as always-left, always-fire, always-boost, or shortest-path greed.
 
+Objective-ignoring policies, for games with a goal beyond staying alive (clear the wave, rescue, deliver, reach the exit):
+
+- `stall_for_score`: plays competently but withholds the action that ends the round or wave, and keeps scoring from whatever renews.
+- `survive_only`: avoids danger and never pursues the goal. If it reaches the end state the game calls success, nothing ties progress to the goal.
+
+Give both the same skill as the strong policy; they test the rules, not execution.
+
+Stalling that outscores prompt clearing is a signal, not a verdict. Waiting for a bigger payoff is often the intended risk/reward choice. Before calling it a defect, establish:
+
+- **the cap** — whether the extra score is bounded (a finite number of targets before a time limit) or renews without limit;
+- **the cost** — what waiting risks or forfeits: lives, a draining bonus, lost ground, a harder next round;
+- **the whole run** — per-round score shows the temptation, whole-run score shows whether it pays once lost lives and lost time are counted;
+- **the ladder** — whether stalling is best for every profile or only for one.
+
+It is a defect when the gain is uncapped, or when it is the best whole-run strategy at every skill level and costs nothing the player would notice. Report the four findings either way.
+
 Do not hard-code a policy that knows hidden internals unavailable to a player unless the goal is explicitly to test an upper bound. Prefer state features a player could infer from the screen.
 
 When the control scheme is unknown, first write the public input schema, then derive policies from it:
@@ -97,6 +113,11 @@ Acceptable approaches:
 - Heuristics using visible state, such as distance to hazards, reward positions, or resource levels.
 - Genetic search over input timings or compact action genomes.
 - Replay mutation: mutate the best previous sequence and keep improvements.
+- State-copy look-ahead: at a fixed decision interval, clone the game state, simulate each candidate intent (attack this target, collect, deliver, retreat) a few seconds forward with a default policy, and commit to the best outcome. This needs a cloneable deterministic state and usually beats a hand-written priority list by a wide margin. Score candidates on whether an outcome is still reachable in time, not on what is nearest.
+
+Hand-written priority policies are the usual reason a strong policy is weak (section 6, ceiling check). When the adapter can clone state, make look-ahead the default strong policy.
+
+Seeded runs still vary across seeds. Before reporting a rate (clears, survival, share of deaths) as a tuning target, double the seed count once and confirm the figure holds; a survival rate from 16 seeds can move by 20 points at 32.
 
 Report the best score, elapsed time, seed, and variant. Keep the same search budget before and after changes so comparisons remain meaningful.
 
@@ -135,6 +156,7 @@ Model the limits that the game's decisions actually exercise; not every game nee
 | Information decay | stale displayed information is distrusted or forgotten rather than extrapolated indefinitely |
 | Re-orientation | after the frame of reference changes (teleport, camera cut, moved pivot, screen flip), no accurate aimed action until the new picture has been read |
 | Repetition limit | accurate actions cannot repeat faster than re-orientation allows; only panic or escape actions may be quicker |
+| Input duration | a deliberate key press stays down about 100–150 ms and its release is as imprecise as its press; a policy that taps for one tick cannot exercise controls whose result depends on how long the input is held |
 
 Starting points from one tuned one-button game (a rotating-sweep radar shooter): reaction 200–300 ms, timing σ 50–80 ms, attention lapse 0.3–0.5, forget stale blips after ~1.5 refresh cycles, re-orientation ~0.5 sweep revolution after a teleport. These came from a single game and its designer's play reports; treat them as a first guess, not a norm, and recalibrate for other genres and control schemes.
 
@@ -143,8 +165,16 @@ Starting points from one tuned one-button game (a rotating-sweep radar shooter):
 Hands-on play reports are the ground truth the human-limited profile approximates. When a report disagrees with simulated results ("still too hard", "the gauge runs out too fast", "I always die after blinking next to an enemy"):
 
 1. Check the harness for defects first (section 6).
-2. Adjust the profile parameters toward the report, preferring limits the report names or implies. Note the reporter's skill relative to the target audience (a designer is usually an expert); do not fit the profile to one expert when the audience is broader.
-3. Re-run and record the report, the reporter's skill level, and the adjusted values.
+2. Identify the build the report describes. A report is evidence about the build that was played, so reproduce it there, not on the current one. Keep a copy of every build handed over for play.
+3. Decide the direction and the cause by comparing, on that build, the progress the report describes and the reasons it gives for failing with the policy's own progress and failure causes. An impression ("too easy", "too hard") gives the direction only.
+   - The policy outperforms the player: the human limits are too lenient, or a limit the game exercises is not modelled. Add or tighten the limit the report's failures point to.
+   - The policy underperforms the player: either its decisions are weak or its limits are too harsh. Read its failures. If it fails by choosing badly (wrong target, no retreat, standing in a telegraphed hazard), strengthen its decisions (section 4, look-ahead). If it chooses as a person would and fails in execution (late, imprecise, lapses a person does not have at this pace), relax the limit responsible. Both can hold; fix the one the failures show first and re-run.
+4. Adjust toward the report, preferring limits the report names or implies. One report cannot fix several parameters independently: place the reporter on a single skill axis running from the weakest modelled player to the strongest policy, and move along it until the simulated outcome on that build matches. Note the reporter's skill relative to the target audience (a designer is usually an expert); do not fit the profile to one expert when the audience is broader. Add a weaker rung when the reporter sits below every existing policy.
+5. Re-run on the current build and record the report, the build it refers to, the reporter's skill level, and the adjusted values. A later report from the same person supersedes an earlier one; players improve.
+
+A report is only as useful as its numbers. Have the game produce them: at the end of a run, show or log one line with progress reached, failures by cause, and elapsed time, so a report is a paste and not a recollection. Without it, ask for exactly those three things.
+
+When no report exists, do not tune to a single modelled player. Check that targets hold across the ladder from the weakest modelled player to the strongest policy, and label the difficulty verdict uncalibrated.
 
 In the observed case, simulated players that re-aimed immediately after every blink led to three rounds of "still too hard" reports. Modeling the designer's stated re-orientation delay reproduced the chain-oriented play that humans drifted into and the bots had not shown.
 
@@ -166,6 +196,9 @@ Before drawing balance conclusions, check each non-trivial policy for artifacts 
 - **Belief sanity (policies that estimate positions or hidden state):** log estimated versus true values. Stale estimates must not drift toward the player or collapse onto a single point. Observed case: stale-blip extrapolation converged on the player, so the bot panic-pressed about every 0.8 s and most of its deaths followed those presses.
 - **Input rate (`human-limited` only):** report aimed and reactive/escape inputs separately. Aimed inputs stay within the re-orientation limit; escape inputs recurring on a steady cadence without a matching visible threat indicate a belief or trigger defect even when the overall rate looks human.
 - **Execution probe (`human-limited` only):** confirm the policy cannot perform accurate actions closer together than its re-orientation delay; measure the minimum interval between aimed inputs.
+
+- **Ceiling check (`oracle` and `precise`):** ask whether the strong policy's decisions, not the game, limit its results. Similar results for the strong and human-limited policies raise the question but do not answer it. Rule out the innocent explanations first: the metric is saturated (both clear everything, or both hit a score cap), or the game does not reward execution precision, so the profiles should not differ. Then look for direct evidence: the strong policy fails in ways a person would plainly avoid (chasing an unreachable target, sitting in a telegraphed hazard); fixing a defect in the policy moves results more than a rule change does; or a play report describes a person outperforming it. Only with such evidence is the policy the ceiling, and its results then say nothing about how hard the game is.
+- **Hold-duration probe (`human-limited`, controls that read hold time):** drive the control with presses of realistic length (see *Input duration*) and confirm the intended result is reachable. A policy that only taps reports nothing about such a control.
 
 Oracle and precise policies are expected to act faster than humans; do not apply the human input-rate checks to them.
 
@@ -189,6 +222,9 @@ Aggregate at least:
 - Scoring triggers, score amounts, score timing, and whether score correlates with raw input count.
 - Input pattern summaries such as hold duration, press interval distribution, and dominant simple pattern.
 - For policies that declare input kinds: inputs by kind, and deaths by preceding input kind and time since that input.
+- Usage: tag each player action and each score event with its source mechanic, sample the player's position into a few named regions of the play space, and log every threat activation and every hit it lands. Aggregate into share of actions and score per mechanic, share of time per region, fires and hits per threat per minute, and the longest stretch with no primary threat present.
+
+Usage is read against the design, not against a universal threshold. State the expected picture first ("most score comes from the core interaction", "the whole play space is used", "every threat is a real danger"), then compare. Typical findings: the core mechanic supplies a small share of actions because a cheaper action does the same job; most of the play space is never entered because every action is available in one band; a threat fires but never hits because one small movement always escapes it; the primary threat is absent for long stretches because its respawn waits on something the player keeps resetting.
 
 ## 8. Output And Discovery
 
@@ -208,7 +244,7 @@ If adding a new harness to a project, document the command that produces the rep
 
 Score, elapsed time, and `exploratory_ratio` are useful summary signals, but they are not enough to diagnose balance.
 
-If any of the four telemetry perspectives are missing:
+If any of the five telemetry perspectives (death, spawn, scoring, input, usage) are missing:
 
 1. Mark the report as insufficient for root-cause balance judgment.
 2. Keep the existing summary metrics as baseline signals.
@@ -229,5 +265,9 @@ Reject or revise the harness when:
 - A tuned parameter was measured with a policy defined by that same parameter.
 - The public input schema or visible-state schema is undocumented.
 - The logger awards score from input facts rather than in-game causal events.
-- The report only contains summary score and elapsed time, with no death/spawn/scoring/input breakdown.
+- The report only contains summary score and elapsed time, with no death/spawn/scoring/input/usage breakdown.
+- The strong policy was shown to be the ceiling and difficulty was still judged from it, or it was declared the ceiling from close results alone.
+- Stalling was called an exploit from per-round score alone, without its cap, cost, and whole-run effect.
+- A play report was fitted on a different build from the one that was played.
+- A goal-driven game was evaluated without the objective-ignoring policies.
 - Before/after comparisons use different seeds, budgets, policies, or max ticks without explanation.

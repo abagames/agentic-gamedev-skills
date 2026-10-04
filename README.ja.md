@@ -21,14 +21,14 @@ Codex と Claude Code 向けに、7つのリポジトリ配布プラグインを
 | Plugin | Skills |
 | --- | ---: |
 | [Game Concept Workbench](plugins/game-concept-workbench/README.md) | 3 |
-| [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 7 |
+| [One-Button Game Builder](plugins/one-button-game-builder/README.md) | 9 |
 | [Gameplay Verification & Debugging Toolkit](plugins/gameplay-debugging-toolkit/README.md) | 5 |
 | [Retro Arcade Game Finisher](plugins/retro-arcade-game-finisher/README.md) | 5 |
 | [Godot Mini-Game Builder](plugins/godot-mini-game-builder/README.md) | 4 |
 | [Web Mini-Game Kit](plugins/web-mini-game-kit/README.md) | 4 |
 | [Agent Workflow Engineering](plugins/agent-workflow-engineering/README.md) | 9 |
 
-35のローカルスキルを延べ37件収録し、外部参照スキルは同梱しない。
+37のローカルスキルを延べ39件収録し、外部参照スキルは同梱しない。
 
 GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を marketplace として追加し、`<plugin>@agentic-gamedev-skills` をインストールできる。Codex CLI でも同じ `owner/repo` marketplace を追加し、available plugin を確認して `<plugin>@agentic-gamedev-skills` をインストールできる。workspace admin は plugin management から GitHub repository を import できる。リポジトリには標準 Codex catalog、API key login 用 Codex catalog、Claude Code catalog があり、maintainer は `python3 tools/plugin-bundles/published.py --repo . --write` で再生成する。
 
@@ -83,7 +83,9 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 1件以上の既存concept、ruleset、初期prototypeを敵対的に監査し、実証済み欠陥とunknownを分離してclaim単位の証拠provenanceを保つ。 |
-| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較し、抜け道検出と人間の操作限界を模した難易度設定を分け、シミュレーション上のプレイヤー自体の不具合を検査する。 |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリでゲームバランスを評価する。単調な方策と探索的または意図した方策を比較し、抜け道検出と人間の操作限界を模した難易度設定を分け、プレイの実際の中身(核の仕組みの割合、プレイ空間の利用、脅威ごとの発動と命中)を測り、引き延ばしや生存だけの方策で目的を攻撃し、シミュレーション上のプレイヤーが強すぎる場合と弱すぎる場合の両方を検査し、プレイ報告で較正する。 |
+| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 最初に動いたビルドを、構造、難度と進行、提示、掃除の段階で洗練する。レビュアーが指摘するはずの点を計測可能な問いとして先に答え、入力を待たずに修正を1つずつ選んで適用し、改訂記録を残す。 |
+| [`auditing-game-screen-readability`](.agents/skills/auditing-game-screen-readability/SKILL.md) | ゲーム内の出来事の瞬間と、意図的に重ねた瞬間の画面を撮り、表示の重なり、隠れ、薄さ、小ささ、短さ、隔離した読み手が意味を言えないHUD要素、どの判断にも使われない表示を検査する。 |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | 記録済みプレイから抽出した場面画像だけを見る隔離agentに、目的・選択肢・リスクを言わせて画面の伝達力を測る。伏せた後続フレームをoracleとし、劣化版controlで計器そのものを検証したうえで、意図・判断多様性・入口の各verdictを返す。 |
 
 ### ゲームプレイの検証とデバッグ

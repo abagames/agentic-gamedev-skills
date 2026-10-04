@@ -34,13 +34,15 @@ Keep distinct vocabularies:
 - danger: sharp silhouettes, alert flashes, sparks, short hard impacts;
 - reward: glints, radial particles, softer pops, bright confirmation;
 - state change: localized pulse, transition motif, controlled camera response;
-- near miss: satisfying but visibly weaker than an actual reward.
+- near miss: satisfying but visibly weaker than an actual reward. Add one only when its trigger corresponds to a threat the player actually avoided; a proximity test that also fires when merely passing alongside, or that misses real escapes, teaches nothing and should be left out.
+- cause of failure: failures with different causes look different. A loss from a rule (a quota missed, a counter filled) must not reuse the destruction effect, or it reads as being hit by nothing.
 
 Read [technique-catalog.md](references/technique-catalog.md) when choosing or implementing concrete techniques; it includes engine-specific constraints.
 
 ### 4. Implement presentation without corrupting mechanics
 
-- Keep gameplay/collision authoritative; apply deformation, rotation, trails, flashes, and recoil to render-only visuals where possible.
+- Keep gameplay/collision authoritative; apply deformation, rotation, trails, flashes, and recoil to render-only visuals where possible. Before changing how something moves on screen, find out which position collision and pickup read; if they read the drawn position, a motion change is a rule change.
+- Draw a hazard at least as large as its active hit area for as long as it can hit. An effect that grows from small while the hit area is already at full size destroys the player at a visible distance.
 - Clamp every deformation and camera displacement, and return it to rest.
 - Gate costly/disruptive effects by speed, charge, impact, or rarity.
 - Preserve buffered input during hit stop and never move the authoritative player into danger only for visual recoil.
@@ -64,6 +66,7 @@ Compare before/after at normal speed and inspect a rendered high-feedback frame.
 
 - Controls remain immediate and buffered input is not dropped.
 - Visual bounds do not misrepresent collision bounds.
+- When seeded simulated players exist, their results are identical before and after a presentation-only pass. Any difference means the pass reached the rules; find it before judging feel.
 - Player, primary hazard, and reward remain readable during the busiest effect stack.
 - Strongest feedback is reserved for the most important events.
 - Effects return to rest without accumulation/leaks.

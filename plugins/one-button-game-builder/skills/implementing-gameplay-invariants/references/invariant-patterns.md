@@ -76,6 +76,30 @@ Validation:
 - If idle survives long, its score should remain low unless survival is the game's core mastery metric.
 - If idle can survive indefinitely, specify the score cap or missed-opportunity math before relying on the global ratio.
 
+## Stalling and Goal Bypass
+
+Problem: a round can be prolonged for score, or completed without doing what the game is about.
+
+Implementation invariants:
+
+- Withholding the action that ends a round is never free: the extra score is bounded, or waiting carries a cost the player can see. Where the design intends waiting as a risk/reward choice, state the bound and the cost; where it does not, prompt ending scores more.
+- A score source that renews without limit inside a round is paired with a cost of waiting that exceeds its yield per second.
+- The success state is unreachable without the stated goal; surviving alone does not advance the game.
+- A round ends only when every unit of the goal is resolved one way or the other, not when the field merely looks empty.
+
+Patterns:
+
+- `draining-bonus`: a clear bonus that falls with elapsed time or lost ground, sized from the measured yield of stalling and shown on screen while it drains.
+- `terminal-pressure`: reaching the limit ends the run instead of costing one life and resetting the pressure.
+- `loss-budget`: failing the goal a fixed number of times costs a life, so ignoring the goal is not survivable.
+- `resolved-everywhere`: the clear condition counts goal units still carried, in transit, or held by an opponent.
+
+Validation:
+
+- A stalling policy with the strong policy's skill does not beat prompt clearing over a whole run, or beats it only by a bounded amount at a stated risk.
+- A survive-only policy does not reach the success state.
+- A unit of the goal still in transit when the field empties keeps the round open.
+
 ## Pulse, Reflection, and Area Scoring
 
 Problem: a broad effect intended as a precision reward becomes repeatable spam.

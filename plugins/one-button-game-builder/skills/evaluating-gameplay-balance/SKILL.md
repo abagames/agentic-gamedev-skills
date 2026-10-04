@@ -9,7 +9,8 @@ Engine-neutral contract:
 - Produce comparable runs for monotonous policies and exploratory policies.
 - Define the public input schema and visible-state features available to policies.
 - Keep seeds, tick rate, max duration, policy definitions, search budget, and aggregation logic comparable across runs.
-- Record score, elapsed time, end state, and telemetry for death, spawn, scoring, and input behavior.
+- Record score, elapsed time, end state, and telemetry for death, spawn, scoring, input, and usage behavior. Usage is what play actually consists of: how much of the action and score comes from the core mechanic, which parts of the play space are occupied, and how often each threat fires and connects.
+- When the game has a goal beyond staying alive, add objective-ignoring policies to the comparison: one that stalls to keep scoring, and one that survives without pursuing the goal. A stall that scores more is a signal to examine its cap, its cost, and its whole-run effect, not a defect by itself.
 - Compute `exploratory_ratio = exploratory.best.score / monotonous.max_score`.
 - Treat the ratio as a quality detector, not an optimization target.
 - Declare an execution profile for every non-baseline policy as well as its visible-state features: `oracle` (hidden information allowed; upper bound), `precise` (visible state, near-perfect timing and attention), or `human-limited` (visible state plus the human limits in `references/simulation-harness.md`). Compute the ratio from `precise` policies (search-based runners included, unless labeled `oracle`); it detects exploits, not difficulty.
@@ -31,7 +32,7 @@ Experience guardrails:
 - Game-over should be tied to hazards or world-state collapse.
 - Do not add hidden behavior that only helps or hurts test agents.
 - Avoid numeric-only tuning, branch-only fixes, and added randomness as the primary answer.
-- Treat hands-on play reports as calibration data for the human-limited profile. When a report conflicts with simulated results, first check the harness for defects, then adjust the profile toward the report, re-run, and record the adjustment; do not dismiss the report with bot data alone.
+- Treat hands-on play reports as calibration data for the human-limited profile. When a report conflicts with simulated results, first check the harness for defects, then adjust the profile toward the report, re-run, and record the adjustment; do not dismiss the report with bot data alone. The disagreement runs in both directions, and a policy that underperforms the player may have weak decisions or overly harsh limits; compare the report's progress and failure causes with the policy's before choosing which to adjust. Follow *Calibrating against play reports* in `references/simulation-harness.md`.
 - Do not tune a parameter with a policy whose behavior is defined by that parameter (e.g. "wait while the timer is above 80 %"); the measurement moves with the tuning.
 
 Workflow:
@@ -39,10 +40,10 @@ Workflow:
 2. Choose the comparison protocol:
    - If seeding is available, run comparable monotonous and exploratory policies with the same deterministic seeds.
    - If seeding is genuinely unavailable, use the non-deterministic band protocol above and keep run count, wall-clock window, policy definitions, and sampling cadence comparable.
-3. Validate that the report includes run configuration plus death, spawn, scoring, and input telemetry.
+3. Validate that the report includes run configuration plus death, spawn, scoring, input, and usage telemetry.
 4. If telemetry is incomplete, report the gap and request instrumentation/rerun instead of judging balance from score alone.
-5. Sanity-check non-trivial policies before analyzing the game (see *Simulated-player sanity checks* in `references/simulation-harness.md`). A failed check is a harness defect: fix the policy, re-run, and report the defect instead of drawing conclusions from it.
-6. Analyze death, spawn, scoring, and input patterns.
+5. Sanity-check non-trivial policies before analyzing the game (see *Simulated-player sanity checks* in `references/simulation-harness.md`). A failed check is a harness defect: fix the policy, re-run, and report the defect instead of drawing conclusions from it. This includes the ceiling check: when a strong policy does no better than the human-limited one, rule out a saturated metric and a game that does not reward precision, then look for failures a person would avoid before concluding the policy is weak.
+6. Analyze death, spawn, scoring, input, and usage patterns. Compare usage against the design's stated core interaction before reading the score ratio: a healthy ratio does not show that the core mechanic is what players spend their time on.
 7. Identify root causes in rules or generation logic.
 8. Propose at least three candidate fixes with expected impact, risk, and complexity.
 9. Re-test with the same policies, budgets, aggregation, and comparison protocol after implementation. Preserve the same seeds for deterministic runs; preserve the same run count and sampling setup for non-deterministic runs.
@@ -57,7 +58,7 @@ Project checker triage, when the report includes `ratio.diagnostic`:
 
 When this skill runs inside a selection funnel — many candidates are generated, ranked, and culled rather than repaired — the Failure Report path does not apply: report the diagnosis and let the ranking eliminate the artifact. Reserve repair attempts and the 3-attempt limit for post-selection winners.
 
-When telemetry is summarized or sparse, request or add the smallest focused probe before editing. Useful probes include: death hazard id/type/age and player input window, spawn position and safety distance, score reason/target id/risk context, input cadence around score/death, active entity counts, and score per unique opportunity.
+When telemetry is summarized or sparse, request or add the smallest focused probe before editing. Useful probes include: death hazard id/type/age and player input window, spawn position and safety distance, score reason/target id/risk context, input cadence around score/death, active entity counts, score per unique opportunity, actions and score per source, time spent per region of the play space, fire and hit counts per threat, and the longest stretch with no primary threat present.
 
 Read these references as needed:
 - `references/simulation-harness.md` for designing deterministic simulators, input policies, execution profiles, sanity checks, and telemetry emitters.

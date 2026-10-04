@@ -13,7 +13,10 @@ Load only the sections for arcade layers being implemented or changed.
 
 ## Round structure and pacing
 
-- Start with roughly 6–10 rounds per lap. Give each a personality through parameter mixes of existing enemies, speeds, ratios, spawn bias, rewards, and environment timers; do not require new content types.
+- Start with roughly 6–10 rounds per lap, then set the count from the game: find the round by which every distinct element has appeared and the round where density and time pressure reach their caps. Rounds past that point differ only in speed and rate, so end the lap or the campaign a few rounds after it and use those rounds to combine elements.
+- Introduce at most one never-seen element per round and assert it in a test over the round table. Several elements arriving in one round is a common cause of a difficulty wall that tuning numbers does not remove.
+- When a round's targets grow, derive its time allowance from the target count (a base plus a per-target amount, scaled by a pressure factor that tightens over rounds) and compute speeds from the allowance. Raising speed and target count independently shrinks the allowance exactly when more is asked.
+- Give each round a personality through parameter mixes of existing enemies, speeds, ratios, spawn bias, rewards, and environment timers; do not require new content types.
 - Use a non-monotonic tension curve with a deliberate abundant/easier breather after the hardest stretch.
 - Prefer quotas based on countable in-world events such as deliveries, kills, units banked, or survival goals. Score points drift when multipliers change.
 - Limit true rule changes such as gates or altered goals to roughly one or two per lap. More harms arcade legibility.
@@ -23,7 +26,10 @@ Load only the sections for arcade layers being implemented or changed.
 ## Score economy and extends
 
 - Place the first extend around 2–5 times a decent early-run score, then use a fixed interval. Estimate the early-run score from quota, typical score chunks, and bonuses over the first rounds, or measure it with an existing policy; do not guess without a model.
-- Announce an extend through a dedicated jingle and visible feedback; cap displayed lives even if internal limits differ.
+- When simulated players exist, choose starting lives and extend thresholds by replay instead of estimate: record each policy's failure times and score over time once, then evaluate many candidate settings against those recordings without re-running the game. Read the result per rung of the ladder (share reaching the end, mean survival, extends earned), not as one average; a setting that suits the strong policy can end a weak player's run in a minute. Re-run the chosen setting for real, because policies do not play more carefully when lives are short and people do.
+- Extends tied to score reward fast scorers; when the design's goal is a countable in-world event, consider tying extends to that count so only the intended behaviour earns them.
+- Announce an extend through a dedicated jingle and visible feedback; cap displayed lives even if internal limits differ. Give the extend its own screen line so a simultaneous clear banner cannot overwrite it, and delay its jingle past the clear jingle.
+- Derive the displayed reserve from one function used everywhere; computing it separately for the alive and dying states is how the count jumps during a death.
 - Scale round-clear bonuses from existing economy signals such as round number, quota, time, or remaining lives. Avoid a bonus that eclipses skilled in-round scoring.
 
 ## Initials and ranking persistence
@@ -70,6 +76,8 @@ This second policy is optional for attract mode itself. Do not build it solely t
 
 - Schedule game-over notes before any engine call that stops `update()`.
 - Re-check phase after mid-frame transitions so spawners cannot run during clear/death.
+- Clear hazards and their effect objects through one shared routine at clear and at round start. Lists added later (blasts, debris, the player's own shots) are the ones left out of hand-written clears.
+- Time that keeps running during death and restart is charged to the player; keep those pauses short (around a second in total) when the game is timed.
 - Use grace frames between confirm-driven screens to prevent one press from completing several phases. Start around 20 frames at 60 FPS, then shorten only if the screen remains readable and the triggering input cannot be reused.
 - Size interactive cursors so their outermost position remains inside the playfield frame.
 - Screenshot every changed ceremony state, including edge cursor positions when layout is tight.

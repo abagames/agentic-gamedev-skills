@@ -17,6 +17,14 @@ Select only policies that make sense for the concept. State what information eac
 - **Always spend**: convert a resource immediately whenever possible.
 - **Fixed priority**: always target the same class, lane, entity, or objective first.
 
+## Objective-ignoring baselines
+
+Use when the concept has a goal beyond staying alive.
+
+- **Stall for score**: play competently but withhold the action that ends the round, harvesting whatever renews.
+- **Survive only**: avoid danger and never pursue the goal.
+- **Cheapest route**: reach the goal by the least demanding available action, never by the mechanic the concept presents as its core.
+
 ## What counts as dominance
 
 Do not call a policy dominant from one favorable trace. Prefer one of:

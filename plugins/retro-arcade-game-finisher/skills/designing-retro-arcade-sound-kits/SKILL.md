@@ -31,9 +31,11 @@ Use this skill to design a compact, era-authentic arcade sound kit and prove it 
 A sound kit is not done until these pass:
 
 - **Budget, enforced by an automated test.** Cap SFX and jingle length and step count so SEs cannot drift into background music. Starting caps: SFX <= ~0.6s, jingles <= ~1.6s, <= ~24 steps per program. Wire this into the test suite, not just a manual check.
-- **Relative loudness.** Tune each SE against its sibling events in the same kit, not in isolation. Foreground actions (shots, hits, warnings) must stay readable during play; cabinet chimes (coin/start/game-over) sit slightly behind foreground play.
+- **Relative loudness.** Tune each SE against its sibling events in the same kit, not in isolation. Foreground actions (shots, hits, warnings) must stay readable during play; cabinet chimes (coin/start/game-over) sit slightly behind foreground play. The most frequent feedback sound (a pickup, a step, a shot) is the one most often buried: compare it directly against the music or engine bed it plays over, and give it its own register if it cannot clear the bed on level alone.
 - **Demo/attract muting.** Attract-mode sounds pass a `demo` flag (or equivalent) so they can be suppressed by a demo-sound setting.
-- **Safety.** Keep the master volume conservative; with aggressive distortion/noise programs, test at low speaker/headphone volume.
+- **Output level, measured.** Render or capture each sound through the real output chain and check its peak; a kit whose ordinary sounds peak at a few percent of full scale is inaudible, and a conservative master gain is the usual cause. Aim the loudest event near, but below, the clipping ceiling and let the others take their places under it. A dynamics compressor used as a limiter ducks short sounds far more than long ones; measure through it, or use a clipper that only rounds peaks.
+- **Pitch set.** When the game also has music, decide per event whether it is meant to sit in the music's key. Mark those that are (typically frequent feedback and reward sounds) and assert that their pitches, including chain or level variants, belong to the scale; a step that rises by a fixed interval drifts out of key unintentionally, so step such sounds along the scale. Dissonance, chromatic rises, and alarms are legitimate choices: declare them as intended exceptions with a one-line reason instead of forcing them into the scale. The test catches undeclared clashes, not deliberate ones.
+- **Safety.** With aggressive distortion/noise programs, audition at low speaker/headphone volume. Safety governs how you listen, not how quiet the kit is.
 
 ## References
 

@@ -2,7 +2,7 @@
 
 Design and improve compact one-button games from mechanic through gameplay validation.
 
-Version: 0.1.2 · Targets: Codex and Claude Code · Publisher: abagames
+Version: 0.1.3 · Targets: Codex and Claude Code · Publisher: abagames
 
 ## Included skills
 
@@ -13,6 +13,8 @@ Version: 0.1.2 · Targets: Codex and Claude Code · Publisher: abagames
 - [maximizing-game-feel](skills/maximizing-game-feel/SKILL.md)
 - [gating-intent-legibility](skills/gating-intent-legibility/SKILL.md)
 - [evaluating-gameplay-balance](skills/evaluating-gameplay-balance/SKILL.md)
+- [auditing-game-screen-readability](skills/auditing-game-screen-readability/SKILL.md)
+- [refining-game-prototypes](skills/refining-game-prototypes/SKILL.md)
 
 Each skill directory includes its supporting references, scripts, and assets.
 

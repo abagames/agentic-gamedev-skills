@@ -1,6 +1,6 @@
 {
   "name": "gameplay-debugging-toolkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Verify gameplay rules and implementation coverage, localize reproducible defects, and validate repairs with scoped evidence.",
   "author": {
     "name": "abagames",

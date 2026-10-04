@@ -46,7 +46,11 @@ Look for dominance by:
 - a mechanic activates but changes neither progress, risk, information, nor future options;
 - a resource has no opportunity cost;
 - an exception rule exists mainly to patch another rule's failure;
-- upgrades, content, or meta progression add variety without changing the core decision.
+- upgrades, content, or meta progression add variety without changing the core decision;
+- a variant differs from the baseline by less than a player can perceive. Express the difference in what reaches the screen (pixels of displacement, seconds of timing, count of events per round) before judging it; a shift in which target a simulated player prefers is not evidence that play looks or unfolds differently;
+- a variant removes pressure from the normal game instead of changing the mechanic, so it plays as the same round with less happening;
+- a cheaper action reaches the same outcome as the core mechanic, leaving the core as an occasional side event;
+- progress or the success state can be reached without engaging the stated goal.
 
 ## Unsupported appeal
 
