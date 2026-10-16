@@ -1,6 +1,6 @@
 ---
 name: refining-game-prototypes
-description: "Drives a first playable game build through a staged refinement loop — structure, difficulty and progression, presentation, cleanup — by answering a fixed set of measurable questions about what play actually consists of, choosing and applying one fix at a time without waiting for a reviewer, and keeping a revision log. Use when a game runs and passes its own tests but has only ever been judged by its author, when asked to polish, tune, or finish a prototype autonomously, or when a human reviewer keeps supplying the same kinds of observation (monotonous, too easy, a mechanic that changes nothing, an unfair death, an unreadable display). Not for inventing the concept, for a single reported bug, or for taste decisions such as art style or musical genre."
+description: "Drives a first playable game build through a staged refinement loop — structure, difficulty and progression, presentation, cleanup — by answering measurable questions about what play consists of, running scheduled blind-spot checks, applying one fix at a time without waiting for a reviewer, and keeping a revision log. Use when a game runs and passes its own tests but has only been judged by its author; when asked to polish, tune, or finish a prototype autonomously; when a reviewer keeps supplying the same kinds of observation (monotonous, too easy, a mechanic that changes nothing, an unfair death, an unreadable display); or when a person's play session — replays, flagged moments, notes, proposals — must be turned into findings, design decisions, and questions. Not for inventing the concept, a single reported bug, or taste decisions such as art style or musical genre."
 ---
 
 # Refining Game Prototypes
@@ -13,14 +13,17 @@ observations are confirmed by a measurement taken only after the reviewer asks. 
 first: it turns the recurring observations into questions, answers them from telemetry and
 captured frames, and acts on the answers.
 
-It supplies the order, the questions, the decision rule, and the record. The measurement and repair
-methods belong to companion skills, used when their own trigger conditions are met.
+It supplies the flow: the order, the questions, when each is asked, what to do with a finding or a
+proposal, and the record. Measurement, calibration, and human-like simulated players belong to the
+measurement procedure; repair methods belong to companion skills, used when their own trigger
+conditions are met.
 
 ## When to Use
 
 - A build is playable end to end and its author has run out of failing tests.
 - The request is to finish, polish, or tune a prototype with little or no review in between.
 - Review rounds keep producing observations the project could have measured itself.
+- A person has played a build and returned replays, flagged moments, notes, or proposals.
 
 ## When Not to Use
 
@@ -51,12 +54,12 @@ Establish these before the first stage, and state any that cannot be met:
 
 Run the stages in order. Within a stage:
 
-1. **Ask.** Answer the stage's questions in [stage-checks.md](references/stage-checks.md) that apply
+1. **Ask.** Run the blind-spot checks due at this point (below). Answer the stage's questions in [stage-checks.md](references/stage-checks.md) that apply
    to this game's intent and run structure, cheapest evidence first: an existing log, a replay, one
    scripted run, a captured frame, a few minutes of observed play. Mark each `yes`, `no`, or
    `unknown`, with the evidence behind it and how strong that evidence is.
 2. **Pick one finding.** Take the `no` with the largest effect on the intent statement. An
-   `unknown` is not a finding by itself. Measure it only when it concerns the core interaction, a
+   `unknown` is not a finding by itself, except for a scheduled blind-spot check. Measure it only when it concerns the core interaction, a
    cheap measurement exists, and either answer would change the build; otherwise leave it
    `unknown`, record why, and carry it into the final report.
 3. **Decide.** Write two or three candidate changes with expected effect and risk, choose with the
@@ -97,6 +100,17 @@ fairness after a return applies wherever the player can be taken out of play, wi
 lives economy; a defined end is asked only of a run meant to end, and an intended endless score
 attack is checked for what it promises instead (pressure that keeps rising, or a stated plateau).
 
+## Blind-Spot Checks
+
+A fixed set of checks runs at named points whether or not a finding calls for them: some at loop
+entry, light ones after every rule change, heavy ones at each of the host's handover points and once
+before the final report, and the presentation ones in stage 3. The schedule, the cost tiers, and
+what counts as a rule change are in [blind-spot-checks.md](references/blind-spot-checks.md). These
+are the checks earlier projects skipped because no finding called for them, after which a person
+found the problem by playing; that is why they are exempt from "Running every gate". Cost may defer
+a heavy check to the next handover point, never skip it; the absence of a finding is never a reason.
+A check that comes back `no` is an ordinary finding.
+
 Stage 1 comes first because presentation spent on a mechanic that is later removed is wasted, and
 because a difficulty curve tuned on the wrong core has to be redone.
 
@@ -126,15 +140,17 @@ Use these to choose among candidates without a reviewer.
 These rules choose among candidate fixes for a finding. They are not features to add: no rule here
 calls for a new mode, bonus round, enemy, indicator, or meter when no finding asks for one.
 
-Ask a person only for an irreversible or outward-facing action, or for calibration input. A request
-for calibration never blocks the loop.
+Ask a person only for an irreversible or outward-facing action, or for play input. A request for
+play never blocks the loop.
 
-## Calibration Input
+## Play Input
 
-The loop runs without a play report and labels its difficulty verdict uncalibrated. When a report
-arrives — ideally the one-line run summary the game prints at the end of a run — fit it on the
-build that was played, then revisit stage 2 only. A report is the only evidence that fixes the
-*direction* of the simulated players' error.
+The loop runs without play and labels its difficulty verdict uncalibrated. When a person's session
+arrives — replays or run summaries, flagged moments, notes, proposals — follow
+[play-input.md](references/play-input.md). Notes become questions answered on the build that was
+played, at whatever stage they belong to; proposals go to design and always get a recorded outcome;
+calibration goes to the measurement procedure; revisit the stages the findings belong to. Play is
+the only evidence that fixes the *direction* of the simulated players' error.
 
 ## Companion Skills
 
@@ -142,7 +158,7 @@ Use each when its own trigger matches a finding. A stage naming a skill is not a
 
 | Finding | Skill |
 |---|---|
-| Usage, stall, bypass, ladder, calibration | `evaluating-gameplay-balance` |
+| Usage, stall, bypass, ladder; calibration and human-like policies from replays or run summaries | `evaluating-gameplay-balance` |
 | A design claim that may not survive attack; an imperceptible variation | `stress-testing-game-concepts` |
 | A promise that needs enforcing in code | `implementing-gameplay-invariants` |
 | No end, no lives economy, no ceremony, no attract loop | `arcadifying-mini-games` |
@@ -168,13 +184,17 @@ so in the log.
 - Answers to questions a later rule change could affect carry the build they were taken on.
 - Every reverted or rejected candidate is in the log; a later session must be able to see what was
   already tried.
+- Every scheduled blind-spot check ran, or is logged as not run with its reason; none is still
+  deferred at the final report.
+- Every proposal from a person has a recorded outcome.
 - The final report separates what was measured, what was only inspected in frames, and what no one
   has played or heard.
 
 ## Output
 
 The revised build, the revision log, and a short report: stages completed, findings fixed, findings
-unresolved, calibration status, and the open questions that need a person.
+unresolved, calibration status, blind-spot checks not run and why, and specific questions about fun,
+feel, and sound, each tied to a moment in a run. No general questions.
 
 ## Failure Modes
 
@@ -188,7 +208,11 @@ unresolved, calibration status, and the open questions that need a person.
   would avoid.
 - **Several changes at once.** The before/after comparison then attributes nothing.
 - **Running every gate.** Entering an expensive check because a stage lists it or because evidence
-  is merely absent, instead of because a question came back `no`.
+  is merely absent, instead of because a question came back `no`. The blind-spot schedule is the
+  only exception, and only at its own points and tiers: a heavy check after every change is this
+  failure too.
+- **Skipping the schedule.** Leaving a blind-spot check out because no finding called for it.
+- **Dropping a proposal.** Discarding a person's idea because no stage check matches it.
 - **Imposing a structure.** Adding rounds, an ending, or a lives economy to a game whose intent is
   an endless or single-screen experience, because the checks mention them.
 - **Silent reverts.** A tried-and-removed feature left out of the log, then proposed again.

@@ -162,19 +162,30 @@ Starting points from one tuned one-button game (a rotating-sweep radar shooter):
 
 ### Calibrating against play reports
 
-Hands-on play reports are the ground truth the human-limited profile approximates. When a report disagrees with simulated results ("still too hard", "the gauge runs out too fast", "I always die after blinking next to an enemy"):
+Hands-on play is the ground truth the human-limited profile approximates. A replay, when the game records one, is the stronger input: it shows how the person played, not only how far they got. A run summary is the fallback. Either applies when play disagrees with simulated results ("still too hard", "the gauge runs out too fast", "I always die after blinking next to an enemy"), and on the first replays from any person.
+
+Replays as evidence:
+
+- A replay is read-only evidence about the rules it was played under. Do not regenerate, migrate, or re-record it after a rule change, and do not substitute simulated runs for it.
+- A replay whose recorded state no longer matches on re-simulation is a desynchronisation, not evidence about the game. Find out why before reading anything from it.
+- Reading mechanism usually means adding telemetry to the copy of the played build. Instrumentation must not change rules: confirm that every replay still re-simulates to its recorded state on the instrumented copy first.
+
+Procedure:
 
 1. Check the harness for defects first (section 6).
-2. Identify the build the report describes. A report is evidence about the build that was played, so reproduce it there, not on the current one. Keep a copy of every build handed over for play.
-3. Decide the direction and the cause by comparing, on that build, the progress the report describes and the reasons it gives for failing with the policy's own progress and failure causes. An impression ("too easy", "too hard") gives the direction only.
-   - The policy outperforms the player: the human limits are too lenient, or a limit the game exercises is not modelled. Add or tighten the limit the report's failures point to.
+2. Identify the build the play happened on. Play is evidence about that build, so reproduce it there, not on the current one. Keep a copy of every build handed over for play.
+3. On the first replays from a person, compare the *mechanism* of their play with the human-limited policy's before fitting any parameter: reaction latency measured from a danger's appearance, input rate and hold durations, where on the screen they play, how and where they fail, results per life. Build or correct the policy until the mechanism matches. In the observed case, a replay showed the designer never dodged by reaction — none of 13 bullet misses came from a bullet under 15 frames old — and a policy built on anticipation replaced one that only delayed its inputs and had missed 3–7 times as often as the person. Record where the fit is still poor and how many events each figure rests on, and discount conclusions by both.
+4. Decide the direction and the cause by comparing, on that build, the person's progress and failure causes with the policy's. An impression ("too easy", "too hard") gives the direction only.
+   - The policy outperforms the player: the human limits are too lenient, or a limit the game exercises is not modelled. Add or tighten the limit the failures point to.
    - The policy underperforms the player: either its decisions are weak or its limits are too harsh. Read its failures. If it fails by choosing badly (wrong target, no retreat, standing in a telegraphed hazard), strengthen its decisions (section 4, look-ahead). If it chooses as a person would and fails in execution (late, imprecise, lapses a person does not have at this pace), relax the limit responsible. Both can hold; fix the one the failures show first and re-run.
-4. Adjust toward the report, preferring limits the report names or implies. One report cannot fix several parameters independently: place the reporter on a single skill axis running from the weakest modelled player to the strongest policy, and move along it until the simulated outcome on that build matches. Note the reporter's skill relative to the target audience (a designer is usually an expert); do not fit the profile to one expert when the audience is broader. Add a weaker rung when the reporter sits below every existing policy.
-5. Re-run on the current build and record the report, the build it refers to, the reporter's skill level, and the adjusted values. A later report from the same person supersedes an earlier one; players improve.
+5. Place the person on the skill axis. Matching only the outcome is this step, separate from and cheaper than step 3. One run summary cannot fix several parameters independently: place the person on a single axis running from the weakest modelled player to the strongest policy, and move along it until the simulated outcome on that build matches. Add a weaker rung when the person sits below every existing policy. A rung fitted to one person, often the designer and usually an expert, is not the audience; keep the ladder's other rungs as the check on breadth.
+6. Keep each fitted policy as a rung labelled with the person and the session it came from. A first play and a practised play may be different rungs; the same person can move up a rung within a few games. On later sessions, compare the existing rungs first. Refit only when the person falls outside every rung, or when a difficulty decision depends on a figure the rungs disagree on.
+7. To judge new rules against a person, run that person's rung on the new rules. Never refit on rules the person has not played; a refit waits for play on those rules.
+8. Record the play received, the build it refers to, the person and session, the mechanism comparison, the rung, and any adjusted values.
 
-A report is only as useful as its numbers. Have the game produce them: at the end of a run, show or log one line with progress reached, failures by cause, and elapsed time, so a report is a paste and not a recollection. Without it, ask for exactly those three things.
+A run summary is only as useful as its numbers. Where the game records no replays, have it produce them: at the end of a run, show or log one line with progress reached, failures by cause, and elapsed time, so a report is a paste and not a recollection. Without it, ask for exactly those three things.
 
-When no report exists, do not tune to a single modelled player. Check that targets hold across the ladder from the weakest modelled player to the strongest policy, and label the difficulty verdict uncalibrated.
+When no play has been reported, do not tune to a single modelled player. Check that targets hold across the ladder from the weakest modelled player to the strongest policy, and label the difficulty verdict uncalibrated.
 
 In the observed case, simulated players that re-aimed immediately after every blink led to three rounds of "still too hard" reports. Modeling the designer's stated re-orientation delay reproduced the chain-oriented play that humans drifted into and the bots had not shown.
 
@@ -269,5 +280,8 @@ Reject or revise the harness when:
 - The strong policy was shown to be the ceiling and difficulty was still judged from it, or it was declared the ceiling from close results alone.
 - Stalling was called an exploit from per-round score alone, without its cap, cost, and whole-run effect.
 - A play report was fitted on a different build from the one that was played.
+- A replay was regenerated or migrated after a rule change, or replaced by simulated runs.
+- A policy was refit on rules the person has not played, or an earlier session's rung was overwritten instead of kept.
+- A human-like policy was fitted on outcome alone when replays showing the person's mechanism were available.
 - A goal-driven game was evaluated without the objective-ignoring policies.
 - Before/after comparisons use different seeds, budgets, policies, or max ticks without explanation.

@@ -39,10 +39,16 @@ Rules for entries:
   risk, and why further attempts are not justified. Its status remains unresolved, with the number
   of attempts made, including zero.
 - When a play report is the source, quote it and name the build it refers to.
+- A proposal from a person gets its own entry: the proposal quoted, who made it, the outcome
+  (adopted, tried, declined) and the reason. See [play-input.md](play-input.md).
+- A scheduled blind-spot check that was deferred or could not be run gets a line with its reason.
 - When the finding was that the design intends what a question flagged, record that and close it.
 
 ## Closing sections
 
 - **Not adopted:** a table of ideas tried and removed or proposed and declined, with one line each.
+- **Play sessions:** per session, the person, the build played, what was received, and the
+  questions sent back.
 - **Validation notes:** what was measured, what was inspected only in frames, what no one has
-  played or heard, what was left unknown and why, and the calibration status.
+  played or heard, what was left unknown and why, the calibration status, and every blind-spot
+  check not run, with the reason.

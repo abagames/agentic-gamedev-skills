@@ -7,7 +7,9 @@ Thresholds are starting points; read every figure against the intent statement.
 The evidence column names the strongest form. Weaker forms answer the same question at lower
 confidence: an existing log, an input replay, a scripted run, a few minutes of observed play, or a
 reading of the rules. Record which was used. A row left `unknown` because only an expensive
-measurement could answer it is an acceptable outcome; state it in the report.
+measurement could answer it is an acceptable outcome; state it in the report. The exception is a
+row on the schedule in [blind-spot-checks.md](blind-spot-checks.md): it runs at its scheduled
+point, and may be deferred or logged as not run only as that file allows.
 
 A row applies only when its condition holds. The conditions are independent of one another:
 
@@ -17,7 +19,9 @@ A row applies only when its condition holds. The conditions are independent of o
 - *(lives)* failures are counted against a lives or extend economy;
 - *(variants)* the game has variations of its base rules;
 - *(HUD)* the screen carries counters or notices;
-- *(audio)* the game has sound; *(music)* it also has music.
+- *(audio)* the game has sound; *(music)* it also has music;
+- *(reference)* the design names other games it borrows from;
+- *(end)* a run can end and a new one start without reloading.
 
 Whether a run is finite is a separate matter, covered by the run-structure row in stage 2. An
 endless wave game has *(rounds)* without an end; a game with unlimited respawns has *(respawn)*
@@ -48,6 +52,11 @@ heard in other projects, phrased generally; they are not features this game shou
 | *(variants)* Can each variation be seen? | Effect size in pixels, seconds, or events per round against the baseline; a side-by-side frame pair | "That variant doesn't change how it plays." |
 | *(variants)* Is each variation a change of mechanic, not a removal of pressure? | What the variant adds to the decision, stated in one line | "It's the normal game with less going on." |
 | Are failures and unintended forced penalties preventable? | For each failure or suspected unintended forced penalty (lost ground, lost time, a forced setback), rewind to the causal choice or warning and search reachable inputs for a way to avoid it; record whether a person could read and act on that opportunity | "I failed and could do nothing about it." "It punished me when I had no other move." |
+| *(reference)* Is what the design borrows from each named reference game what that game actually does? | A lookup of each game: screen, controls, what causes failure and how often, the full specification of its central resource; what could not be confirmed is listed | "That's not how the original works." |
+| Do the events the intent promises happen often enough, and never stop for too long? | Each event the intent sentence depends on, counted per minute or as a share of time, with the longest gap; per life, ball, or round as well as per run | "It went a long time without anything happening." |
+| Does every mechanic earn its place? | Play with each mechanic disabled in turn; a mechanic that only ever costs the player, or changes nothing, is flagged | "That part never matters." |
+| *(goal)* Can any source of score or progress be repeated without advancing? | A policy per source that repeats it while avoiding progress: stalling, sparing the last target, farming what respawns | "You can just keep doing that forever." |
+| Do constants derived from another quantity still fit it? | After a rule change, the constants whose premise moved (score scale, speed, enemy count), re-derived | "The numbers feel off since the change." |
 | Does simple play lose? | Idle, hold, spam, and nearest-target greed against reading play, on at least two rungs | "Just doing the obvious thing works." |
 
 A variation that fails a *(variants)* row is handled by decision rule 2. A threat that fails its
@@ -72,24 +81,27 @@ is not a defect merely because it cannot be avoided after choosing the action.
 | *(rounds)* Does the weak rung lose gradually? | Clears per round per rung; no round where a quarter of runs end | "There's a wall at that point." |
 | Can the best outcome the game advertises be achieved? | At least one such run observed, by a policy or a person | "Is a perfect result even possible?" |
 | *(lives)* Do lives and extends suit each rung? | Recorded failure times replayed against candidate settings | "It ends too soon." "You never run out." |
+| Does any result depend heavily on a value no play report supports? | Each parameter changed since the last handover, varied around its value | "It only works at exactly that speed." |
 | Do rates hold at double the seed count? | Re-run of the figure being used as a target | (None; this is the check on the other answers.) |
 
-Calibration status goes in the report: `calibrated on <build>` or `uncalibrated`.
+Calibration status goes in the report: `calibrated on <build>` (with the person and session each
+rung was fitted to), `fitted on outcome only`, or `uncalibrated`.
 
 ## Stage 3: Presentation
 
 | Question | Evidence | A reviewer would say |
 |---|---|---|
-| *(HUD)* Is every transient element visible where it appears? | Frames at each popup, notice, and banner, including under panels and at screen edges | "That number is hidden behind the panel." |
-| *(HUD)* Do coinciding notices stay readable? | Frames with two notices forced onto one frame | "That message overlaps the other one." |
+| *(HUD)* Is every transient element visible where it appears? | Frames at each popup, notice, and banner, including under panels and at screen edges; every state transition; every direction an actor can enter or leave the screen; every screen shown between runs | "That number is hidden behind the panel." |
+| *(HUD)* Do coinciding notices stay readable? | Frames with each pair of notices that can coincide forced onto one frame | "That message overlaps the other one." |
 | Is every indicator the game has brighter and larger than decoration? | Contrast and size of existing indicators against the busiest background | "It's too faint to see." |
 | Are the actors large enough to carry the action? | Actor and glyph size at the smallest supported scale | "Everything is small; it has no impact." |
-| *(HUD)* Can an outsider name every HUD element? | Isolated reader names what each counts and what changes it | "What is that number?" |
+| Can an outsider name every screen element? | A reader who has seen neither the design nor the source names what each element, word, and figure means, and what changes it | "What is that number?" "What does that light mean?" |
 | Where a danger cannot be dodged on sight, is it announced where it will land? | For dangers with no readable approach: a warning with the same extent and timing as the hit | "I couldn't tell where it would hit." |
 | Does the strongest feedback go to the most important event? | Ordered list of events against effect intensity | "The big moment feels like the small ones." |
 | Did the feel pass leave the rules alone? | Seeded simulated results identical before and after, where they exist | (None visible; the symptom is a silent difficulty change.) |
-| *(audio)* Is the mix audible, and is the commonest sound above the bed? | Peak level at the final output; most frequent SE against the bed it plays over | "I can barely hear it." |
+| *(audio)* Is the mix audible, and is the commonest sound above the bed? | Peak level at the final output over the mix of a real run, not one sound at a time; most frequent SE against the bed it plays over | "I can barely hear it." |
 | *(music)* Do pitched effects fit the music where they are meant to? | Pitch set of SEs against the music's scale, with intended dissonance declared | "That sound is wrong against the music." |
+| Does every player-facing text match the current rules? | Rule sheet, title, instructions, and labels read line by line against the rules as they now are | "It says one thing and does another." |
 | Is a rule that changes strategy discoverable before it matters? | The rule is readable from play, from the first seconds of a demo, or from the title; whichever the game already has | "I didn't know that was worth doing." |
 | *(HUD)* Does a decision depend on each label? | For each text element: which decision uses it | "That label isn't needed." |
 
@@ -98,11 +110,14 @@ Calibration status goes in the report: `calibrated on <build>` or `uncalibrated`
 | Question | Evidence | A reviewer would say |
 |---|---|---|
 | *(rounds)* Are hazards and their effects gone at each boundary? | Live hazard and in-flight effect placed at the next start point at the moment of clear | "Something hit me the instant the next round began." |
-| Is each hazard drawn as large as it hits, while it hits? | Drawn extent against active hit extent over the active window | "I was hit with nothing near me." |
+| Is each hazard drawn as large as it hits, while it hits? | Drawn extent against hit extent for every hazard and pickup on every frame of its life, including before it becomes active | "I was hit with nothing near me." |
 | Does a new or revived opponent appear at a fair distance? | Distance and time to first contact at spawn, lowest decile | "It appeared right in front of me." |
 | *(respawn)* Is the moment after the player returns fair? | Failures within a few seconds of returning; whether their cause predates the return | "I was hit again the moment I came back." |
 | *(respawn)* Do accumulating failure counters pause while the player is out of play? | Counter through the whole time without control | "It kept counting while I was out." |
 | *(HUD)* Do coinciding ceremonies all show, and does each counter change match an event? | Two ceremonies forced onto one frame; each counter watched through a failure sequence | "It didn't show the bonus." "The count changed for no reason." |
 | Does a collectible just past a transition get collected? | Missed pickups during any slide, turn, or warp the game has | "It leaves one behind after the move." |
 | Does each end screen show a finished state? | Frames of every terminal screen | "It still looks like play is going on." |
+| Are collisions tested over the whole step? | The test covers the distance both parties moved in one step, not only their end positions; a fast pass through a thin target | "It went right through it." |
+| Does the game respond to real presses and touches as it does to simulated input? | Controls driven through the real input path with 80–150 ms holds, not one-tick taps; where touch is supported, real pointer events at the smallest supported viewport | "It doesn't do what I pressed." |
+| *(end)* Does each run start clean? | Game over and restart at least twice in one session: entities, timers, listeners, and playing sounds back to their title-screen counts; nothing from the last run acts in the next | "The last game's sound kept going." "It got slower each game." |
 | Is every sibling handled? | One coverage audit over surfaces changed in this loop | (Various; one member of a family behaves differently.) |

@@ -83,8 +83,8 @@ GitHub 公開後、Claude Code では `abagames/agentic-gamedev-skills` を mark
 | Skill                         | 用途                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | [`stress-testing-game-concepts`](.agents/skills/stress-testing-game-concepts/SKILL.md) | 既存のコンセプト、ルール、初期プロトタイプを敵対的に検査し、実証済みの欠陥と未確認事項を分ける。 |
-| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリと単純戦略・意図したプレイの比較でバランスを評価する。抜け道を検出し、プレイ報告で較正した模擬プレイヤーを使って難度を調整する。 |
-| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 動作するプロトタイプを、構造・難度と進行・演出・仕上げの順に自律的に改善する。ゲームの意図と観測した根拠に基づいて修正を選び、改訂記録と未解決事項を残す。 |
+| [`evaluating-gameplay-balance`](.agents/skills/evaluating-gameplay-balance/SKILL.md) | テレメトリと単純戦略・意図したプレイの比較でバランスを評価する。抜け道を検出し、リプレイやラン要約で較正した模擬プレイヤーを人とセッションごとに保持し、難度を調整する。 |
+| [`refining-game-prototypes`](.agents/skills/refining-game-prototypes/SKILL.md) | 動作するプロトタイプを、構造・難度と進行・演出・仕上げの順に自律的に改善する。ゲームの意図と観測した根拠に基づいて修正を選び、決められた時点で死角チェックを実行し、プレイセッションを指摘・設計判断・質問に変換して改訂記録を残す。 |
 | [`auditing-game-screen-readability`](.agents/skills/auditing-game-screen-readability/SKILL.md) | ゲームイベントや通知が重なる場面の画像を調べ、読みにくい、隠れた、不要な表示を検出する。 |
 | [`gating-intent-legibility`](.agents/skills/gating-intent-legibility/SKILL.md) | ルールを知らない独立した読み手が、プレイ画像だけから目的・選択肢・リスクを読み取れるかを検証する。 |
 

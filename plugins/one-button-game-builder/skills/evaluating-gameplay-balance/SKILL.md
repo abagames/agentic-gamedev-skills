@@ -1,6 +1,6 @@
 ---
 name: evaluating-gameplay-balance
-description: "Evaluates and improves gameplay balance from telemetry in any engine. Use when comparing monotonous vs exploratory play, diagnosing death/spawn/scoring/input issues, setting difficulty, timer, or pacing targets with human-limited simulated players, or proposing structural balance fixes instead of numeric tuning."
+description: "Evaluates and improves gameplay balance from telemetry in any engine. Use when comparing monotonous vs exploratory play, diagnosing death/spawn/scoring/input issues, setting difficulty, timer, or pacing targets with human-limited simulated players, calibrating those players against a person's replays or run summaries across play sessions, or proposing structural balance fixes instead of numeric tuning."
 ---
 
 Use this skill to analyze whether a game rewards skillful play and to propose structural improvements.
@@ -32,7 +32,7 @@ Experience guardrails:
 - Game-over should be tied to hazards or world-state collapse.
 - Do not add hidden behavior that only helps or hurts test agents.
 - Avoid numeric-only tuning, branch-only fixes, and added randomness as the primary answer.
-- Treat hands-on play reports as calibration data for the human-limited profile. When a report conflicts with simulated results, first check the harness for defects, then adjust the profile toward the report, re-run, and record the adjustment; do not dismiss the report with bot data alone. The disagreement runs in both directions, and a policy that underperforms the player may have weak decisions or overly harsh limits; compare the report's progress and failure causes with the policy's before choosing which to adjust. Follow *Calibrating against play reports* in `references/simulation-harness.md`.
+- Treat hands-on play — replays where the game records them, run summaries otherwise — as calibration data for the human-limited profile. Replays are read-only evidence about the rules they were played under: never regenerate or migrate them after a rule change, and never refit a policy on rules the person has not played. When a report conflicts with simulated results, first check the harness for defects, then adjust the profile toward the report, re-run, and record the adjustment; do not dismiss the report with bot data alone. The disagreement runs in both directions, and a policy that underperforms the player may have weak decisions or overly harsh limits; compare the report's progress and failure causes with the policy's before choosing which to adjust. Follow *Calibrating against play reports* in `references/simulation-harness.md`.
 - Do not tune a parameter with a policy whose behavior is defined by that parameter (e.g. "wait while the timer is above 80 %"); the measurement moves with the tuning.
 
 Workflow:
@@ -70,4 +70,5 @@ Read these references as needed:
 ## Companion skills
 
 - For Godot projects, use `scaffolding-godot-mini-games` for project setup and `running-headless-godot` for simulator execution, tests, logs, and export checks.
+- This skill owns measurement, calibration, and human-like policies. What to ask when, and what to do with a finding, a play note, or a player's proposal, belongs to `refining-game-prototypes`; without it, return non-measurement items from a play session to the caller unchanged.
 - Structural fixes that touch rules are design changes, not numeric tuning; do not silently re-tune numbers without revisiting the design.
