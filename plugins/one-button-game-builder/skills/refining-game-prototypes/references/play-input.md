@@ -9,7 +9,8 @@ Take whatever the session produced:
 
 - **Replays**, when the game records them. Where it does not, the run summaries the game prints or
   logs at the end of a run.
-- **Flagged moments**: points in a run the person marked, each with a category and a note.
+- **Flagged moments**: points in a run the person pointed to — a recorded marker, a timestamp, a
+  round number, or a sentence. A category or note is used when present.
 - **Notes** per run and per session.
 - **Proposals**: new content, rule ideas, other games offered as references.
 - **Which session this was** for that person: a first play and a practised play are different
@@ -35,7 +36,8 @@ Take whatever the session produced:
    against the intent statement, then do one of:
    - adopt it as named content;
    - try it as one element at a time — one new element per round where the game has rounds,
-     otherwise one change under step 4 of the loop — and keep or revert it by its evidence;
+     otherwise one change through the loop's change-one-thing step — and keep or revert it by its
+     evidence;
    - decline it with a reason.
 
    Record the outcome in the revision log. Never discard a proposal because it does not map to a

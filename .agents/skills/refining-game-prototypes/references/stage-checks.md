@@ -11,6 +11,9 @@ measurement could answer it is an acceptable outcome; state it in the report. Th
 row on the schedule in [blind-spot-checks.md](blind-spot-checks.md): it runs at its scheduled
 point, and may be deferred or logged as not run only as that file allows.
 
+*Each* in a row means each element once, not every combination of elements, transitions,
+directions, or frames.
+
 A row applies only when its condition holds. The conditions are independent of one another:
 
 - *(goal)* the game has a goal beyond staying alive;
@@ -73,7 +76,7 @@ is not a defect merely because it cannot be avoided after choosing the action.
 | Question | Evidence | A reviewer would say |
 |---|---|---|
 | Can the difficulty evidence be trusted? | Where simulated players exist: the strong policy's failures are not ones a person would plainly avoid, and results are not saturated for every rung. Close results alone prove nothing | "It's far too easy — are the bots just bad?" |
-| Is there a modelled player near the reporter's level? | A rung at or below a reported result, when a play report exists | "I fail far more often than your bot does." |
+| Is there a modelled player near the reporter's level? | A rung at or below a reported result, when a person's play has been reported | "I fail far more often than your bot does." |
 | Do controls that read hold time work with realistic presses? | Hold-duration probe at 100–150 ms, where a control depends on hold time | "I can't make it move just one step." |
 | Does the allowance grow with what is asked? | Time or resource allowance against the amount demanded, where both vary | "It gets faster just when there is more to do." |
 | Does the run have the structure the intent names? | Finite: an end placed near where every element has appeared and density has capped. Endless: pressure that keeps rising, or a stated plateau. Timed: the clock, not attrition, ends most skilled runs | "Past a certain point nothing new happens." |
@@ -81,7 +84,7 @@ is not a defect merely because it cannot be avoided after choosing the action.
 | *(rounds)* Does the weak rung lose gradually? | Clears per round per rung; no round where a quarter of runs end | "There's a wall at that point." |
 | Can the best outcome the game advertises be achieved? | At least one such run observed, by a policy or a person | "Is a perfect result even possible?" |
 | *(lives)* Do lives and extends suit each rung? | Recorded failure times replayed against candidate settings | "It ends too soon." "You never run out." |
-| Does any result depend heavily on a value no play report supports? | Each parameter changed since the last handover, varied around its value | "It only works at exactly that speed." |
+| Does any result depend heavily on a value no play supports? | Each parameter a target result depends on, changed since the build was last handed to a person, varied around its value | "It only works at exactly that speed." |
 | Do rates hold at double the seed count? | Re-run of the figure being used as a target | (None; this is the check on the other answers.) |
 
 Calibration status goes in the report: `calibrated on <build>` (with the person and session each
@@ -91,8 +94,8 @@ rung was fitted to), `fitted on outcome only`, or `uncalibrated`.
 
 | Question | Evidence | A reviewer would say |
 |---|---|---|
-| *(HUD)* Is every transient element visible where it appears? | Frames at each popup, notice, and banner, including under panels and at screen edges; every state transition; every direction an actor can enter or leave the screen; every screen shown between runs | "That number is hidden behind the panel." |
-| *(HUD)* Do coinciding notices stay readable? | Frames with each pair of notices that can coincide forced onto one frame | "That message overlaps the other one." |
+| *(HUD)* Is every transient element visible where it appears? | A frame of each popup, notice, and banner where it is most likely hidden: under a panel, at a screen edge, during a state transition, on a screen shown between runs | "That number is hidden behind the panel." |
+| *(HUD)* Do coinciding notices stay readable? | Frames with the notices most likely to coincide forced onto one frame: those one event fires together, or that fire within a few frames of each other | "That message overlaps the other one." |
 | Is every indicator the game has brighter and larger than decoration? | Contrast and size of existing indicators against the busiest background | "It's too faint to see." |
 | Are the actors large enough to carry the action? | Actor and glyph size at the smallest supported scale | "Everything is small; it has no impact." |
 | Can an outsider name every screen element? | A reader who has seen neither the design nor the source names what each element, word, and figure means, and what changes it | "What is that number?" "What does that light mean?" |
@@ -110,7 +113,7 @@ rung was fitted to), `fitted on outcome only`, or `uncalibrated`.
 | Question | Evidence | A reviewer would say |
 |---|---|---|
 | *(rounds)* Are hazards and their effects gone at each boundary? | Live hazard and in-flight effect placed at the next start point at the moment of clear | "Something hit me the instant the next round began." |
-| Is each hazard drawn as large as it hits, while it hits? | Drawn extent against hit extent for every hazard and pickup on every frame of its life, including before it becomes active | "I was hit with nothing near me." |
+| Is each hazard drawn as large as it hits, while it hits? | Drawn extent against hit extent for each kind of hazard and pickup at spawn, before it becomes active, at full extent, and as it ends | "I was hit with nothing near me." |
 | Does a new or revived opponent appear at a fair distance? | Distance and time to first contact at spawn, lowest decile | "It appeared right in front of me." |
 | *(respawn)* Is the moment after the player returns fair? | Failures within a few seconds of returning; whether their cause predates the return | "I was hit again the moment I came back." |
 | *(respawn)* Do accumulating failure counters pause while the player is out of play? | Counter through the whole time without control | "It kept counting while I was out." |
@@ -118,6 +121,6 @@ rung was fitted to), `fitted on outcome only`, or `uncalibrated`.
 | Does a collectible just past a transition get collected? | Missed pickups during any slide, turn, or warp the game has | "It leaves one behind after the move." |
 | Does each end screen show a finished state? | Frames of every terminal screen | "It still looks like play is going on." |
 | Are collisions tested over the whole step? | The test covers the distance both parties moved in one step, not only their end positions; a fast pass through a thin target | "It went right through it." |
-| Does the game respond to real presses and touches as it does to simulated input? | Controls driven through the real input path with 80–150 ms holds, not one-tick taps; where touch is supported, real pointer events at the smallest supported viewport | "It doesn't do what I pressed." |
+| Does the game respond to real presses and touches as it does to simulated input? | Controls driven through the real input path with 80–150 ms holds, not one-tick taps; where touch is supported, real touch input at the smallest supported screen size | "It doesn't do what I pressed." |
 | *(end)* Does each run start clean? | Game over and restart at least twice in one session: entities, timers, listeners, and playing sounds back to their title-screen counts; nothing from the last run acts in the next | "The last game's sound kept going." "It got slower each game." |
 | Is every sibling handled? | One coverage audit over surfaces changed in this loop | (Various; one member of a family behaves differently.) |

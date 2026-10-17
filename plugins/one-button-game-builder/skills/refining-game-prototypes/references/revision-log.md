@@ -38,7 +38,7 @@ Rules for entries:
 - An early stop keeps the concrete candidate comparison: expected benefit to the intent, cost or
   risk, and why further attempts are not justified. Its status remains unresolved, with the number
   of attempts made, including zero.
-- When a play report is the source, quote it and name the build it refers to.
+- When a person's play is the source, quote their note or summary and name the build it refers to.
 - A proposal from a person gets its own entry: the proposal quoted, who made it, the outcome
   (adopted, tried, declined) and the reason. See [play-input.md](play-input.md).
 - A scheduled blind-spot check that was deferred or could not be run gets a line with its reason.

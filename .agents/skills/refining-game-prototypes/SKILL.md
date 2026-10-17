@@ -54,14 +54,16 @@ Establish these before the first stage, and state any that cannot be met:
 
 Run the stages in order. Within a stage:
 
-1. **Ask.** Run the blind-spot checks due at this point (below). Answer the stage's questions in [stage-checks.md](references/stage-checks.md) that apply
-   to this game's intent and run structure, cheapest evidence first: an existing log, a replay, one
-   scripted run, a captured frame, a few minutes of observed play. Mark each `yes`, `no`, or
-   `unknown`, with the evidence behind it and how strong that evidence is.
+1. **Ask.** Run the blind-spot checks due at this point (below). Answer the stage's questions in
+   [stage-checks.md](references/stage-checks.md) that apply to this game's intent and run
+   structure, cheapest evidence first: an existing log, a replay, one scripted run, a captured
+   frame, a few minutes of observed play. Mark each `yes`, `no`, or `unknown`, with the evidence
+   behind it and how strong that evidence is.
 2. **Pick one finding.** Take the `no` with the largest effect on the intent statement. An
-   `unknown` is not a finding by itself, except for a scheduled blind-spot check. Measure it only when it concerns the core interaction, a
+   `unknown` is not a finding by itself. Measure it only when it concerns the core interaction, a
    cheap measurement exists, and either answer would change the build; otherwise leave it
-   `unknown`, record why, and carry it into the final report.
+   `unknown`, record why, and carry it into the final report. Scheduled blind-spot checks (below)
+   are not left `unknown` this way.
 3. **Decide.** Write two or three candidate changes with expected effect and risk, choose with the
    decision rules below, and proceed. Do not stop to ask which one.
 4. **Change one thing**, then re-measure with the same seeds, policies, and budgets.
@@ -100,6 +102,9 @@ fairness after a return applies wherever the player can be taken out of play, wi
 lives economy; a defined end is asked only of a run meant to end, and an intended endless score
 attack is checked for what it promises instead (pressure that keeps rising, or a stated plateau).
 
+Stage 1 comes first because presentation spent on a mechanic that is later removed is wasted, and
+because a difficulty curve tuned on the wrong core has to be redone.
+
 ## Blind-Spot Checks
 
 A fixed set of checks runs at named points whether or not a finding calls for them: some at loop
@@ -110,9 +115,6 @@ are the checks earlier projects skipped because no finding called for them, afte
 found the problem by playing; that is why they are exempt from "Running every gate". Cost may defer
 a heavy check to the next handover point, never skip it; the absence of a finding is never a reason.
 A check that comes back `no` is an ordinary finding.
-
-Stage 1 comes first because presentation spent on a mechanic that is later removed is wasted, and
-because a difficulty curve tuned on the wrong core has to be redone.
 
 ## Decision Rules
 
@@ -209,8 +211,8 @@ feel, and sound, each tied to a moment in a run. No general questions.
 - **Several changes at once.** The before/after comparison then attributes nothing.
 - **Running every gate.** Entering an expensive check because a stage lists it or because evidence
   is merely absent, instead of because a question came back `no`. The blind-spot schedule is the
-  only exception, and only at its own points and tiers: a heavy check after every change is this
-  failure too.
+  only exception, and only at its own points and tiers: a heavy check after every change, or one
+  that enumerates every combination, is this failure too.
 - **Skipping the schedule.** Leaving a blind-spot check out because no finding called for it.
 - **Dropping a proposal.** Discarding a person's idea because no stage check matches it.
 - **Imposing a structure.** Adding rounds, an ending, or a lives economy to a game whose intent is

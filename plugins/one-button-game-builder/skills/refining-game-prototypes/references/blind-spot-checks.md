@@ -28,16 +28,24 @@ exception to the rule against entering expensive checks.
 - **Setup.** Work that makes a light check possible: a switch to disable each mechanic, an exploit
   policy for each source of score or progress. It is heavy. Do it once at loop entry, and again when
   a new mechanic or score source appears; afterwards the check is light.
-- **Heavy.** Needs real input, sweeps, captures, an outside reader, or audio rendering. Run at each
-  of the host's handover points and once before the final report.
+- **Heavy.** Needs real input, sweeps, captures, a search or lookup, an outside reader, or audio
+  rendering. Run at each of the host's handover points and once before the final report.
+
+A handover point is a moment the build goes to a person to play or review. When the host names no
+handover points, the only one is the final report.
+
+## Coverage of each run
+
+The first run of a check covers every element once. Later runs cover the elements the changes
+since then can reach, judged from the diff, plus the one or two cases most likely to fail: the
+busiest screen, the fastest actor, the element nearest a panel or an edge. Widen only within a
+family that comes back `no`.
 
 Cost decides only *when* a heavy check runs — now, or at the next handover point — never *whether*
 it runs. Record every deferral with its reason. The absence of a finding is never a reason to defer.
 Before the final report nothing remains deferred. A check this environment cannot perform (no
 network, no way to run an independent reader, no audio rendering) is logged as not run, with the
 reason, and listed in the report.
-
-When the host names no handover points, the only one is the final report.
 
 ## At loop entry (heavy, once)
 
@@ -57,23 +65,26 @@ for any element added later.
 - "Do the events the intent promises happen often enough, and never stop for too long?"
 - "Does every mechanic earn its place?"
 - *(goal)* "Can any source of score or progress be repeated without advancing?"
-- *(variants)* "Can each variation be seen?" — re-estimated for every changed rule and variation.
-- Every stage 1 question, not only the one that prompted the change, including "Do constants
-  derived from another quantity still fit it?"
+- *(variants)* "Can each variation be seen?" — the effect size, from telemetry.
+- "Do constants derived from another quantity still fit it?"
+- Any other stage 1 question the change can affect that the existing probes answer. Those needing a
+  lookup, an input search, or captures (*(reference)*, preventability, the variant frame pair) wait
+  for the next handover point.
 
 ## At each handover point and before the final report (heavy)
 
 - "Does the game respond to real presses and touches as it does to simulated input?"
-- "Does any result depend heavily on a value no play report supports?"
+- "Does any result depend heavily on a value no play supports?"
 - "Are collisions tested over the whole step?"
 - *(end)* "Does each run start clean?"
 - "Does every player-facing text match the current rules?"
+- The stage 1 questions deferred from rule changes since the last handover point.
 
 ## In the presentation pass (heavy)
 
 Run once when stage 3 is entered and again at each handover point after a presentation change.
 
-- "Is each hazard drawn as large as it hits, while it hits?"
+- "Is each hazard drawn as large as it hits, while it hits?" (a stage 4 row)
 - *(HUD)* "Is every transient element visible where it appears?" and "Do coinciding notices stay
   readable?"
 - "Can an outsider name every screen element?" — the reader is an agent or person that has seen

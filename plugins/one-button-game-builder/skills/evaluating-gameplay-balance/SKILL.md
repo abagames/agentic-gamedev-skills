@@ -70,5 +70,5 @@ Read these references as needed:
 ## Companion skills
 
 - For Godot projects, use `scaffolding-godot-mini-games` for project setup and `running-headless-godot` for simulator execution, tests, logs, and export checks.
-- This skill owns measurement, calibration, and human-like policies. What to ask when, and what to do with a finding, a play note, or a player's proposal, belongs to `refining-game-prototypes`; without it, return non-measurement items from a play session to the caller unchanged.
+- This skill owns measurement, calibration, and human-like policies. What to ask when, and what to do with a finding, a play note, or a player's proposal, belongs to the caller; return non-measurement items from a play session to it unchanged.
 - Structural fixes that touch rules are design changes, not numeric tuning; do not silently re-tune numbers without revisiting the design.
